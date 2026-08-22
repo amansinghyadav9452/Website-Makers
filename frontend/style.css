@@ -334,3 +334,325 @@
     .stat-item{flex:1 1 45%;}
     .footer-bottom{flex-direction:column; align-items:flex-start;}
   }
+
+
+/* =========================================================
+   WEBSITE MAKERS — ULTRA MOTION PACK
+   ========================================================= */
+:root{
+  --motion-gold:rgba(231,205,147,.9);
+  --motion-teal:rgba(73,194,176,.72);
+}
+
+/* Global scroll progress */
+.motion-progress{
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:3px;
+  z-index:2000;
+  pointer-events:none;
+  background:transparent;
+}
+.motion-progress span{
+  display:block;
+  width:0%;
+  height:100%;
+  transform-origin:left center;
+  background:linear-gradient(90deg,var(--teal),var(--gold-light),#fff,var(--gold));
+  box-shadow:0 0 14px rgba(231,205,147,.75);
+}
+
+/* Ambient canvas + cursor glow */
+#ambientCanvas{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:2;
+  pointer-events:none;
+  opacity:.62;
+}
+.cursor-orb{
+  position:fixed;
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:1;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(231,205,147,.12),rgba(73,194,176,.035) 34%,transparent 70%);
+  filter:blur(3px);
+  opacity:0;
+  transition:opacity .25s ease;
+  mix-blend-mode:screen;
+}
+body.motion-ready .cursor-orb{opacity:1;}
+
+/* Give sections a subtle cinematic reveal */
+section, footer{
+  position:relative;
+}
+section::after{
+  content:"";
+  position:absolute;
+  left:5%;
+  right:5%;
+  bottom:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(198,161,91,.16),transparent);
+  transform:scaleX(.15);
+  opacity:0;
+  transition:transform 1.2s var(--ease), opacity 1.2s ease;
+}
+section.motion-visible::after{
+  transform:scaleX(1);
+  opacity:1;
+}
+
+/* Hero cinematic entrance */
+.hero-content > *{
+  animation:heroRise .9s var(--ease) both;
+}
+.hero-content .eyebrow{animation-delay:.08s;}
+.hero-content h1{animation-delay:.16s;}
+.hero-content .lead{animation-delay:.24s;}
+.hero-content .hero-btns{animation-delay:.32s;}
+.hero-content .hero-stats{animation-delay:.42s;}
+
+@keyframes heroRise{
+  from{opacity:0;transform:translateY(28px);filter:blur(7px);}
+  to{opacity:1;transform:translateY(0);filter:blur(0);}
+}
+
+/* Animated gold word */
+.hero h1 .accent{
+  background:linear-gradient(110deg,var(--gold-light) 15%,#fff 38%,var(--gold-light) 58%,#a98136 82%);
+  background-size:240% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:goldShimmer 4s linear infinite;
+  text-shadow:0 0 28px rgba(231,205,147,.08);
+}
+@keyframes goldShimmer{
+  to{background-position:240% center;}
+}
+
+/* Floating terminal */
+.terminal{
+  animation:terminalFloat 6s ease-in-out infinite;
+}
+@keyframes terminalFloat{
+  0%,100%{transform:perspective(1200px) rotateY(-6deg) rotateX(2deg) translate3d(0,0,0);}
+  50%{transform:perspective(1200px) rotateY(-3deg) rotateX(1deg) translate3d(0,-9px,0);}
+}
+.terminal::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.045) 49%,transparent 63%);
+  transform:translateX(-120%);
+  animation:terminalScan 5s ease-in-out infinite;
+}
+@keyframes terminalScan{
+  0%,55%{transform:translateX(-120%);}
+  78%,100%{transform:translateX(120%);}
+}
+
+/* Cards get a soft animated border light */
+.service-card,
+.plan-card,
+.why-card,
+.testimonial-card{
+  position:relative;
+  overflow:hidden;
+}
+.service-card::before,
+.plan-card::before,
+.why-card::before,
+.testimonial-card::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius:inherit;
+  padding:1px;
+  background:linear-gradient(120deg,transparent 18%,rgba(198,161,91,.42),transparent 46%,rgba(73,194,176,.22),transparent 75%);
+  background-size:240% 240%;
+  opacity:0;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  transition:opacity .35s ease;
+  animation:borderSweep 7s linear infinite;
+  pointer-events:none;
+}
+.service-card:hover::before,
+.plan-card:hover::before,
+.why-card:hover::before,
+.testimonial-card:hover::before{opacity:1;}
+@keyframes borderSweep{
+  to{background-position:240% 0;}
+}
+
+/* Service icons breathe */
+.service-icon,
+.about-card-icon,
+.why-icon,
+.contact-item-icon{
+  transition:transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+.service-card:hover .service-icon{
+  transform:translateY(-4px) rotate(-5deg) scale(1.06);
+  box-shadow:0 10px 25px rgba(198,161,91,.14);
+}
+.about-card:hover .about-card-icon{
+  transform:rotate(8deg) scale(1.08);
+  box-shadow:0 0 22px rgba(198,161,91,.16);
+}
+
+/* Tags pop in slightly */
+.service-card:hover .tag{
+  animation:tagPop .45s var(--ease) both;
+}
+.service-card:hover .tag:nth-child(2){animation-delay:.04s;}
+.service-card:hover .tag:nth-child(3){animation-delay:.08s;}
+.service-card:hover .tag:nth-child(4){animation-delay:.12s;}
+.service-card:hover .tag:nth-child(5){animation-delay:.16s;}
+@keyframes tagPop{
+  from{transform:translateY(4px);opacity:.55;}
+  to{transform:translateY(0);opacity:1;}
+}
+
+/* About cards cascade */
+.about-visual .about-card{
+  transform:translateX(0);
+}
+.about-visual .about-card:nth-child(1){transition-delay:.00s;}
+.about-visual .about-card:nth-child(2){transition-delay:.06s;}
+.about-visual .about-card:nth-child(3){transition-delay:.12s;}
+.about-visual .about-card:nth-child(4){transition-delay:.18s;}
+
+/* Technology pills become orbit-like */
+.tech-pill{
+  transition:transform .45s var(--ease), border-color .35s, box-shadow .35s;
+}
+.tech-pill:hover{
+  transform:translateY(-7px) scale(1.045);
+  border-color:rgba(231,205,147,.55);
+  box-shadow:0 12px 32px rgba(0,0,0,.25),0 0 20px rgba(198,161,91,.08);
+}
+
+/* FAQ opening */
+details{
+  overflow:hidden;
+}
+details[open]{
+  box-shadow:0 14px 32px rgba(20,20,10,.06);
+}
+details[open] summary{
+  animation:summaryPop .45s var(--ease) both;
+}
+@keyframes summaryPop{
+  from{transform:translateX(-5px);}
+  to{transform:translateX(0);}
+}
+
+/* Form focus glow */
+.form-group{
+  transition:transform .3s var(--ease);
+}
+.form-group:focus-within{
+  transform:translateY(-2px);
+}
+.form-group:focus-within label{
+  color:var(--gold-light);
+}
+.submit-btn{
+  position:relative;
+  overflow:hidden;
+}
+.submit-btn::after{
+  content:"";
+  position:absolute;
+  top:-80%;
+  left:-35%;
+  width:30%;
+  height:260%;
+  background:rgba(255,255,255,.3);
+  transform:rotate(24deg) translateX(-220%);
+  transition:transform .7s var(--ease);
+}
+.submit-btn:hover::after{
+  transform:rotate(24deg) translateX(560%);
+}
+
+/* Floating WhatsApp button gets a gentle heartbeat */
+.wa-float{
+  animation:waFloat 3.4s ease-in-out infinite;
+}
+@keyframes waFloat{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-7px);}
+}
+.wa-float:hover{
+  animation:none;
+  transform:scale(1.1) rotate(-4deg);
+}
+
+/* Footer glow */
+footer::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:10%;
+  width:80%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  box-shadow:0 0 26px rgba(198,161,91,.25);
+}
+
+/* Better reveal: blur -> crisp */
+.reveal{
+  filter:blur(7px);
+}
+.reveal.in{
+  filter:blur(0);
+}
+.service-card.reveal,
+.plan-card.reveal,
+.why-card.reveal,
+.testimonial-card.reveal{
+  transition-duration:.9s;
+}
+
+/* Small screens: keep the spectacle without melting the phone */
+@media (max-width:600px){
+  #ambientCanvas{opacity:.34;}
+  .cursor-orb{display:none;}
+  .terminal{animation-duration:7s;}
+  .hero h1 .accent{animation-duration:5s;}
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion:reduce){
+  #ambientCanvas,.cursor-orb{display:none;}
+  .hero-content > *,
+  .terminal,
+  .hero h1 .accent,
+  .wa-float,
+  .service-card::before,
+  .plan-card::before,
+  .why-card::before,
+  .testimonial-card::before{animation:none !important;}
+  .reveal{filter:none;}
+}
+
+.contact-form.success-flash{
+  animation:formSuccess .75s var(--ease);
+}
+@keyframes formSuccess{
+  0%{transform:scale(1);box-shadow:0 0 0 rgba(73,194,176,0);}
+  35%{transform:scale(1.012);box-shadow:0 0 42px rgba(73,194,176,.16);}
+  100%{transform:scale(1);box-shadow:0 0 0 rgba(73,194,176,0);}
+}

@@ -190,3 +190,150 @@ if (inquiryForm) {
     }
   });
 }
+
+
+// =========================================================
+// WEBSITE MAKERS — ULTRA MOTION PACK
+// =========================================================
+(() => {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) return;
+
+  document.body.classList.add('motion-ready');
+
+  // Scroll progress + section cinematic divider.
+  const progress = document.querySelector('.motion-progress span');
+  const motionSections = document.querySelectorAll('section, footer');
+  const updateScrollUI = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    if (progress) progress.style.width = `${pct}%`;
+  };
+  window.addEventListener('scroll', updateScrollUI, {passive:true});
+  updateScrollUI();
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('motion-visible');
+    });
+  }, {threshold:.12});
+  motionSections.forEach(section => sectionObserver.observe(section));
+
+  // Cursor spotlight on desktop.
+  const orb = document.querySelector('.cursor-orb');
+  if (orb && window.matchMedia('(pointer:fine)').matches) {
+    let ox = innerWidth / 2, oy = innerHeight / 2;
+    let tx = ox, ty = oy;
+    const move = (e) => { tx = e.clientX; ty = e.clientY; };
+    window.addEventListener('pointermove', move, {passive:true});
+    const renderOrb = () => {
+      ox += (tx - ox) * .14;
+      oy += (ty - oy) * .14;
+      orb.style.left = `${ox}px`;
+      orb.style.top = `${oy}px`;
+      requestAnimationFrame(renderOrb);
+    };
+    renderOrb();
+  }
+
+  // Ambient particles: intentionally subtle and canvas-only.
+  const canvas = document.getElementById('ambientCanvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d', {alpha:true});
+    let w = 0, h = 0, dpr = 1;
+    let particles = [];
+    let mouseX = -9999, mouseY = -9999;
+
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 1.7);
+      w = innerWidth; h = innerHeight;
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      const count = w < 700 ? 22 : Math.min(54, Math.floor(w / 24));
+      particles = Array.from({length:count}, () => ({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        r: .5 + Math.random()*1.5,
+        vx: (Math.random()-.5)*.18,
+        vy: -.08 - Math.random()*.22,
+        a: .08 + Math.random()*.24,
+        phase: Math.random()*Math.PI*2
+      }));
+    };
+
+    const onPointer = (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    };
+    window.addEventListener('pointermove', onPointer, {passive:true});
+    window.addEventListener('resize', resize, {passive:true});
+    resize();
+
+    const draw = (time) => {
+      ctx.clearRect(0,0,w,h);
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.phase += .012;
+        if (p.y < -8) { p.y = h + 8; p.x = Math.random()*w; }
+        if (p.x < -8) p.x = w + 8;
+        if (p.x > w + 8) p.x = -8;
+
+        const dx = p.x - mouseX, dy = p.y - mouseY;
+        const dist = Math.hypot(dx,dy);
+        if (dist < 130) {
+          const force = (130-dist)/130;
+          p.x += (dx/dist || 0) * force * .7;
+          p.y += (dy/dist || 0) * force * .7;
+        }
+
+        const pulse = .72 + Math.sin(p.phase + time*.0005)*.28;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = `rgba(231,205,147,${p.a*pulse})`;
+        ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    };
+    requestAnimationFrame(draw);
+  }
+
+  // Progressive stagger for cards already present in the page.
+  document.querySelectorAll(
+    '.services-grid .service-card, .why-grid .why-card, .about-visual .about-card, .faq-grid details, .testimonial-card'
+  ).forEach((el, i) => {
+    el.style.setProperty('--motion-index', i % 8);
+  });
+
+  // Subtle 3D spotlight inside cards on pointer devices.
+  const spotlightCards = document.querySelectorAll('.service-card, .plan-card, .why-card, .testimonial-card, .about-card');
+  spotlightCards.forEach(card => {
+    card.addEventListener('pointermove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX-r.left)/r.width)*100;
+      const y = ((e.clientY-r.top)/r.height)*100;
+      card.style.setProperty('--mx', `${x}%`);
+      card.style.setProperty('--my', `${y}%`);
+    }, {passive:true});
+  });
+
+  // When the contact form succeeds, give the whole card a short success pulse.
+  const form = document.getElementById('inquiryForm');
+  if (form) {
+    const status = document.getElementById('formStatus');
+    const observer = new MutationObserver(() => {
+      if (status && status.textContent.includes('Thank you')) {
+        const box = form.closest('.contact-form');
+        if (box) {
+          box.classList.remove('success-flash');
+          void box.offsetWidth;
+          box.classList.add('success-flash');
+        }
+      }
+    });
+    if (status) observer.observe(status, {childList:true, characterData:true, subtree:true});
+  }
+})();
