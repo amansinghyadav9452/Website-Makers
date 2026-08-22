@@ -310,24 +310,27 @@
     </div>
     <div class="contact-form reveal">
       <h3>Submit your query</h3>
-      <div class="form-row">
-        <div class="form-group"><label>Your name</label><input type="text" placeholder="Enter your name"></div>
-        <div class="form-group"><label>Phone number</label><input type="tel" placeholder="Your phone number"></div>
-      </div>
-      <div class="form-group"><label>Email address</label><input type="email" placeholder="your@email.com"></div>
-      <div class="form-group"><label>Service required</label>
-        <select>
-          <option>Website Development</option>
-          <option>Mobile App Development</option>
-          <option>E-Commerce Website</option>
-          <option>Digital Marketing / SEO</option>
-          <option>Graphic Designing</option>
-          <option>ERP / CRM System</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="form-group"><label>Message</label><textarea placeholder="Describe your project..."></textarea></div>
-      <button class="submit-btn" onclick="alert('Thank you! We will contact you soon at 8957197142.')">Send message →</button>
+      <form id="inquiryForm">
+        <div class="form-row">
+          <div class="form-group"><label>Your name</label><input id="f-name" type="text" placeholder="Enter your name" required></div>
+          <div class="form-group"><label>Phone number</label><input id="f-phone" type="tel" placeholder="Your phone number" required></div>
+        </div>
+        <div class="form-group"><label>Email address</label><input id="f-email" type="email" placeholder="your@email.com" required></div>
+        <div class="form-group"><label>Service required</label>
+          <select id="f-service">
+            <option>Website Development</option>
+            <option>Mobile App Development</option>
+            <option>E-Commerce Website</option>
+            <option>Digital Marketing / SEO</option>
+            <option>Graphic Designing</option>
+            <option>ERP / CRM System</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Message</label><textarea id="f-message" placeholder="Describe your project..."></textarea></div>
+        <p id="formStatus" style="font-size:.8rem;margin-bottom:14px;min-height:16px;font-family:'JetBrains Mono',monospace;"></p>
+        <button type="submit" class="submit-btn" id="submitBtn">Send message →</button>
+      </form>
     </div>
   </div>
 </section>
@@ -375,6 +378,10 @@
 <!-- WhatsApp Float -->
 <a class="wa-float" href="https://wa.me/918957197142?text=Hi%2C%20I%20want%20to%20know%20more%20about%20your%20services" target="_blank" title="Chat on WhatsApp">💬</a>
 
+<script>
+  // Replace with your deployed backend URL (Render web service), e.g. "https://website-makers-api.onrender.com"
+  window.API_BASE_URL = "https://YOUR-BACKEND-URL.onrender.com";
+</script>
 <script src="script.js"></script>
 </body>
 </html>

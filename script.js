@@ -140,3 +140,52 @@ typeLoop();
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){
   document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
 }
+
+// ---- Contact form: submit to backend (MongoDB Atlas via API) ----
+const inquiryForm = document.getElementById('inquiryForm');
+if (inquiryForm) {
+  inquiryForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const statusEl = document.getElementById('formStatus');
+    const btn = document.getElementById('submitBtn');
+    const payload = {
+      name: document.getElementById('f-name').value.trim(),
+      phone: document.getElementById('f-phone').value.trim(),
+      email: document.getElementById('f-email').value.trim(),
+      service: document.getElementById('f-service').value,
+      message: document.getElementById('f-message').value.trim()
+    };
+    if (!payload.name || !payload.phone || !payload.email) {
+      statusEl.textContent = 'Please fill your name, phone and email.';
+      statusEl.style.color = '#e0716b';
+      return;
+    }
+    const apiBase = window.API_BASE_URL || '';
+    if (!apiBase || apiBase.includes('YOUR-BACKEND-URL')) {
+      statusEl.textContent = 'Backend URL not configured yet — set window.API_BASE_URL in index.html.';
+      statusEl.style.color = '#e0716b';
+      return;
+    }
+    btn.disabled = true;
+    const originalText = btn.textContent;
+    btn.textContent = 'Sending…';
+    statusEl.textContent = '';
+    try {
+      const res = await fetch(apiBase + '/api/inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error('Request failed');
+      statusEl.textContent = 'Thank you! We will contact you soon at 8957197142.';
+      statusEl.style.color = '#49c2b0';
+      inquiryForm.reset();
+    } catch (err) {
+      statusEl.textContent = 'Something went wrong. Please call us at 8957197142 instead.';
+      statusEl.style.color = '#e0716b';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = originalText;
+    }
+  });
+}
