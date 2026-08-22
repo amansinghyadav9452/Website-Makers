@@ -9,8 +9,6 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const MONGODB_URI = process.env.MONGODB_URI;
 
-// Comma-separated list of allowed frontend origins, e.g.
-// "https://website-makers.onrender.com,https://www.yourdomain.com"
 const allowedOrigins = (process.env.ALLOWED_ORIGINS || '*')
   .split(',')
   .map((o) => o.trim());
@@ -27,7 +25,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/health', (req, res) => {
-  const dbState = mongoose.connection.readyState; // 1 = connected
+  const dbState = mongoose.connection.readyState;
   res.json({ ok: true, db: dbState === 1 ? 'connected' : 'not connected' });
 });
 

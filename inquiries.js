@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Inquiry = require('../models/Inquiry');
 
-// Very small helper to avoid pulling in a validation library for one form.
 function validatePayload(body) {
   const errors = [];
   if (!body.name || typeof body.name !== 'string') errors.push('name is required');
@@ -11,7 +10,6 @@ function validatePayload(body) {
   return errors;
 }
 
-// POST /api/inquiries — called by the website's contact form
 router.post('/', async (req, res) => {
   try {
     const errors = validatePayload(req.body);
