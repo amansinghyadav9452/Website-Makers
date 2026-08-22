@@ -63,7 +63,7 @@
   /* ── NAV ── */
   nav{
     position:fixed; top:0; width:100%; z-index:1000;
-    display:flex; align-items:center; justify-content:space-between;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
     padding:20px 5%; transition:padding .35s var(--ease), background .35s var(--ease), box-shadow .35s var(--ease), backdrop-filter .35s;
   }
   nav.scrolled{
@@ -84,6 +84,7 @@
   .nav-cta{
     font-family:'Inter',sans-serif; background:var(--gold-light); color:#1a1305; padding:10px 20px; border-radius:8px;
     font-weight:600; font-size:.85rem; text-decoration:none; transition:transform .3s var(--ease), box-shadow .3s;
+    flex-shrink:0; white-space:nowrap;
   }
   .nav-cta:hover{transform:translateY(-2px); box-shadow:0 10px 22px rgba(198,161,91,.35);}
 
@@ -314,7 +315,10 @@
     .nav-links{display:none;}
   }
   @media (max-width:600px){
-    nav{padding:16px 5%;}
+    nav{padding:16px 4%; gap:10px;}
+    .nav-logo{font-size:1rem;}
+    .nav-logo .mark{width:26px; height:26px; font-size:.78rem;}
+    .nav-cta{padding:9px 14px; font-size:.78rem;}
     section{padding:80px 5%;}
     .form-row{grid-template-columns:1fr;}
     .hero{padding:120px 5% 70px;}
