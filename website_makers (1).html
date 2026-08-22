@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Best & Affordable Web Development Company in India - Website Makers</title>
+<meta name="description" content="Looking for the perfect web development company? Website Makers is here! Our expert web developers are top notch. You can trust us for quality results!">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1a56db;
+    --primary-dark: #1040b0;
+    --accent: #f97316;
+    --dark: #0f172a;
+    --dark2: #1e293b;
+    --text: #334155;
+    --muted: #64748b;
+    --light: #f8fafc;
+    --border: #e2e8f0;
+    --white: #ffffff;
+    --grad: linear-gradient(135deg, #1a56db 0%, #7c3aed 100%);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    background: rgba(255,255,255,0.97);
+    box-shadow: 0 1px 12px rgba(0,0,0,.08);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+  }
+  .nav-logo {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800; font-size: 1.4rem;
+    color: var(--primary); padding: 18px 0;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text); font-size: .9rem; font-weight: 500; transition: color .2s; }
+  .nav-links a:hover { color: var(--primary); }
+  .nav-cta {
+    background: var(--primary); color: var(--white);
+    padding: 9px 22px; border-radius: 6px;
+    font-weight: 600; font-size: .88rem; text-decoration: none;
+    transition: background .2s;
+  }
+  .nav-cta:hover { background: var(--primary-dark); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--grad);
+    display: flex; align-items: center;
+    padding: 120px 5% 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: rgba(255,255,255,.06); pointer-events: none;
+  }
+  .hero-content { max-width: 580px; position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.3);
+    color: #fff; padding: 6px 16px; border-radius: 50px;
+    font-size: .8rem; font-weight: 600; margin-bottom: 24px; letter-spacing: .5px;
+  }
+  .hero h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3.2rem; line-height: 1.15;
+    color: #fff; font-weight: 800; margin-bottom: 20px;
+  }
+  .hero h1 em { color: #fbbf24; font-style: normal; }
+  .hero p { color: rgba(255,255,255,.85); font-size: 1.1rem; line-height: 1.7; margin-bottom: 36px; }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-white {
+    background: #fff; color: var(--primary);
+    padding: 13px 28px; border-radius: 8px;
+    font-weight: 700; font-size: .95rem; text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+  .btn-outline {
+    border: 2px solid rgba(255,255,255,.7); color: #fff;
+    padding: 11px 26px; border-radius: 8px;
+    font-weight: 600; font-size: .95rem; text-decoration: none;
+    transition: background .2s;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,.1); }
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 50px;
+    border-top: 1px solid rgba(255,255,255,.2); padding-top: 30px;
+  }
+  .stat-item h3 { font-family: 'Poppins',sans-serif; font-size: 1.8rem; color: #fbbf24; font-weight: 800; }
+  .stat-item p { color: rgba(255,255,255,.75); font-size: .82rem; margin-top: 2px; }
+
+  /* ── SECTIONS ── */
+  section { padding: 90px 5%; }
+  .section-label {
+    display: inline-block; background: #eff6ff;
+    color: var(--primary); padding: 5px 14px;
+    border-radius: 50px; font-size: .78rem; font-weight: 600;
+    letter-spacing: .5px; margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.2rem; font-weight: 700;
+    color: var(--dark); line-height: 1.25; margin-bottom: 14px;
+  }
+  .section-sub { color: var(--muted); font-size: 1rem; line-height: 1.7; max-width: 560px; }
+
+  /* ── ABOUT ── */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+  .about-visual {
+    background: var(--grad); border-radius: 20px;
+    padding: 50px 40px; display: flex; flex-direction: column; gap: 20px;
+  }
+  .about-card {
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 12px; padding: 18px 20px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .about-card-icon { font-size: 1.8rem; }
+  .about-card h4 { color: #fff; font-weight: 600; font-size: .95rem; }
+  .about-card p { color: rgba(255,255,255,.7); font-size: .82rem; margin-top: 2px; }
+
+  /* ── SERVICES ── */
+  .services-bg { background: var(--light); }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 50px; }
+  .service-card {
+    background: var(--white); border-radius: 14px;
+    padding: 32px 28px; border: 1px solid var(--border);
+    transition: transform .25s, box-shadow .25s;
+  }
+  .service-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(26,86,219,.1); }
+  .service-icon {
+    width: 54px; height: 54px; border-radius: 14px;
+    background: #eff6ff; display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 18px;
+  }
+  .service-card h3 { font-family: 'Poppins',sans-serif; font-weight: 600; font-size: 1.1rem; color: var(--dark); margin-bottom: 10px; }
+  .service-card p { color: var(--muted); font-size: .88rem; line-height: 1.65; margin-bottom: 18px; }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+  .tag {
+    background: #eff6ff; color: var(--primary);
+    font-size: .73rem; font-weight: 600; padding: 4px 10px; border-radius: 50px;
+  }
+
+  /* ── PRICING ── */
+  .plans-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 50px; }
+  .plan-card {
+    border-radius: 16px; border: 1px solid var(--border);
+    padding: 34px 28px; position: relative; transition: transform .25s, box-shadow .25s;
+  }
+  .plan-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,.09); }
+  .plan-card.popular {
+    background: var(--grad); border-color: transparent;
+    transform: scale(1.03);
+  }
+  .popular-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: #fff;
+    font-size: .72rem; font-weight: 700; padding: 4px 14px; border-radius: 50px;
+    letter-spacing: .5px; white-space: nowrap;
+  }
+  .plan-name { font-family: 'Poppins',sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--dark); margin-bottom: 6px; }
+  .plan-card.popular .plan-name { color: #fff; }
+  .plan-price { margin: 14px 0; }
+  .plan-price .original { text-decoration: line-through; color: var(--muted); font-size: .9rem; }
+  .plan-card.popular .original { color: rgba(255,255,255,.6); }
+  .plan-price .current { font-family: 'Poppins',sans-serif; font-size: 2rem; font-weight: 800; color: var(--dark); }
+  .plan-card.popular .current { color: #fbbf24; }
+  .plan-price .gst { font-size: .75rem; color: var(--muted); }
+  .plan-card.popular .gst { color: rgba(255,255,255,.6); }
+  .plan-features { list-style: none; margin: 20px 0 24px; display: flex; flex-direction: column; gap: 9px; }
+  .plan-features li { font-size: .85rem; color: var(--text); display: flex; align-items: flex-start; gap: 8px; }
+  .plan-card.popular .plan-features li { color: rgba(255,255,255,.85); }
+  .plan-features li::before { content: '✓'; color: #22c55e; font-weight: 700; flex-shrink: 0; }
+  .plan-card.popular .plan-features li::before { color: #fbbf24; }
+  .plan-btn {
+    display: block; text-align: center; text-decoration: none;
+    background: var(--primary); color: #fff;
+    padding: 12px; border-radius: 8px; font-weight: 600; font-size: .9rem;
+    transition: background .2s;
+  }
+  .plan-btn:hover { background: var(--primary-dark); }
+  .plan-card.popular .plan-btn { background: #fff; color: var(--primary); }
+
+  /* ── WHY US ── */
+  .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-top: 50px; }
+  .why-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 14px; padding: 28px 24px; text-align: center;
+    transition: box-shadow .25s;
+  }
+  .why-card:hover { box-shadow: 0 8px 20px rgba(26,86,219,.1); }
+  .why-icon { font-size: 2.2rem; margin-bottom: 14px; }
+  .why-card h4 { font-family: 'Poppins',sans-serif; font-weight: 600; font-size: .98rem; color: var(--dark); margin-bottom: 8px; }
+  .why-card p { color: var(--muted); font-size: .84rem; line-height: 1.6; }
+
+  /* ── TECHNOLOGIES ── */
+  .tech-bg { background: var(--dark); }
+  .tech-bg .section-title { color: #fff; }
+  .tech-bg .section-label { background: rgba(255,255,255,.1); color: #93c5fd; }
+  .tech-grid { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 40px; }
+  .tech-pill {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--dark2); border: 1px solid #334155;
+    border-radius: 50px; padding: 10px 20px;
+    font-size: .88rem; color: #cbd5e1; font-weight: 500;
+  }
+  .tech-pill img { width: 22px; height: 22px; object-fit: contain; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-bg { background: var(--light); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; margin-top: 50px; }
+  .testimonial-card {
+    background: var(--white); border-radius: 14px;
+    padding: 28px; border: 1px solid var(--border);
+    transition: box-shadow .25s;
+  }
+  .testimonial-card:hover { box-shadow: 0 6px 18px rgba(0,0,0,.07); }
+  .stars { color: #f59e0b; font-size: 1rem; margin-bottom: 12px; }
+  .testimonial-card p { color: var(--text); font-size: .88rem; line-height: 1.65; margin-bottom: 18px; }
+  .reviewer { display: flex; align-items: center; gap: 10px; }
+  .reviewer-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--grad); display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 700; font-size: 1rem;
+  }
+  .reviewer-name { font-weight: 600; font-size: .9rem; color: var(--dark); }
+  .reviewer-role { font-size: .78rem; color: var(--muted); }
+
+  /* ── CONTACT ── */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .contact-info h2 { font-family: 'Poppins',sans-serif; font-size: 2rem; font-weight: 700; color: var(--dark); margin-bottom: 16px; }
+  .contact-info p { color: var(--muted); line-height: 1.7; margin-bottom: 32px; }
+  .contact-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 22px; }
+  .contact-item-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    border-radius: 12px; background: #eff6ff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .contact-item h4 { font-weight: 600; color: var(--dark); font-size: .9rem; margin-bottom: 4px; }
+  .contact-item a, .contact-item span { color: var(--primary); font-size: .9rem; text-decoration: none; }
+  .contact-form { background: var(--light); border-radius: 16px; padding: 36px 32px; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: .82rem; font-weight: 600; color: var(--dark); margin-bottom: 6px; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; padding: 11px 14px;
+    border: 1px solid var(--border); border-radius: 8px;
+    font-family: 'Inter',sans-serif; font-size: .9rem; color: var(--text);
+    background: var(--white); outline: none; transition: border-color .2s;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .submit-btn {
+    width: 100%; background: var(--primary); color: #fff;
+    padding: 13px; border: none; border-radius: 8px;
+    font-size: .95rem; font-weight: 600; cursor: pointer;
+    transition: background .2s;
+  }
+  .submit-btn:hover { background: var(--primary-dark); }
+
+  /* ── FAQ ── */
+  .faq-bg { background: var(--light); }
+  .faq-grid { max-width: 800px; margin: 50px auto 0; display: flex; flex-direction: column; gap: 14px; }
+  details {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 22px;
+  }
+  details[open] { border-color: var(--primary); }
+  summary {
+    font-weight: 600; color: var(--dark); cursor: pointer;
+    font-size: .95rem; list-style: none;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  summary::after { content: '+'; font-size: 1.3rem; color: var(--primary); font-weight: 300; }
+  details[open] summary::after { content: '−'; }
+  details p { color: var(--muted); font-size: .88rem; line-height: 1.7; margin-top: 12px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark); color: rgba(255,255,255,.7);
+    padding: 60px 5% 28px;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+  .footer-brand p { font-size: .88rem; line-height: 1.65; margin: 14px 0 20px; }
+  .footer-logo { font-family: 'Poppins',sans-serif; font-size: 1.5rem; font-weight: 800; color: #fff; }
+  .footer-logo span { color: var(--accent); }
+  .footer-col h4 { color: #fff; font-weight: 600; margin-bottom: 16px; font-size: .95rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul li a { color: rgba(255,255,255,.65); text-decoration: none; font-size: .87rem; transition: color .2s; }
+  .footer-col ul li a:hover { color: #fff; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .footer-bottom p { font-size: .82rem; }
+  .footer-bottom a { color: var(--accent); text-decoration: none; }
+
+  /* ── WHATSAPP FLOAT ── */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 28px; z-index: 999;
+    background: #25d366; color: #fff;
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; text-decoration: none;
+    box-shadow: 0 4px 16px rgba(37,211,102,.4);
+    transition: transform .2s;
+  }
+  .wa-float:hover { transform: scale(1.1); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .about-grid, .contact-grid, .footer-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.2rem; }
+    .hero-stats { gap: 24px; }
+    .plan-card.popular { transform: scale(1); }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 600px) {
+    nav { padding: 0 4%; }
+    section { padding: 70px 4%; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero { padding: 110px 4% 70px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Website <span>Makers</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About Us</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="tel:8957197142">Call: 8957197142</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <span class="hero-badge">🏆 No.1 Web Development Company in India</span>
+    <h1>You Imagine.<br><em>We Create.</em></h1>
+    <p>Professional websites that drive real results. Affordable pricing, premium quality, and 24×7 support — built for your business success.</p>
+    <div class="hero-btns">
+      <a href="tel:8957197142" class="btn-white">📞 Call Now: 8957197142</a>
+      <a href="#pricing" class="btn-outline">View Plans</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><h3>100+</h3><p>Clients Served</p></div>
+      <div class="stat-item"><h3>5★</h3><p>Rated Service</p></div>
+      <div class="stat-item"><h3>24/7</h3><p>Free Support</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <span class="section-label">ABOUT US</span>
+      <h2 class="section-title">Welcome to Website Makers — A Top Web Development Company in India</h2>
+      <p class="section-sub">100% Trusted company providing multi-functional web portals and the best web development & design services across India. We deliver ROI-driven results with attractive, responsive, and SEO-friendly websites.</p>
+      <br><br>
+      <p style="color:var(--muted);line-height:1.75;font-size:.9rem;">We have successfully delivered to 100+ clients and are one of the most reliable web designing companies in India. We believe in creating high-quality websites that help our clients thrive in the industry — completed within budget and delivered before deadlines.</p>
+    </div>
+    <div class="about-visual">
+      <div class="about-card"><span class="about-card-icon">🌐</span><div><h4>Web Design & Development</h4><p>Custom websites from scratch to launch</p></div></div>
+      <div class="about-card"><span class="about-card-icon">📱</span><div><h4>Mobile App Development</h4><p>Android & iOS native apps</p></div></div>
+      <div class="about-card"><span class="about-card-icon">🛒</span><div><h4>E-Commerce Solutions</h4><p>Complete online store setup</p></div></div>
+      <div class="about-card"><span class="about-card-icon">📈</span><div><h4>Digital Marketing & SEO</h4><p>Grow your online presence</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-bg" id="services">
+  <div style="text-align:center; margin-bottom:4px;">
+    <span class="section-label">SERVICES</span>
+    <h2 class="section-title">Your Business Deserves a Great Website</h2>
+    <p class="section-sub" style="margin: 0 auto;">We make professional web design simple and accessible — combining custom development with responsive design for every screen.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🖥️</div>
+      <h3>Website Development</h3>
+      <p>High-performance websites and custom storefronts designed to scale with your business.</p>
+      <div class="service-tags">
+        <span class="tag">WordPress</span><span class="tag">Shopify</span><span class="tag">Laravel</span><span class="tag">PHP</span><span class="tag">Node.JS</span><span class="tag">React.JS</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📱</div>
+      <h3>Mobile App Development</h3>
+      <p>Native-quality mobile experiences for Android and iOS platforms.</p>
+      <div class="service-tags">
+        <span class="tag">Android</span><span class="tag">iOS (Swift)</span><span class="tag">React Native</span><span class="tag">Flutter</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🛒</div>
+      <h3>Custom E-Commerce</h3>
+      <p>Tailored e-commerce platforms built with robust modern technologies for maximum sales.</p>
+      <div class="service-tags">
+        <span class="tag">WooCommerce</span><span class="tag">Shopify</span><span class="tag">Next.JS</span><span class="tag">Python</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📣</div>
+      <h3>Digital Marketing</h3>
+      <p>Expand your reach through data-driven SEO and social marketing strategies.</p>
+      <div class="service-tags">
+        <span class="tag">SEO</span><span class="tag">Social Media</span><span class="tag">Google Ads</span><span class="tag">Analytics</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎨</div>
+      <h3>Graphic Designing</h3>
+      <p>Professional visual identities and branding assets that build lasting trust with customers.</p>
+      <div class="service-tags">
+        <span class="tag">Brand Identity</span><span class="tag">Logo Design</span><span class="tag">Social Banners</span><span class="tag">Print Media</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">⚙️</div>
+      <h3>ERP & CRM Systems</h3>
+      <p>Unified operations management to streamline HR, finance, and supply chain.</p>
+      <div class="service-tags">
+        <span class="tag">PHP</span><span class="tag">Laravel</span><span class="tag">React.JS</span><span class="tag">Frappe</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGIES -->
+<section class="tech-bg">
+  <span class="section-label">TECHNOLOGIES</span>
+  <h2 class="section-title">Technologies We Use</h2>
+  <div class="tech-grid">
+    <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" alt="PHP">PHP</div>
+    <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg" alt="Laravel">Laravel</div>
+    <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/wordpress/wordpress-plain-wordmark.svg" alt="WordPress" style="filter:invert(1)">WordPress</div>
+    <div class="tech-pill"><img src="https://cdn.worldvectorlogo.com/logos/shopify.svg" alt="Shopify">Shopify</div>
+    <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/woocommerce/woocommerce-original.svg" alt="WooCommerce">WooCommerce</div>
+    <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.JS">Node.JS</div>
+    <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React.JS">React.JS</div>
+    <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" alt="Next.JS" style="filter:invert(1)">Next.JS</div>
+    <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python">Python</div>
+    <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg" alt="Flutter">Flutter</div>
+    <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/codeigniter/codeigniter-plain.svg" alt="CodeIgniter">CodeIgniter</div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div style="text-align:center; margin-bottom:4px;">
+    <span class="section-label">PRICING</span>
+    <h2 class="section-title">Plans & Pricing</h2>
+    <p class="section-sub" style="margin:0 auto;">Affordable web solutions committed to full ROI-driven results. Starting from just ₹7,999/-</p>
+  </div>
+  <div class="plans-grid">
+    <!-- Standard -->
+    <div class="plan-card">
+      <p class="plan-name">Standard Plan</p>
+      <div class="plan-price">
+        <span class="original">₹10,000</span><br>
+        <span class="current">₹7,999</span>
+        <span class="gst"> + 18% GST (₹1,440)</span>
+      </div>
+      <ul class="plan-features">
+        <li>5 Pages Website</li>
+        <li>1 Year Free Domain (.com/.in/.org)</li>
+        <li>1 Year Free Cloud Hosting</li>
+        <li>Dynamic Website (Premium Design)</li>
+        <li>Admin Access</li>
+        <li>Free SSL Certificate</li>
+        <li>5 Free Email IDs</li>
+        <li>SEO Friendly & 100% Responsive</li>
+        <li>Payment Gateway Integration</li>
+        <li>WhatsApp & Call Button</li>
+        <li>Inquiry Form</li>
+        <li>1 Year Free Technical Support</li>
+        <li>Lifetime 24/7 Free Hosting Support</li>
+      </ul>
+      <a href="tel:8957197142" class="plan-btn">Call Now</a>
+    </div>
+    <!-- Premium -->
+    <div class="plan-card popular">
+      <span class="popular-badge">⭐ MOST POPULAR</span>
+      <p class="plan-name">Premium Plan</p>
+      <div class="plan-price">
+        <span class="original">₹20,000</span><br>
+        <span class="current">₹13,999</span>
+        <span class="gst"> + 18% GST (₹2,520)</span>
+      </div>
+      <ul class="plan-features">
+        <li>12 Pages Website</li>
+        <li>1 Year Free Domain</li>
+        <li>1 Year Free Cloud Hosting</li>
+        <li>Dynamic Website (Premium Design)</li>
+        <li>Admin Access + Google Search Console</li>
+        <li>Free SSL Certificate</li>
+        <li>10 Free Email IDs</li>
+        <li>SEO Friendly & 100% Responsive</li>
+        <li>Payment Gateway Integration</li>
+        <li>WooCommerce Features</li>
+        <li>WhatsApp & Call Button</li>
+        <li>Inquiry Form</li>
+        <li>1 Year Free Technical Support</li>
+      </ul>
+      <a href="tel:8957197142" class="plan-btn">Call Now</a>
+    </div>
+    <!-- E-Commerce -->
+    <div class="plan-card">
+      <p class="plan-name">E-Commerce Plan</p>
+      <div class="plan-price">
+        <span class="original">₹30,000</span><br>
+        <span class="current">₹21,999</span>
+        <span class="gst"> + 18% GST (₹3,960)</span>
+      </div>
+      <ul class="plan-features">
+        <li>30 Pages Website</li>
+        <li>1 Year Free Domain & Hosting</li>
+        <li>20 Product Categories</li>
+        <li>30 Product Listings from Our Side</li>
+        <li>Premium Design + Admin Access</li>
+        <li>Google Search Console Setup</li>
+        <li>Auto Invoice Bill Generator</li>
+        <li>Wallet System & OTP Verification</li>
+        <li>Order Notification Features</li>
+        <li>Payment Gateway Integration</li>
+        <li>10 Free Email IDs</li>
+        <li>1 Year Free Technical Support</li>
+      </ul>
+      <a href="tel:8957197142" class="plan-btn">Call Now</a>
+    </div>
+    <!-- Custom -->
+    <div class="plan-card">
+      <p class="plan-name">Custom Plan</p>
+      <div class="plan-price">
+        <span class="original">As per requirement</span><br>
+        <span class="current" style="font-size:1.5rem;">Get Quote</span>
+        <span class="gst"> + 18% GST Applicable</span>
+      </div>
+      <ul class="plan-features">
+        <li>Pages: As per Requirement</li>
+        <li>1 Year Free Domain & Hosting</li>
+        <li>Dynamic Website (Any Type)</li>
+        <li>Admin Access + Google Search Console</li>
+        <li>Multi-Vendor E-Commerce Option</li>
+        <li>Free SSL Certificate</li>
+        <li>20 Free Email IDs</li>
+        <li>Full E-Commerce Feature Set</li>
+        <li>All Integrations Included</li>
+        <li>1 Year 24/7 Free Support</li>
+      </ul>
+      <a href="tel:8957197142" class="plan-btn">Call Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section style="background:var(--light);">
+  <div style="text-align:center;">
+    <span class="section-label">WHY CHOOSE US</span>
+    <h2 class="section-title">The Top Web Designers in India!</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card"><div class="why-icon">🌐</div><h4>1 Year Free Domain & Hosting</h4><p>Get your domain and hosting absolutely free for the first year with every plan.</p></div>
+    <div class="why-card"><div class="why-icon">🎨</div><h4>Dynamic Premium Designs</h4><p>Visually attractive, modern websites that convert visitors into customers.</p></div>
+    <div class="why-card"><div class="why-icon">📞</div><h4>24×7 Support</h4><p>Our team is available round the clock via phone, chat, and email.</p></div>
+    <div class="why-card"><div class="why-icon">💰</div><h4>Pocket-Friendly Pricing</h4><p>Starting from just ₹7,999/- — the best value web development in India.</p></div>
+    <div class="why-card"><div class="why-icon">⏰</div><h4>On-Time Delivery</h4><p>Every project is delivered within the agreed timeline with zero compromises.</p></div>
+    <div class="why-card"><div class="why-icon">🚀</div><h4>Innovation & Creativity</h4><p>We bring fresh ideas to every project to help your business stand out online.</p></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-bg" id="testimonials">
+  <div style="text-align:center;">
+    <span class="section-label">TESTIMONIALS</span>
+    <h2 class="section-title">What Our Clients Say</h2>
+    <p class="section-sub" style="margin:0 auto;">We have established a record of happy clientele — customer satisfaction is our topmost priority.</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"They have a great support team and respect delivery timelines. My NGO's website was made exactly as envisioned. Highly recommended!"</p>
+      <div class="reviewer"><div class="reviewer-avatar">S</div><div><div class="reviewer-name">Sujit Giri</div><div class="reviewer-role">NGO Founder</div></div></div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"Excellent development of my site pages at an affordable cost. All team members are very helpful and knowledgeable. Thank you so much!"</p>
+      <div class="reviewer"><div class="reviewer-avatar">A</div><div><div class="reviewer-name">Arshad Jamil</div><div class="reviewer-role">Business Owner</div></div></div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"Extremely professional, easy to reach, reasonable prices and very flexible. It was a real pleasure doing business with them. Thanks to the whole team!"</p>
+      <div class="reviewer"><div class="reviewer-avatar">M</div><div><div class="reviewer-name">Mittul Gupta</div><div class="reviewer-role">Client from Delhi</div></div></div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"The team is very professional and they completed the project on time. They understood all my requirements and delivered everything they promised."</p>
+      <div class="reviewer"><div class="reviewer-avatar">H</div><div><div class="reviewer-name">Himanshu Garg</div><div class="reviewer-role">Entrepreneur</div></div></div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"Cost is very reasonable compared to others and they do customization as per customer needs. My website was completed as per commitment!"</p>
+      <div class="reviewer"><div class="reviewer-avatar">S</div><div><div class="reviewer-name">Stan Shipproject</div><div class="reviewer-role">Business Owner</div></div></div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"Amazing work done within deadline. Super responsive team and great customer support. My website looks absolutely brilliant!"</p>
+      <div class="reviewer"><div class="reviewer-avatar">U</div><div><div class="reviewer-name">Urvi Shelar</div><div class="reviewer-role">Client</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <span class="section-label">CONTACT US</span>
+      <h2>Let's Build Something Great Together</h2>
+      <p>Have a project in mind or just want to ask us something? We're always ready to help. Reach out and we'll respond as soon as possible.</p>
+      <div class="contact-item">
+        <div class="contact-item-icon">📞</div>
+        <div><h4>Phone / WhatsApp</h4><a href="tel:8957197142">+91-8957197142</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">✉️</div>
+        <div><h4>Email Address</h4><a href="mailto:sameershrinet22@gmail.com">sameershrinet22@gmail.com</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">🌍</div>
+        <div><h4>We Serve</h4><span>India & Worldwide — Remote & Online</span></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">🕐</div>
+        <div><h4>Availability</h4><span>24 × 7 Hours — Always Open for You!</span></div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <h3 style="font-family:'Poppins',sans-serif;font-weight:700;color:var(--dark);margin-bottom:22px;">Submit Your Query</h3>
+      <div class="form-row">
+        <div class="form-group"><label>Your Name</label><input type="text" placeholder="Enter your name"></div>
+        <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="Your phone number"></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
+      <div class="form-group"><label>Service Required</label>
+        <select>
+          <option>Website Development</option>
+          <option>Mobile App Development</option>
+          <option>E-Commerce Website</option>
+          <option>Digital Marketing / SEO</option>
+          <option>Graphic Designing</option>
+          <option>ERP / CRM System</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Message</label><textarea placeholder="Describe your project..."></textarea></div>
+      <button class="submit-btn" onclick="alert('Thank you! We will contact you soon at 8957197142.')">Send Message 🚀</button>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-bg">
+  <div style="text-align:center;">
+    <span class="section-label">FAQ</span>
+    <h2 class="section-title">Frequently Asked Questions</h2>
+  </div>
+  <div class="faq-grid">
+    <details>
+      <summary>What is the difference between web design and web development?</summary>
+      <p>Web design focuses on the visual layout and aesthetics — how a site looks, while web development focuses on the functionality — how the site works. Designers use tools like Figma and Photoshop; developers use HTML, CSS, JavaScript, PHP, and more. We provide both under one roof.</p>
+    </details>
+    <details>
+      <summary>How long does it take to build a website?</summary>
+      <p>A standard website is typically delivered within 7–10 business days. Larger e-commerce or custom projects may take 15–30 days. We always provide a clear timeline before starting and stick to it.</p>
+    </details>
+    <details>
+      <summary>Do you provide free hosting and domain?</summary>
+      <p>Yes! Every plan includes 1 Year Free Domain (.com / .in / .org) and 1 Year Free Cloud Hosting with free SSL certificate. Annual renewal is only ₹4,000/- thereafter.</p>
+    </details>
+    <details>
+      <summary>What is a dynamic website?</summary>
+      <p>A dynamic website generates content in response to user interaction and can be easily updated via an admin panel — no coding needed. Perfect for businesses that need to regularly update their content, products, or services.</p>
+    </details>
+    <details>
+      <summary>Do you offer support after the website is launched?</summary>
+      <p>Absolutely! All our plans include 1 Year Free Technical Support and Lifetime 24/7 Free Hosting Support. You can reach us anytime by phone, WhatsApp, or email.</p>
+    </details>
+    <details>
+      <summary>Can you build an e-commerce website with payment gateway?</summary>
+      <p>Yes! We build fully functional e-commerce websites with payment gateway integration, product categories, order notifications, OTP verification, wallet systems, and auto invoice generation.</p>
+    </details>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">Website <span>Makers</span></div>
+      <p>India's trusted web development company. We provide unique, best quality websites and digital services at very affordable prices.</p>
+      <p>📞 <a href="tel:8957197142" style="color:var(--accent);text-decoration:none;">+91-8957197142</a></p>
+      <p>✉️ <a href="mailto:sameershrinet22@gmail.com" style="color:var(--accent);text-decoration:none;">sameershrinet22@gmail.com</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Our Services</h4>
+      <ul>
+        <li><a href="#services">Website Development</a></li>
+        <li><a href="#services">Mobile App Development</a></li>
+        <li><a href="#services">E-Commerce Websites</a></li>
+        <li><a href="#services">Digital Marketing / SEO</a></li>
+        <li><a href="#services">Graphic Designing</a></li>
+        <li><a href="#services">ERP & CRM Systems</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>Website Makers © 2025. All Rights Reserved.</p>
+    <p>Made with ❤️ in India</p>
+  </div>
+</footer>
+
+<!-- WhatsApp Float Button -->
+<a class="wa-float" href="https://wa.me/918957197142?text=Hi%2C%20I%20want%20to%20know%20more%20about%20your%20services" target="_blank" title="Chat on WhatsApp">
+  💬
+</a>
+
+</body>
+</html>
