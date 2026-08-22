@@ -663,3 +663,79 @@ footer::before{
 .process-section{background:linear-gradient(180deg,#c6a15b0b,transparent)}.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1200px;margin:auto}.process-step{text-align:center;padding:28px 18px;border-radius:22px;transition:.4s}.process-step:hover{transform:translateY(-8px);background:#ffffff50}.process-step>span{font:700 10px "JetBrains Mono";color:#a28a59;letter-spacing:2px}.process-step i{display:grid;place-items:center;width:64px;height:64px;margin:20px auto;border:1px solid #c6a15b47;border-radius:50%;font-style:normal;font-size:25px;color:#9a783c;background:#ffffff80}.process-step h3{font:700 20px Georgia;margin:0 0 8px}.process-step p{font-size:.82rem;line-height:1.6;color:#707070}.quote-calculator{max-width:1100px;margin:65px auto;display:grid;grid-template-columns:1fr 1.05fr;border:1px solid #c6a15b33;border-radius:28px;overflow:hidden;background:linear-gradient(135deg,#141413,#1d1c18);color:#fff}.calculator-copy{padding:42px}.calculator-copy h3{font:700 34px Georgia;margin:12px 0}.calculator-copy p{color:#aaa;line-height:1.7}.calculator-total{margin-top:30px;padding-top:20px;border-top:1px solid #ffffff19}.calculator-total small,.calculator-total span{display:block;color:#999;font:10px "JetBrains Mono";letter-spacing:1px;text-transform:uppercase}.calculator-total strong{display:block;font:700 42px Georgia;color:#e9d39c;margin:8px 0}.calculator-controls{padding:42px;background:#ffffff08}.calculator-controls>label:not(.check-row){display:block;font:700 10px "JetBrains Mono";color:#aaa;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px}.calculator-controls select{width:100%;margin-top:9px;padding:13px;border:1px solid #ffffff1f;border-radius:12px;background:#121212;color:#eee}.calculator-controls input[type=range]{width:100%;accent-color:#d5b56d}.calculator-controls output{float:right;color:#e8d39b}.check-row{display:flex;align-items:center;gap:10px;padding:11px 0;color:#ddd;font-size:.85rem}.check-row b{margin-left:auto;color:#a88a52;font:700 10px "JetBrains Mono"}.calculator-cta{display:inline-block;width:100%;text-align:center;text-decoration:none;margin-top:12px}.live-build-strip{max-width:1200px;margin:70px auto;padding:30px 34px;display:flex;align-items:center;justify-content:space-between;gap:30px;border:1px solid #c6a15b33;border-radius:25px;background:linear-gradient(110deg,#161615,#201f1b);color:#fff}.live-build-left h2{font:700 28px Georgia;margin:8px 0}.live-build-left p{color:#aaa}.build-pipeline{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.pipeline-node{text-align:center;min-width:55px;color:#777}.pipeline-node span{display:grid;place-items:center;width:38px;height:38px;margin:auto;border:1px solid #ffffff20;border-radius:50%;font:700 9px "JetBrains Mono"}.pipeline-node b{display:block;font:700 8px "JetBrains Mono";margin-top:7px}.pipeline-node.active{color:#e7d29b}.pipeline-node.active span{border-color:#e7cd9399;box-shadow:0 0 22px #e7cd9324}.pipeline-connector{width:35px;height:1px;background:#ffffff20}.pipeline-status{width:100%;text-align:right;color:#8c8c8c;font:700 9px "JetBrains Mono";letter-spacing:1px}
 @media(max-width:900px){.project-grid,.process-grid{grid-template-columns:1fr 1fr}.quote-calculator{grid-template-columns:1fr}.live-build-strip{flex-direction:column;align-items:flex-start}}
 @media(max-width:600px){.premium-section,.process-section{padding:70px 5vw}.project-grid,.process-grid{grid-template-columns:1fr}.project-preview{height:245px}.calculator-copy,.calculator-controls{padding:28px 22px}.calculator-copy h3{font-size:29px}.calculator-total strong{font-size:35px}.live-build-strip{margin:45px 5vw;padding:24px 20px}.build-pipeline{gap:4px}.pipeline-connector{width:16px}}
+
+/* MOBILE PRICING OVERFLOW FIX
+   Keeps the "Most popular" badge and plan content inside the card. */
+@media (max-width: 600px) {
+  .pricing-card,
+  .price-card,
+  .plan-card {
+    overflow: visible !important;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  .pricing-card .popular,
+  .pricing-card .most-popular,
+  .price-card .popular,
+  .price-card .most-popular,
+  .plan-card .popular,
+  .plan-card .most-popular {
+    top: 0 !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translate(-50%, -1px) !important;
+    z-index: 5 !important;
+    white-space: nowrap;
+  }
+
+  .pricing-card.popular,
+  .price-card.popular,
+  .plan-card.popular {
+    padding-top: 58px !important;
+  }
+
+  .pricing-card > *,
+  .price-card > *,
+  .plan-card > * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .pricing-card .btn,
+  .price-card .btn,
+  .plan-card .btn {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+/* If the existing pricing component uses a generic badge class,
+   constrain it on narrow screens too. */
+@media (max-width: 600px) {
+  .popular-badge,
+  .popular-tag,
+  .most-popular-badge,
+  .pricing-badge {
+    position: absolute !important;
+    top: 0 !important;
+    left: 50% !important;
+    transform: translate(-50%, -1px) !important;
+    z-index: 10 !important;
+    white-space: nowrap !important;
+    max-width: calc(100% - 24px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Prevent horizontal bleed from any pricing card child. */
+  section[id*="pricing"] .card,
+  section[id*="pricing"] .pricing-card,
+  section[id*="pricing"] [class*="pricing"],
+  section[id*="pricing"] [class*="plan"] {
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+}
