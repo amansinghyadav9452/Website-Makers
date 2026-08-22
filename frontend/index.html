@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=337cf75816ad">
 </head>
 <body>
 <div class="motion-progress" aria-hidden="true"><span></span></div>
@@ -21,6 +21,7 @@
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -142,6 +143,23 @@
     </div>
   </div>
 </section>
+
+
+<section id="work" class="premium-section">
+  <div class="premium-heading reveal"><span class="eyebrow">Selected work</span><h2 class="section-title">Built to look expensive. Built to work.</h2><p class="section-sub">Representative builds across business, e-commerce and personal brands.</p></div>
+  <div class="project-grid">
+    <article class="project-card reveal"><div class="project-preview project-business"><div class="mock-browser"><span></span><span></span><span></span></div><div class="mock-brand">NOVA<span>CO.</span></div><div class="mock-hero-line"></div><div class="mock-hero-line short"></div><div class="mock-cards"><i></i><i></i><i></i></div><div class="project-live"><b></b> LIVE PREVIEW</div></div><div class="project-info"><span class="project-type">Business website</span><h3>Nova Business</h3><p>Premium corporate presence with lead generation and conversion-focused sections.</p><div class="project-tags"><span>HTML</span><span>CSS</span><span>JS</span><span>SEO</span></div><button class="project-btn" data-preview="business">Explore concept ↗</button></div></article>
+    <article class="project-card reveal"><div class="project-preview project-store"><div class="mock-browser"><span></span><span></span><span></span></div><div class="store-nav">MØDE <small>NEW ARRIVALS · COLLECTION</small></div><div class="store-product"><div class="product-orb"></div><div class="product-copy">ESSENTIAL<br><b>01</b></div></div><div class="project-live"><b></b> STORE CONCEPT</div></div><div class="project-info"><span class="project-type">E-commerce</span><h3>Mode Store</h3><p>Editorial storefront concept with product discovery and checkout-ready structure.</p><div class="project-tags"><span>React</span><span>Node</span><span>MongoDB</span><span>Payments</span></div><button class="project-btn" data-preview="store">Explore concept ↗</button></div></article>
+    <article class="project-card reveal"><div class="project-preview project-creator"><div class="mock-browser"><span></span><span></span><span></span></div><div class="creator-avatar">A</div><div class="creator-name">AMARA</div><div class="creator-line"></div><div class="creator-line small"></div><div class="creator-grid"><i></i><i></i><i></i><i></i></div><div class="project-live"><b></b> PORTFOLIO</div></div><div class="project-info"><span class="project-type">Portfolio</span><h3>Amara Studio</h3><p>Minimal personal brand site designed around visual storytelling and enquiries.</p><div class="project-tags"><span>Responsive</span><span>Motion</span><span>CMS</span><span>Analytics</span></div><button class="project-btn" data-preview="creator">Explore concept ↗</button></div></article>
+  </div>
+</section>
+<div class="project-modal" id="projectModal" aria-hidden="true"><div class="project-modal-backdrop" data-close-project></div><div class="project-modal-box"><button class="project-modal-close" data-close-project aria-label="Close">×</button><div class="modal-preview" id="modalPreview"></div><div class="modal-copy"><span class="eyebrow" id="projectModalEyebrow">Project concept</span><h3 id="projectModalTitle">Project</h3><p id="projectModalText"></p><div id="projectModalTags" class="project-tags"></div><a href="#contact" class="btn btn-gold" data-close-project>Build something like this →</a></div></div></div>
+
+<section class="process-section"><div class="premium-heading reveal"><span class="eyebrow">How it works</span><h2 class="section-title">From rough idea to live website.</h2><p class="section-sub">A simple process, without the mysterious agency fog machine.</p></div><div class="process-grid"><div class="process-step reveal"><span>01</span><i>✦</i><h3>Discover</h3><p>Understand the business, audience and actual problem.</p></div><div class="process-step reveal"><span>02</span><i>◈</i><h3>Design</h3><p>Shape structure, visual direction and responsive layouts.</p></div><div class="process-step reveal"><span>03</span><i>⌁</i><h3>Build</h3><p>Develop, integrate, test and tune for real devices.</p></div><div class="process-step reveal"><span>04</span><i>↗</i><h3>Launch</h3><p>Deploy, connect the domain and verify everything.</p></div></div></section>
+
+<div class="quote-calculator reveal" id="quoteCalculator"><div class="calculator-copy"><span class="eyebrow">Instant estimate</span><h3>Build your website budget.</h3><p>Choose what you need. The estimate updates instantly. Final pricing is confirmed after project scope.</p><div class="calculator-total"><small>Estimated starting range</small><strong id="quoteTotal">₹18,000</strong><span id="quoteNote">Starter build</span></div></div><div class="calculator-controls"><label>Website type<select id="quoteType"><option value="18000">Business website</option><option value="26000">Portfolio / personal brand</option><option value="35000">E-commerce website</option><option value="42000">Custom web application</option></select></label><label>Extra pages <output id="pagesOut">0</output><input id="quotePages" type="range" min="0" max="10" value="0"></label><label class="check-row"><input id="quoteAdmin" type="checkbox"><span>Admin panel</span><b>+₹6k</b></label><label class="check-row"><input id="quotePayment" type="checkbox"><span>Payment gateway</span><b>+₹7k</b></label><label class="check-row"><input id="quoteSeo" type="checkbox"><span>SEO setup</span><b>+₹4k</b></label><label class="check-row"><input id="quoteDeploy" type="checkbox"><span>Deployment + domain setup</span><b>+₹3k</b></label><a href="#contact" class="btn btn-gold calculator-cta">Request this build →</a></div></div>
+
+<section class="live-build-strip reveal"><div class="live-build-left"><span class="eyebrow">Production pipeline</span><h2>Watch the handoff happen.</h2><p>Design → code → test → deploy.</p></div><div class="build-pipeline"><div class="pipeline-node active"><span>01</span><b>Design</b></div><div class="pipeline-connector"></div><div class="pipeline-node"><span>02</span><b>Build</b></div><div class="pipeline-connector"></div><div class="pipeline-node"><span>03</span><b>Test</b></div><div class="pipeline-connector"></div><div class="pipeline-node"><span>04</span><b>Deploy</b></div><div class="pipeline-status"><b></b><span id="pipelineStatus">DESIGNING</span></div></div></section>
 
 <!-- PRICING -->
 <section id="pricing">
@@ -340,7 +358,8 @@
     </div>
     <div class="footer-col">
       <h4>Quick links</h4>
-      <ul><li><a href="#home">Home</a></li><li><a href="#about">About us</a></li><li><a href="#services">Services</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#contact">Contact us</a></li></ul>
+      <ul><li><a href="#home">Home</a></li><li><a href="#about">About us</a></li><li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#contact">Contact us</a></li></ul>
     </div>
     <div class="footer-col">
       <h4>Our services</h4>
@@ -360,6 +379,6 @@
 
   window.API_BASE_URL = "https://sites-maker-3bkh.onrender.com";
 </script>
-<script src="script.js"></script>
+<script src="script.js?v=38761b54af0a"></script>
 </body>
 </html>
