@@ -20,12 +20,15 @@ const allowedOrigins = (process.env.ALLOWED_ORIGINS || '*')
   .split(',')
   .map((o) => o.trim());
 
-app.use(
-  cors({
-    origin: allowedOrigins.includes('*') ? true : allowedOrigins,
-    methods: ['GET', 'POST']
-  })
-);
+const corsOptions = {
+  origin: allowedOrigins.includes('*') ? true : allowedOrigins,
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'x-api-key'],
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json({ limit: '20kb' }));
 app.use(mongoSanitize()); // strip $ / . operators from user input to prevent NoSQL injection
 
