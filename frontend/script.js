@@ -153,7 +153,8 @@ if (inquiryForm) {
       phone: document.getElementById('f-phone').value.trim(),
       email: document.getElementById('f-email').value.trim(),
       service: document.getElementById('f-service').value,
-      message: document.getElementById('f-message').value.trim()
+      message: document.getElementById('f-message').value.trim(),
+      website: document.getElementById('f-website').value // honeypot — must stay empty
     };
     if (!payload.name || !payload.phone || !payload.email) {
       statusEl.textContent = 'Please fill your name, phone and email.';

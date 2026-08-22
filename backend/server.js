@@ -2,6 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const rateLimit = require('express-rate-limit');
 
 const inquiriesRouter = require('./routes/inquiries');
 
@@ -9,16 +12,32 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const MONGODB_URI = process.env.MONGODB_URI;
 
+// Security headers
+app.use(helmet());
+app.disable('x-powered-by');
+
 const allowedOrigins = (process.env.ALLOWED_ORIGINS || '*')
   .split(',')
   .map((o) => o.trim());
 
 app.use(
   cors({
-    origin: allowedOrigins.includes('*') ? true : allowedOrigins
+    origin: allowedOrigins.includes('*') ? true : allowedOrigins,
+    methods: ['GET', 'POST']
   })
 );
-app.use(express.json());
+app.use(express.json({ limit: '20kb' }));
+app.use(mongoSanitize()); // strip $ / . operators from user input to prevent NoSQL injection
+
+// Global rate limit — protects every route from abuse/scraping
+app.use(
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    standardHeaders: true,
+    legacyHeaders: false
+  })
+);
 
 app.get('/', (req, res) => {
   res.json({ ok: true, service: 'website-makers-api', status: 'running' });
