@@ -1,24 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const Review = require('../models/Review');
-
-function requireAdmin(req, res, next) {
-  const header = req.get('authorization') || '';
-  const token = header.startsWith('Bearer ') ? header.slice(7) : '';
-  const jwt = require('jsonwebtoken');
-  if (!process.env.ADMIN_JWT_SECRET || !token) return res.status(401).json({ ok:false, error:'Unauthorized.' });
-  try {
-    const payload = jwt.verify(token, process.env.ADMIN_JWT_SECRET);
-    if (payload.role !== 'admin') throw new Error('role');
-    req.admin = payload; next();
-  } catch { return res.status(401).json({ ok:false, error:'Session expired.' }); }
-}
+const { requireAdmin } = require('../middleware/auth');
 
 router.get('/', async (req,res) => {
   try {
     const data = await Review.find({ approved:true, featured:true }).sort({ createdAt:-1 }).limit(30).lean();
     res.json({ok:true,data});
-  } catch { res.status(500).json({ok:false,error:'Could not load reviews.'}); }
+  } catch {
+    res.status(500).json({ok:false,error:'Could not load reviews.'});
+  }
 });
 
 router.get('/admin', requireAdmin, async (req,res) => {
