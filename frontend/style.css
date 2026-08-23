@@ -196,8 +196,8 @@
     transition:transform .12s linear, box-shadow .4s var(--ease); will-change:transform; overflow:visible;
   }
   .plan-card:hover{box-shadow:0 24px 46px rgba(20,20,10,.1);}
-  .plan-card.popular{background:var(--ink); border-color:transparent; padding-top:38px;}
-  .popular-badge{position:absolute; top:-13px; left:26px; z-index:2; background:linear-gradient(135deg,var(--gold-light),var(--gold)); color:#1a1305; font-size:.68rem; font-weight:700; padding:5px 13px; border-radius:50px; letter-spacing:.03em; font-family:'JetBrains Mono',monospace; white-space:nowrap;}
+  .plan-card.popular{background:var(--ink); border-color:transparent; padding-top:44px;}
+  .popular-badge{position:absolute; top:16px; left:26px; z-index:2; background:linear-gradient(135deg,var(--gold-light),var(--gold)); color:#1a1305; font-size:.68rem; font-weight:700; padding:5px 13px; border-radius:50px; letter-spacing:.03em; font-family:'JetBrains Mono',monospace; white-space:nowrap;}
   .plan-name{font-weight:600; font-size:1.02rem; color:var(--text-dark); margin-bottom:8px;}
   .plan-card.popular .plan-name{color:#fff;}
   .plan-tagline{margin:14px 0 22px; font-size:.86rem; color:var(--muted-dark); line-height:1.5;}
