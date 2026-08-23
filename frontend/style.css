@@ -741,3 +741,42 @@ footer::before{
 }
 .project-btn{display:inline-block;text-decoration:none}
 .project-type{font-weight:800}
+
+/* FINAL PRICING BADGE FIX
+   Keep the "Most popular" badge fully inside the pricing card on every viewport.
+   No negative top offset, so transforms/section clipping cannot cut it off. */
+.plan-card.popular {
+  position: relative;
+  overflow: visible !important;
+  padding-top: 62px !important;
+}
+.plan-card .popular-badge {
+  position: absolute !important;
+  top: 14px !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  z-index: 20 !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  max-width: calc(100% - 28px);
+  min-height: 30px;
+  padding: 6px 14px !important;
+  box-sizing: border-box;
+  white-space: nowrap !important;
+  line-height: 1.2;
+}
+@media (max-width: 600px) {
+  .plan-card.popular {
+    padding-top: 62px !important;
+    overflow: visible !important;
+  }
+  .plan-card .popular-badge {
+    top: 14px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    max-width: calc(100% - 24px);
+  }
+}
