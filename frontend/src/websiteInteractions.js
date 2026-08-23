@@ -1,11 +1,26 @@
 export function initWebsiteInteractions(apiBaseUrl) {
   if (typeof window === 'undefined') return () => {};
   let cleaned = false;
+  const sessionKey = 'wm_analytics_session';
+  const sessionId = sessionStorage.getItem(sessionKey) || (crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+  sessionStorage.setItem(sessionKey, sessionId);
+  const track = (event, meta={}) => {
+    if (!apiBaseUrl || apiBaseUrl.includes('YOUR-BACKEND')) return;
+    const w = window.innerWidth;
+    const device = w < 700 ? 'mobile' : w < 1024 ? 'tablet' : 'desktop';
+    fetch(`${apiBaseUrl}/api/analytics/events`, {
+      method:'POST', headers:{'Content-Type':'application/json'}, keepalive:true,
+      body:JSON.stringify({event,path:location.pathname,referrer:document.referrer,device,browser:navigator.userAgent.slice(0,80),sessionId,meta})
+    }).catch(()=>{});
+  };
+  track('page_view');
 // ---- Nav shrink on scroll ----
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 40);
 }, {passive:true});
+
+document.addEventListener('click', (e) => { const a=e.target.closest('a'); if(!a)return; const href=a.getAttribute('href')||''; if(href.startsWith('#')) track('cta_click',{target:href}); if(href.includes('/projects/')) track('demo_open',{target:href}); });
 
 // ---- Scroll reveal ----
 const revealEls = document.querySelectorAll('.reveal');
@@ -175,6 +190,7 @@ if (inquiryForm) {
     btn.textContent = 'Sending…';
     statusEl.textContent = '';
     try {
+      track('inquiry_submit',{service:payload.service});
       const res = await fetch(apiBase + '/api/inquiries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

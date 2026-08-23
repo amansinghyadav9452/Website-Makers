@@ -4,3 +4,7 @@ import App from './App';
 import '../style.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+if ('serviceWorker' in navigator && !window.location.pathname.startsWith('/admin')) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+}

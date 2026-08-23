@@ -7,6 +7,9 @@ const mongoSanitize = require('express-mongo-sanitize');
 const rateLimit = require('express-rate-limit');
 
 const inquiriesRouter = require('./routes/inquiries');
+const analyticsRouter = require('./routes/analytics');
+const reviewsRouter = require('./routes/reviews');
+const clientsRouter = require('./routes/clients');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -16,7 +19,7 @@ const MONGODB_URI = process.env.MONGODB_URI;
 app.use(helmet());
 app.disable('x-powered-by');
 
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || '*')
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:5173')
   .split(',')
   .map((o) => o.trim())
   .filter(Boolean);
@@ -24,12 +27,12 @@ const allowedOrigins = (process.env.ALLOWED_ORIGINS || '*')
 const corsOptions = {
   origin: (origin, callback) => {
     // Allow non-browser/server-to-server requests and wildcard mode.
-    if (!origin || allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+    if (!origin || allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
     return callback(new Error(`CORS blocked origin: ${origin}`));
   },
-  methods: ['GET', 'POST', 'PATCH', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key'],
   optionsSuccessStatus: 204
 };
@@ -60,6 +63,9 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/api/inquiries', inquiriesRouter);
+app.use('/api/analytics', analyticsRouter);
+app.use('/api/reviews', reviewsRouter);
+app.use('/api/clients', clientsRouter);
 
 if (!MONGODB_URI) {
   console.error('MONGODB_URI is not set. Add it in your environment variables (.env locally, or Render dashboard).');

@@ -1,9 +1,9 @@
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
 const router = express.Router();
 const Inquiry = require('../models/Inquiry');
+const nodemailer = require('nodemailer');
 
 function validatePayload(body) {
   const errors = [];
@@ -15,7 +15,7 @@ function validatePayload(body) {
 }
 
 const submitLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10, message: { ok: false, error: 'Too many submissions. Please try again later.' }, standardHeaders: true, legacyHeaders: false });
-const adminLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 60, message: { ok: false, error: 'Too many admin requests.' }, standardHeaders: true, legacyHeaders: false });
+const adminLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 12, message: { ok: false, error: 'Too many admin requests.' }, standardHeaders: true, legacyHeaders: false });
 
 function signAdminToken() {
   return jwt.sign({ role: 'admin', email: process.env.ADMIN_EMAIL }, process.env.ADMIN_JWT_SECRET, { expiresIn: '8h' });
@@ -49,6 +49,23 @@ router.post('/admin/login', adminLimiter, async (req, res) => {
 
 router.get('/admin/me', requireAdmin, (req, res) => res.json({ ok: true, admin: { email: req.admin.email } }));
 
+
+async function notifyNewInquiry(inquiry) {
+  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS || !process.env.ADMIN_NOTIFY_EMAIL) return;
+  const transport = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT || 587),
+    secure: String(process.env.SMTP_SECURE || 'false') === 'true',
+    auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
+  });
+  await transport.sendMail({
+    from: process.env.SMTP_FROM || process.env.SMTP_USER,
+    to: process.env.ADMIN_NOTIFY_EMAIL,
+    subject: `New Website Makers enquiry — ${inquiry.name}`,
+    text: `New enquiry\n\nName: ${inquiry.name}\nEmail: ${inquiry.email}\nPhone: ${inquiry.phone}\nService: ${inquiry.service}\n\n${inquiry.message || ''}`
+  });
+}
+
 router.post('/', submitLimiter, async (req, res) => {
   try {
     if (req.body.website) return res.status(201).json({ ok: true });
@@ -56,8 +73,10 @@ router.post('/', submitLimiter, async (req, res) => {
     if (errors.length) return res.status(400).json({ ok: false, errors });
     const inquiry = await Inquiry.create({
       name: req.body.name.trim(), phone: req.body.phone.trim(), email: req.body.email.trim().toLowerCase(),
-      service: req.body.service, message: req.body.message
+      service: String(req.body.service || 'Other').slice(0,120), message: String(req.body.message || '').slice(0,3000),
+      source: String(req.body.source || 'website-contact-form').slice(0,120)
     });
+    notifyNewInquiry(inquiry).catch(err => console.error('Admin notification email failed:', err.message));
     res.status(201).json({ ok: true, id: inquiry._id });
   } catch (err) {
     console.error('Failed to save inquiry:', err.message);
@@ -136,6 +155,25 @@ router.post('/:id/respond', requireAdmin, async (req, res) => {
     console.error('Failed to send reply:', err.message);
     res.status(500).json({ ok: false, error: 'Could not send reply.' });
   }
+});
+
+
+router.get('/admin/customers', requireAdmin, async (req,res) => {
+  try {
+    const customers = await Inquiry.aggregate([
+      {$group:{_id:'$email', name:{$first:'$name'}, email:{$first:'$email'}, phone:{$first:'$phone'}, enquiries:{$sum:1}, latest:{$max:'$createdAt'}, statuses:{$push:'$status'}}},
+      {$sort:{latest:-1}}, {$limit:200}
+    ]);
+    res.json({ok:true,data:customers});
+  } catch { res.status(500).json({ok:false,error:'Could not load customers.'}); }
+});
+
+router.delete('/:id', requireAdmin, async (req,res) => {
+  try {
+    const inquiry = await Inquiry.findByIdAndDelete(req.params.id);
+    if (!inquiry) return res.status(404).json({ok:false,error:'Inquiry not found.'});
+    res.json({ok:true});
+  } catch { res.status(500).json({ok:false,error:'Could not delete inquiry.'}); }
 });
 
 module.exports = router;
