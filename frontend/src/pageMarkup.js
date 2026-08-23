@@ -52,7 +52,7 @@ export const pageMarkup = String.raw`
     <div class="about-copy reveal">
       <span class="eyebrow">About us</span>
       <h2 class="section-title">A web development studio built around Indian businesses</h2>
-      <p class="section-sub">100+ clients trust us for websites and digital products that are attractive, responsive and genuinely built to convert — not just to look good in a screenshot.</p>
+      <p class="section-sub">Businesses use us for websites and digital products that are attractive, responsive and genuinely built to convert — not just to look good in a screenshot.</p>
       <p class="body">We plan, design and ship every project ourselves, in-house — no outsourced templates, no vanishing after launch. Every site leaves our hands SEO-ready, on budget and delivered before the deadline we quoted.</p>
     </div>
     <div class="about-visual reveal">
@@ -232,7 +232,7 @@ export const pageMarkup = String.raw`
   <div class="why-grid stagger">
     <div class="why-card reveal" style="--i:0"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 14.3 0 18M12 3c-2.5 2.7-2.5 14.3 0 18"/></svg></div><h4>1 year free domain & hosting</h4><p>Get your domain and hosting absolutely free for the first year with every plan.</p></div>
     <div class="why-card reveal" style="--i:1"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9c0-1-1-2-2-2h-2.5a1.5 1.5 0 0 1 0-3H18a2 2 0 0 0 2-2c0-2-3.6-4-8-4z"/><circle cx="7.5" cy="10.5" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="14.5" cy="7.5" r="1"/></svg></div><h4>Dynamic premium designs</h4><p>Visually attractive, modern websites that convert visitors into customers.</p></div>
-    <div class="why-card reveal" style="--i:2"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13a8 8 0 0 1 16 0v5a2 2 0 0 1-2 2h-1v-6h3M4 13v5a2 2 0 0 0 2 2h1v-6H4"/></svg></div><h4>24×7 support</h4><p>Our team is available round the clock via phone, chat, and email.</p></div>
+    <div class="why-card reveal" style="--i:2"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13a8 8 0 0 1 16 0v5a2 2 0 0 1-2 2h-1v-6h3M4 13v5a2 2 0 0 0 2 2h1v-6H4"/></svg></div><h4>responsive support</h4><p>Our team is available round the clock via phone, chat, and email.</p></div>
     <div class="why-card reveal" style="--i:3"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12l9-9h9v9l-9 9-9-9z"/><circle cx="15" cy="9" r="1.5"/></svg></div><h4>Transparent, fair pricing</h4><p>No hidden costs — every quote is scoped clearly before we begin work.</p></div>
     <div class="why-card reveal" style="--i:4"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><h4>On-time delivery</h4><p>Every project is delivered within the agreed timeline, zero compromises.</p></div>
     <div class="why-card reveal" style="--i:5"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c3 2 5 6 5 10 0 2-1 4-1 4l-4 2-4-2s-1-2-1-4c0-4 2-8 5-10z"/><circle cx="12" cy="10" r="1.6"/><path d="M8 16l-2 4 4-1M16 16l2 4-4-1"/></svg></div><h4>Innovation & creativity</h4><p>We bring fresh ideas to every project to help your business stand out online.</p></div>
@@ -354,6 +354,7 @@ export const pageMarkup = String.raw`
       <ul><li><a href="#services">Website Development</a></li><li><a href="#services">E-Commerce Websites</a></li><li><a href="#services">Digital Marketing / SEO</a></li><li><a href="#services">Graphic Designing</a></li></ul>
     </div>
   </div>
+  <div class="footer-legal-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/refund">Refunds</a><a href="/cookies">Cookies</a></div>
   <div class="footer-bottom">
     <p>Website Makers © 2025. All rights reserved.</p>
     <p>Made with ❤️ in India</p>

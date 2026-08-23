@@ -2,14 +2,17 @@ import { useEffect } from 'react';
 import { pageMarkup } from './pageMarkup';
 import AdminApp from './AdminApp';
 import ClientPortal from './ClientPortal';
+import LegalPages from './LegalPages';
 import { initWebsiteInteractions } from './websiteInteractions';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
 function escapeHtml(value=''){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
 export default function App() {
-  const isAdmin = window.location.pathname.startsWith('/admin');
-  const isPortal = window.location.pathname.startsWith('/portal');
+  const path = window.location.pathname;
+  const isAdmin = path.startsWith('/admin');
+  const isPortal = path.startsWith('/portal');
+  const legalType = path.startsWith('/privacy') ? 'privacy' : path.startsWith('/terms') ? 'terms' : path.startsWith('/refund') ? 'refund' : path.startsWith('/cookies') ? 'cookies' : null;
   useEffect(() => {
     if (isAdmin || isPortal) return;
     const cleanup = initWebsiteInteractions(API_BASE_URL);
@@ -30,5 +33,6 @@ export default function App() {
 
   if (isAdmin) return <AdminApp />;
   if (isPortal) return <ClientPortal />;
+  if (legalType) return <LegalPages type={legalType} onBack={() => { window.location.href='/'; }} />;
   return <div dangerouslySetInnerHTML={{ __html: pageMarkup }} />;
 }

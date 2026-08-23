@@ -1,17 +1,9 @@
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const AnalyticsEvent = require('../models/AnalyticsEvent');
-const { requireAdmin } = require('../middleware/auth');
-
 const router = express.Router();
 
-const eventLimiter = rateLimit({
-  windowMs: 5 * 60 * 1000,
-  max: 60,
-  message: { ok: false, error: 'Too many analytics events.' },
-  standardHeaders: true,
-  legacyHeaders: false
-});
+const eventLimiter = rateLimit({ windowMs: 5 * 60 * 1000, max: 60, message: { ok:false, error:'Too many analytics events.' }, standardHeaders:true, legacyHeaders:false });
 
 router.post('/events', eventLimiter, async (req, res) => {
   try {
@@ -28,15 +20,23 @@ router.post('/events', eventLimiter, async (req, res) => {
       meta: typeof req.body?.meta === 'object' && req.body.meta ? req.body.meta : {}
     });
     res.status(201).json({ ok:true });
-  } catch {
+  } catch (err) {
+    console.error('Analytics event error:', err.message);
     res.status(500).json({ ok:false, error:'Could not record event.' });
   }
 });
 
-router.get('/admin/summary', requireAdmin, async (req,res) => {
-  try {
-    const since = new Date(Date.now() - 30*24*60*60*1000);
-    const [events, uniqueSessions, devices, paths, topEvents, ctas] = await Promise.all([
+
+function requireAdmin(req,res,next){
+  const jwt=require('jsonwebtoken'); const h=req.get('authorization')||''; const token=h.startsWith('Bearer ')?h.slice(7):'';
+  if(!process.env.ADMIN_JWT_SECRET||!token)return res.status(401).json({ok:false,error:'Unauthorized.'});
+  try{const payload=jwt.verify(token,process.env.ADMIN_JWT_SECRET);if(payload.role!=='admin')throw new Error();req.admin=payload;next();}catch{return res.status(401).json({ok:false,error:'Session expired.'});}
+}
+
+router.get('/admin/summary', requireAdmin, async (req,res)=>{
+  try{
+    const since=new Date(Date.now()-30*24*60*60*1000);
+    const [events,uniqueSessions,devices,paths,topEvents,ctas]=await Promise.all([
       AnalyticsEvent.countDocuments({createdAt:{$gte:since}}),
       AnalyticsEvent.distinct('sessionId',{createdAt:{$gte:since}}),
       AnalyticsEvent.aggregate([{$match:{createdAt:{$gte:since}}},{$group:{_id:'$device',count:{$sum:1}}},{$sort:{count:-1}}]),
@@ -45,8 +45,7 @@ router.get('/admin/summary', requireAdmin, async (req,res) => {
       AnalyticsEvent.aggregate([{$match:{createdAt:{$gte:since},event:'cta_click'}},{$count:'count'}])
     ]);
     res.json({ok:true,data:{last30Days:events,uniqueVisitors:uniqueSessions.filter(Boolean).length,devices,paths,events:topEvents,ctaClicks:ctas[0]?.count||0}});
-  } catch {
-    res.status(500).json({ok:false,error:'Could not load analytics.'});
-  }
+  }catch{res.status(500).json({ok:false,error:'Could not load analytics.'});}
 });
+
 module.exports = router;
