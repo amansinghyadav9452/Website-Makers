@@ -1,27 +1,29 @@
 const mongoose = require('mongoose');
 
-const responseSchema = new mongoose.Schema({
-  message: { type: String, required: true, maxlength: 5000 },
-  sentAt: { type: Date, default: Date.now },
-  sentBy: { type: String, default: 'admin' },
-  channel: { type: String, default: 'email' }
-}, { _id: false });
-
-const inquirySchema = new mongoose.Schema(
-  {
-    name: { type: String, required: true, trim: true, maxlength: 120 },
-    phone: { type: String, required: true, trim: true, maxlength: 20 },
-    email: { type: String, required: true, trim: true, lowercase: true, maxlength: 160 },
-    service: { type: String, trim: true, default: 'Other' },
-    message: { type: String, trim: true, maxlength: 3000 },
-    source: { type: String, default: 'website-contact-form' },
-    status: { type: String, enum: ['new', 'contacted', 'in-progress', 'completed', 'archived'], default: 'new', index: true },
-    priority: { type: String, enum: ['low', 'normal', 'high', 'urgent'], default: 'normal', index: true },
-    adminNotes: { type: String, maxlength: 5000, default: '' },
-    lastResponseAt: { type: Date, default: null },
-    responses: { type: [responseSchema], default: [] }
+const inquirySchema = new mongoose.Schema({
+  name: { type: String, required: true, trim: true, maxlength: 120 },
+  email: { type: String, required: true, trim: true, lowercase: true, maxlength: 120 },
+  phone: { type: String, required: true, trim: true, maxlength: 30 },
+  message: { type: String, trim: true, maxlength: 3000 },
+  source: { type: String, trim: true, maxlength: 50, default: 'website' },
+  status: {
+    type: String,
+    enum: ['new', 'contacted', 'in-progress', 'completed', 'archived'],
+    default: 'new'
   },
-  { timestamps: true }
-);
+  priority: {
+    type: String,
+    enum: ['low', 'normal', 'high', 'urgent'],
+    default: 'normal'
+  },
+  notes: { type: String, trim: true, maxlength: 2000 },
+  quotedPrice: { type: Number, min: 0, default: 0 }
+}, {
+  timestamps: true
+});
+
+inquirySchema.index({ status: 1, createdAt: -1 });
+inquirySchema.index({ email: 1 });
+inquirySchema.index({ createdAt: -1 });
 
 module.exports = mongoose.model('Inquiry', inquirySchema);

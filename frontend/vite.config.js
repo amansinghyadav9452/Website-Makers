@@ -5,6 +5,18 @@ export default defineConfig({
   plugins: [react()],
   build: {
     target: 'es2020',
-    sourcemap: false
+    sourcemap: false,
+    cssMinify: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom']
+        }
+      }
+    }
+  },
+  server: {
+    port: 5173,
+    strictPort: false
   }
 });

@@ -1,7 +1,11 @@
-const { hashPassword } = require('../middleware/auth');
+const crypto = require('crypto');
+
 const password = process.argv[2];
-if (!password || password.length < 12) {
-  console.error('Usage: npm run hash-admin-password -- "your-strong-password"');
+if (!password) {
+  console.error('Usage: node hash-password.js "your-password"');
   process.exit(1);
 }
-console.log(hashPassword(password));
+
+const salt = crypto.randomBytes(16).toString('hex');
+const hash = crypto.scryptSync(password, salt, 64).toString('hex');
+console.log(`ADMIN_PASSWORD_HASH=${salt}:${hash}`);
