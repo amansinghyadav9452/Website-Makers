@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import './admin.css';
 
-const API = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
+const API = (import.meta.env.VITE_API_BASE_URL || (import.meta.env.PROD ? 'https://website-makers-api.onrender.com' : 'http://localhost:4000')).replace(/\/$/, '');
 const TOKEN_KEY = 'wm_admin_token';
 const statusMeta = { new:['New','violet'], contacted:['Contacted','blue'], 'in-progress':['In progress','gold'], completed:['Completed','green'], archived:['Archived','gray'] };
 const priorityMeta = { low:'Low', normal:'Normal', high:'High', urgent:'Urgent' };

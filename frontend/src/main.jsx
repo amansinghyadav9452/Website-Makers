@@ -1,10 +1,10 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import App from './App';
-import './style.css';
+import '../style.css';
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+if ('serviceWorker' in navigator && !window.location.pathname.startsWith('/admin')) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+}

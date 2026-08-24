@@ -6,17 +6,10 @@ export default defineConfig({
   build: {
     target: 'es2020',
     sourcemap: false,
-    cssMinify: true,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom']
-        }
-      }
-    }
+    cssCodeSplit: true,
+    chunkSizeWarningLimit: 700
   },
-  server: {
-    port: 5173,
-    strictPort: false
+  esbuild: {
+    legalComments: 'none'
   }
 });
