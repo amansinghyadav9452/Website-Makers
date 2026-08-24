@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+
+# environment / secrets
+.env/
+
+# build output
+dist/
+build/
+.vite/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# logs
+*.log
+npm-debug.log*
