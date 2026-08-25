@@ -191,7 +191,7 @@ if (process.env.ENABLE_SWAGGER === 'true') {
     const options = {
       definition: {
         openapi: '3.0.0',
-        info: { title: 'Website Makers API', version: '2.0.0', description: 'Production API documentation' },
+        info: { title: 'Sites Maker API', version: '2.0.0', description: 'Production API documentation' },
         servers: [{ url: process.env.API_URL || 'https://website-makers-api.onrender.com' }],
       },
       apis: ['./routes/*.js'],

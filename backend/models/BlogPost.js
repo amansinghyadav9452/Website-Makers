@@ -10,7 +10,7 @@ const blogPostSchema = new mongoose.Schema({
   published: { type: Boolean, default: false, index: true },
   featured: { type: Boolean, default: false },
   views: { type: Number, default: 0, min: 0 },
-  author: { type: String, trim: true, maxlength: 120, default: 'Website Makers' },
+  author: { type: String, trim: true, maxlength: 120, default: 'Sites Maker' },
   metaTitle: { type: String, trim: true, maxlength: 200, default: '' },
   metaDescription: { type: String, trim: true, maxlength: 300, default: '' },
 }, { timestamps: true });

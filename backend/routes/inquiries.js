@@ -97,7 +97,7 @@ async function notifyNewInquiry(inquiry) {
     await transport.sendMail({
       from: process.env.SMTP_FROM || process.env.SMTP_USER,
       to: process.env.ADMIN_NOTIFY_EMAIL,
-      subject: `New Website Makers enquiry — ${inquiry.name}`,
+      subject: `New Sites Maker enquiry — ${inquiry.name}`,
       text: `New enquiry\n\nName: ${inquiry.name}\nEmail: ${inquiry.email}\nPhone: ${inquiry.phone}\nService: ${inquiry.service}\n\n${inquiry.message || ''}`
     });
   } catch (err) {

@@ -21,7 +21,7 @@ const chatLimiter = rateLimit({
   message: { ok: false, error: 'Too many messages. Please slow down.' }
 });
 
-const SYSTEM_PROMPT = `You are the friendly and professional AI assistant for Website Makers, a web development studio in India.
+const SYSTEM_PROMPT = `You are the friendly and professional AI assistant for Sites Maker, a web development studio in India.
 
 Your role:
 - Help visitors understand our services (web design, e-commerce, web apps, SEO)

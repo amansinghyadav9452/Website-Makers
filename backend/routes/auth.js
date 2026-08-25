@@ -68,7 +68,7 @@ router.post('/forgot-password', forgotLimiter, async (req, res) => {
       await transport.sendMail({
         from: process.env.SMTP_FROM || process.env.SMTP_USER,
         to: email,
-        subject: 'Reset your Website Makers password',
+        subject: 'Reset your Sites Maker password',
         html: `<p>Hello,</p><p>You requested a password reset. Click the link below to set a new password:</p><p><a href="${resetUrl}" style="padding:12px 24px;background:#00d4aa;color:#000;text-decoration:none;border-radius:6px;">Reset Password</a></p><p>Or copy this link: ${resetUrl}</p><p>This link expires in 1 hour.</p><p>If you didn't request this, ignore this email.</p>`,
         text: `Reset your password: ${resetUrl}\nThis link expires in 1 hour.`
       });

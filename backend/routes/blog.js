@@ -101,7 +101,7 @@ router.post('/admin/posts', requireAdmin, async (req, res) => {
       tags: Array.isArray(req.body?.tags) ? req.body.tags.map(t => String(t).trim().toLowerCase().slice(0, 30)).filter(Boolean) : [],
       published: req.body?.published === true,
       featured: req.body?.featured === true,
-      author: String(req.body?.author || 'Website Makers').trim().slice(0, 120),
+      author: String(req.body?.author || 'Sites Maker').trim().slice(0, 120),
       metaTitle: String(req.body?.metaTitle || '').trim().slice(0, 200),
       metaDescription: String(req.body?.metaDescription || '').trim().slice(0, 300),
     });
