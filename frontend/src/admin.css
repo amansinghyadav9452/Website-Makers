@@ -7,3 +7,27 @@
 @media(max-width:700px){.analytics-grid,.customer-grid,.form-grid,.check-list{grid-template-columns:1fr}.quote-preview{order:-1}.drawer{width:100%;max-width:none}.top-actions .export-btn{display:none}.filters{width:100%;flex-wrap:wrap}.filters .search{min-width:100%}.workspace-head{align-items:flex-start}.table-wrap{overflow:auto}.admin-main{padding:18px}.sidebar{display:none}}
 @media print{body *{visibility:hidden!important}.quote-preview,.quote-preview *{visibility:visible!important}.quote-preview{position:absolute;inset:0;box-shadow:none;border-radius:0;width:100%;min-height:auto}}
 .client-manager{display:grid;gap:20px}.portal-main{max-width:1200px}.portal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}.portal-progress{margin:28px 0}.portal-progress>div{display:flex;justify-content:space-between;color:#aaa;font-size:11px;text-transform:uppercase;letter-spacing:1px}.portal-progress>div b{color:#e7d29b}.portal-progress>i{display:block;height:10px;border-radius:99px;background:#ffffff12;overflow:hidden;margin-top:10px}.portal-progress em{display:block;height:100%;background:#c9a762;border-radius:99px}.milestones{display:grid;gap:10px;margin:22px 0}.milestones div{color:#888;padding:10px 12px;border:1px solid #ffffff0b;border-radius:10px}.milestones div span{margin-right:10px}.milestones div.done{color:#9fe3cd;border-color:#54d3b033;background:#54d3b00a}.client-manager .customer-grid{margin-top:15px}@media(max-width:800px){.portal-grid{grid-template-columns:1fr}}
+
+/* Mobile dashboard layout fix: the desktop sidebar must not reserve space on phones. */
+.mobile-nav{display:none}
+@media(max-width:700px){
+  html,body,#root{width:100%;min-width:0;overflow-x:hidden}
+  .admin-shell{width:100%;min-width:0;display:block;padding-bottom:76px}
+  .sidebar{display:none}
+  .admin-main{margin-left:0;width:100%;max-width:none;min-width:0;padding:18px 14px 32px}
+  .topbar{width:100%;min-width:0;margin-bottom:22px;align-items:flex-start}
+  .topbar h1{font-size:clamp(28px,8vw,34px);line-height:1.08;max-width:100%}
+  .top-actions{flex:none;gap:6px}
+  .live-status{padding:9px 10px}
+  .stat-grid{width:100%;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .stat-card{min-width:0;padding:14px;gap:10px}
+  .stat-card strong{font-size:24px}
+  .stat-card span,.stat-card small{font-size:9px}
+  .workspace-card{width:100%;min-width:0}
+  .workspace-head{min-width:0}
+  .mobile-nav{position:fixed;left:10px;right:10px;bottom:10px;z-index:80;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;padding:7px;border:1px solid #ffffff14;border-radius:18px;background:#0d0f13ee;backdrop-filter:blur(18px);box-shadow:0 18px 50px #0009}
+  .mobile-nav button{min-width:0;border:0;background:transparent;color:#777;border-radius:12px;padding:7px 2px;display:grid;place-items:center;gap:3px;cursor:pointer}
+  .mobile-nav button span{font-size:15px;line-height:1}
+  .mobile-nav button small{font:500 7px/1.1 'DM Mono';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+  .mobile-nav button.active{color:#e6c67e;background:#e6c67e0d}
+}
