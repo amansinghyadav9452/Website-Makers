@@ -1,4 +1,4 @@
-const CACHE = 'sites-maker-shell-v3';
+const CACHE = 'wm-shell-v2';
 const CORE = ['/','/index.html'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting()));
@@ -10,7 +10,6 @@ self.addEventListener('fetch', event => {
   const req = event.request;
   const url = new URL(req.url);
   if (req.method !== 'GET' || url.origin !== self.location.origin) return;
-  if (url.pathname.startsWith('/admin') || url.pathname.startsWith('/portal')) return;
   if (req.mode === 'navigate') {
     event.respondWith(fetch(req).catch(() => caches.match('/index.html')));
     return;

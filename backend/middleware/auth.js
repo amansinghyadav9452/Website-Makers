@@ -1,8 +1,34 @@
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
+const logger = require('../utils/logger');
 
 const ADMIN_AUDIENCE = 'website-makers-admin';
 const CLIENT_AUDIENCE = 'website-makers-client';
+
+// Account lockout tracking (in-memory; use Redis in production)
+const loginAttempts = new Map(); // email -> { count, lockedUntil }
+
+function checkLockout(email) {
+  const record = loginAttempts.get(email);
+  if (record && record.lockedUntil > Date.now()) {
+    const minutes = Math.ceil((record.lockedUntil - Date.now()) / 60000);
+    throw new Error(`Account locked. Try again in ${minutes} minute${minutes > 1 ? 's' : ''}.`);
+  }
+}
+
+function recordFailedAttempt(email) {
+  const record = loginAttempts.get(email) || { count: 0 };
+  record.count++;
+  if (record.count >= 5) {
+    record.lockedUntil = Date.now() + 30 * 60 * 1000; // 30 min lock
+    logger.warn(`Account locked for ${email} due to failed attempts`);
+  }
+  loginAttempts.set(email, record);
+}
+
+function clearAttempts(email) {
+  loginAttempts.delete(email);
+}
 
 function passwordHash(password) {
   const value = String(password || '');
@@ -64,7 +90,8 @@ function requireAdmin(req, res, next) {
     if (payload.role !== 'admin') throw new Error('role');
     req.admin = payload;
     next();
-  } catch {
+  } catch (err) {
+    logger.warn(`Admin auth failed: ${err.message}`);
     res.status(401).json({ ok: false, error: 'Unauthorized or expired session.' });
   }
 }
@@ -75,9 +102,32 @@ function requireClient(req, res, next) {
     if (payload.role !== 'client' || !payload.clientId) throw new Error('role');
     req.client = payload;
     next();
-  } catch {
+  } catch (err) {
+    logger.warn(`Client auth failed: ${err.message}`);
     res.status(401).json({ ok: false, error: 'Unauthorized or expired client session.' });
   }
 }
 
-module.exports = { passwordHash, verifyPassword, signToken, verifyToken, requireAdmin, requireClient };
+// Permission check middleware
+function requirePermission(permission) {
+  return (req, res, next) => {
+    if (!req.admin) return res.status(401).json({ ok: false, error: 'Unauthorized.' });
+    if (req.admin.type === 'legacy') return next(); // Legacy admin has all permissions
+    if (req.admin.permissions && req.admin.permissions.includes(permission)) return next();
+    if (req.admin.role === 'superadmin') return next();
+    res.status(403).json({ ok: false, error: 'Insufficient permissions.' });
+  };
+}
+
+module.exports = { 
+  passwordHash, 
+  verifyPassword, 
+  signToken, 
+  verifyToken, 
+  requireAdmin, 
+  requireClient,
+  requirePermission,
+  checkLockout,
+  recordFailedAttempt,
+  clearAttempts
+};

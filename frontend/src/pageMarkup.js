@@ -5,7 +5,7 @@ export const pageMarkup = String.raw`
 
 <!-- NAV -->
 <nav id="nav">
-  <a class="nav-logo" href="#home" aria-label="Sites Maker"><img class="nav-logo-img" src="/assets/sites-maker-logo.webp" alt="Sites Maker" width="30" height="27" decoding="async" fetchpriority="high"><strong class="brand-name">Sites Maker</strong></a>
+  <a class="nav-logo" href="#home"><span class="mark">W</span>Website <span>Makers</span></a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
@@ -270,7 +270,7 @@ export const pageMarkup = String.raw`
   </div>
   <div class="testi-track-wrap" id="testiWrap">
     <div class="testi-track">
-      <div class="testimonial-card testimonial-empty"><div class="stars">✦</div><p>Approved client feedback will appear here as projects are completed.</p><div class="reviewer"><div class="reviewer-avatar">W</div><div><div class="reviewer-name">Sites Maker</div><div class="reviewer-role">Client feedback</div></div></div></div>
+      <div class="testimonial-card testimonial-empty"><div class="stars">✦</div><p>Approved client feedback will appear here as projects are completed.</p><div class="reviewer"><div class="reviewer-avatar">W</div><div><div class="reviewer-name">Website Makers</div><div class="reviewer-role">Client feedback</div></div></div></div>
     </div>
   </div>
 </section>
@@ -334,7 +334,7 @@ export const pageMarkup = String.raw`
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <div class="footer-logo"><img class="footer-logo-img" src="/assets/sites-maker-logo.webp" alt="Sites Maker" width="30" height="27" loading="lazy" decoding="async"><strong class="brand-name">Sites Maker</strong></div>
+      <div class="footer-logo"><span style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--gold-light),var(--gold));display:inline-flex;align-items:center;justify-content:center;color:#0b0c10;font-family:'JetBrains Mono',monospace;font-size:.78rem;">W</span>Website <span>Makers</span></div>
       <p>Web development studio focused on practical, maintainable digital products. We build unique, premium-quality websites and digital products at honest, transparent prices.</p>
       <p>📞 <a href="tel:8957197142" style="color:var(--gold-light);text-decoration:none;">+91-8957197142</a></p>
       <p>✉️ <a href="mailto:websitemaker695@gmail.com" style="color:var(--gold-light);text-decoration:none;">websitemaker695@gmail.com</a></p>
@@ -351,7 +351,7 @@ export const pageMarkup = String.raw`
   </div>
   <div class="footer-legal-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/refund">Refunds</a><a href="/cookies">Cookies</a></div>
   <div class="footer-bottom">
-    <p>Sites Maker © 2025. All rights reserved.</p>
+    <p>Website Makers © 2025. All rights reserved.</p>
     <p>Made with ❤️ in India</p>
   </div>
 </footer>

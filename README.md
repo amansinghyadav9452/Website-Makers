@@ -1,4 +1,4 @@
-# Sites Maker — Production Clean Build
+# Website Makers — Production Clean Build
 
 ## What was cleaned
 - Removed `node_modules`, `.vite`, `dist` and stale legacy `script.js` / `build-cache.js`.

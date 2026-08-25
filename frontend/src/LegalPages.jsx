@@ -5,7 +5,7 @@ const pages = {
     title: 'Privacy Policy',
     eyebrow: 'Privacy',
     sections: [
-      ['What we collect', 'When you contact Sites Maker, we may collect the information you submit, such as your name, email address, phone number, service requirements and message. We also collect limited technical analytics when analytics is enabled.'],
+      ['What we collect', 'When you contact Website Makers, we may collect the information you submit, such as your name, email address, phone number, service requirements and message. We also collect limited technical analytics when analytics is enabled.'],
       ['How we use it', 'We use enquiry information to respond to requests, prepare estimates, deliver projects and provide support. We do not sell customer enquiry data.'],
       ['Retention', 'We retain business records only as long as reasonably necessary for support, accounting, legal obligations and project history.'],
       ['Third parties', 'We may use hosting, database, email and payment providers to operate the service. They receive only the information required for the relevant service.'],
@@ -48,12 +48,12 @@ export default function LegalPages({type='privacy', onBack}) {
   const page = pages[type] || pages.privacy;
   return <div className="legal-page">
     <div className="legal-shell">
-      <button className="legal-back" onClick={onBack}>← Back to Sites Maker</button>
+      <button className="legal-back" onClick={onBack}>← Back to Website Makers</button>
       <span className="eyebrow">{page.eyebrow}</span>
       <h1>{page.title}</h1>
       <p className="legal-updated">Last updated: August 2026</p>
       {page.sections.map(([h,p])=><section key={h}><h2>{h}</h2><p>{p}</p></section>)}
-      <div className="legal-contact"><strong>Sites Maker</strong><span>For policy questions, contact us through the website enquiry form.</span></div>
+      <div className="legal-contact"><strong>Website Makers</strong><span>For policy questions, contact us through the website enquiry form.</span></div>
     </div>
   </div>;
 }

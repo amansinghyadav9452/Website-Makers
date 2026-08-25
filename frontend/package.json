@@ -1,18 +1,30 @@
 {
   "name": "website-makers-frontend-react",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint . --ext js,jsx"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",
-    "vite": "^6.3.5",
+    "chart.js": "^4.4.1",
+    "framer-motion": "^11.0.0",
+    "i18next": "^23.7.0",
+    "i18next-browser-languagedetector": "^7.2.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^14.0.0",
+    "sonner": "^1.4.0",
+    "vite": "^6.3.5"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0"
+  }
 }
