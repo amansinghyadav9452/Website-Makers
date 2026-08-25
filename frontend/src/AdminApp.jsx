@@ -20,7 +20,7 @@ async function api(path, options={}, token){
   return d;
 }
 
-function BrandLockup({subtitle='ADMIN CONSOLE'}){return <div className="brand-lockup"><span className="brand-logo-wrap"><img src="/assets/sites-maker-logo.png" alt="Sites Maker logo"/></span><span className="brand-wordmark"><b>Sites</b> <em>Maker</em><small>{subtitle}</small></span></div>}
+function BrandLockup({subtitle='ADMIN CONSOLE'}){return <div className="brand-lockup"><span className="brand-logo-wrap"><img src="/assets/sites-maker-logo.png" alt="Sites Maker logo"/></span><span className="brand-wordmark"><span className="brand-name"><b>Sites</b><em>Maker</em></span><small>{subtitle}</small></span></div>}
 
 function Login({onLogin}){const[email,setEmail]=useState(''),[password,setPassword]=useState(''),[busy,setBusy]=useState(false),[error,setError]=useState('');const submit=async e=>{e.preventDefault();setBusy(true);setError('');try{const d=await api('/api/inquiries/admin/login',{method:'POST',body:JSON.stringify({email,password})});sessionStorage.setItem(TOKEN_KEY,d.token);onLogin(d.token)}catch(err){setError(err.message)}finally{setBusy(false)}};return <div className="admin-auth"><div className="auth-orb orb-one"/><div className="auth-orb orb-two"/><div className="login-card"><BrandLockup subtitle="ADMIN CONSOLE" /><div className="login-copy"><span className="eyebrow">Private workspace</span><h1>Welcome back.</h1><p>Leads, customers, quotes, reviews and analytics in one command center.</p></div><form onSubmit={submit}><label>Admin email<input type="email" autoComplete="username" value={email} onChange={e=>setEmail(e.target.value)} placeholder="admin@yourdomain.com" required/></label><label>Password<input type="password" autoComplete="current-password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="••••••••••••" required/></label>{error&&<div className="auth-error">{error}</div>}<button className="primary-btn" disabled={busy}>{busy?'Authenticating…':'Enter command center'} <span>↗</span></button></form><div className="secure-line">⌁ Protected JWT session · 8 hours</div></div></div>}
 
@@ -69,7 +69,7 @@ export default function AdminApp(){
     </main>
     <div className={`mobile-drawer-backdrop ${menuOpen?'open':''}`} onClick={()=>setMenuOpen(false)} aria-hidden="true" />
     <aside className={`mobile-drawer ${menuOpen?'open':''}`} aria-hidden={!menuOpen}>
-      <div className="mobile-drawer-head"><BrandLockup /><button type="button" className="drawer-close" onClick={()=>setMenuOpen(false)} aria-label="Close navigation">×</button></div>
+      <div className="mobile-drawer-head"><BrandLockup /><button type="button" className="drawer-close" onPointerDown={e=>{e.preventDefault();e.stopPropagation();setMenuOpen(false)}} onClick={e=>{e.stopPropagation();setMenuOpen(false)}} aria-label="Close navigation">×</button></div>
       <nav>{navItems.map(([id,ic,l])=><button type="button" key={id} className={tab===id?'active':''} onClick={()=>navigate(id)}><span>{ic}</span><b>{l}</b>{tab===id&&<i>●</i>}</button>)}</nav>
       <div className="mobile-drawer-footer"><button type="button" className="drawer-theme" onClick={toggleTheme}>{theme==='dark'?'☀ Light theme':'☾ Dark theme'}</button><button type="button" className="drawer-logout" onClick={logout}>↪ Sign out</button></div>
     </aside>
