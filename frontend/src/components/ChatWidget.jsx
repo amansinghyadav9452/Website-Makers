@@ -6,7 +6,7 @@ const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || (import.meta.env.PROD
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: 'Hi! I\'m the Website Makers assistant. How can I help you today?' }
+    { role: 'assistant', content: 'Hi! I\'m the Sites Maker assistant. How can I help you today?' }
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -97,7 +97,7 @@ export function ChatWidget() {
       {open && (
         <div className="chat-widget">
           <div className="chat-header">
-            <strong>Website Makers</strong>
+            <strong>Sites Maker</strong>
             <span>AI Assistant</span>
           </div>
 

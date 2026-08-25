@@ -71,10 +71,6 @@
     box-shadow:0 1px 0 rgba(255,255,255,.06);
   }
   .nav-logo{font-family:'Sora',sans-serif; font-weight:700; font-size:1.18rem; color:#fff; text-decoration:none; display:flex; align-items:center; gap:9px;}
-  .nav-logo .mark{
-    width:30px; height:30px; border-radius:8px; background:linear-gradient(135deg,var(--gold-light),var(--gold));
-    display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-weight:600; color:#0b0c10; font-size:.85rem;
-  }
   .nav-logo span{color:var(--gold-light); font-weight:400;}
   .nav-links{display:flex; gap:32px; list-style:none;}
   .nav-links a{text-decoration:none; color:rgba(255,255,255,.72); font-size:.87rem; font-weight:500; position:relative; padding:4px 0; transition:color .2s;}
@@ -337,7 +333,7 @@
 
 
 /* =========================================================
-   WEBSITE MAKERS — ULTRA MOTION PACK
+   SITES MAKER — ULTRA MOTION PACK
    ========================================================= */
 :root{
   --motion-gold:rgba(231,205,147,.9);
@@ -785,3 +781,11 @@ footer::before{
 .legal-page{min-height:100vh;background:radial-gradient(circle at 70% 0%,#d6b66d1a,transparent 35%),#0d0e10;color:#eee;padding:40px 20px 90px;font-family:Inter,system-ui,sans-serif}.legal-shell{max-width:860px;margin:auto;padding:40px 0}.legal-back{border:1px solid #ffffff1f;background:#ffffff08;color:#ddd;border-radius:999px;padding:11px 16px;cursor:pointer;margin-bottom:70px}.legal-page .eyebrow{color:#d8bb78}.legal-page h1{font:700 clamp(42px,7vw,76px)/1.02 Georgia,serif;margin:14px 0}.legal-updated{color:#8f8f8f;font-size:13px;margin-bottom:60px}.legal-page section{border-top:1px solid #ffffff13;padding:28px 0}.legal-page h2{font:700 24px Georgia,serif;margin:0 0 10px;color:#f3e3bb}.legal-page section p{color:#bdbdbd;line-height:1.8;max-width:760px}.legal-contact{display:flex;gap:12px;flex-direction:column;margin-top:35px;padding:22px;border:1px solid #d8bb7825;border-radius:18px;background:#d8bb7808;color:#aaa}.legal-contact strong{color:#f0ddb0}
 
 .footer-legal-links{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin:18px 0}.footer-legal-links a{color:#8d8d8d;text-decoration:none;font:11px "JetBrains Mono",monospace}.footer-legal-links a:hover{color:#d8bb78}
+
+/* Sites Maker premium logo treatment */
+.nav-logo .mark-image{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:radial-gradient(circle at 30% 20%,#fff7d8,#e7c46e 45%,#8b672e);box-shadow:0 8px 25px rgba(198,161,91,.22),inset 0 1px 0 rgba(255,255,255,.7);overflow:hidden;flex:none}.nav-logo .mark-image img{width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 2px 5px rgba(0,0,0,.4))}.nav-logo strong{font-weight:800;letter-spacing:-.04em}.nav-logo strong span{color:var(--gold-light);font-weight:800}
+.footer-logo{font-family:'Sora',sans-serif; font-size:1.3rem; font-weight:800; color:#fff; display:flex; align-items:center; gap:9px}.footer-logo strong{font-weight:800}.footer-logo strong span{color:var(--gold-light)}.footer-mark-image{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:radial-gradient(circle at 30% 20%,#fff7d8,#e7c46e 45%,#8b672e);overflow:hidden}.footer-mark-image img{width:27px;height:27px;object-fit:contain}
+.logo-avatar{overflow:hidden;background:radial-gradient(circle at 30% 20%,#fff7d8,#e7c46e 45%,#8b672e)!important}.logo-avatar img{width:100%;height:100%;object-fit:contain}
+  .nav-logo .mark-image{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:radial-gradient(circle at 30% 20%,#fff7d8,#e7c46e 45%,#8b672e);box-shadow:0 8px 25px rgba(198,161,91,.22),inset 0 1px 0 rgba(255,255,255,.7);overflow:hidden;flex:none}.nav-logo .mark-image img{width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 2px 5px rgba(0,0,0,.4))}.nav-logo strong{font-weight:800;letter-spacing:-.04em}.nav-logo strong span{color:var(--gold-light);font-weight:800}
+  .footer-logo{font-family:'Sora',sans-serif; font-size:1.3rem; font-weight:800; color:#fff; display:flex; align-items:center; gap:9px}.footer-logo strong{font-weight:800}.footer-logo strong span{color:var(--gold-light)}.footer-mark-image{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:radial-gradient(circle at 30% 20%,#fff7d8,#e7c46e 45%,#8b672e);overflow:hidden}.footer-mark-image img{width:27px;height:27px;object-fit:contain}
+@media(max-width:600px){.nav-logo{font-size:.98rem}.nav-logo .mark-image{width:32px;height:32px}.nav-logo .mark-image img{width:28px;height:28px}}

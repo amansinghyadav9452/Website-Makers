@@ -1,4 +1,4 @@
-# Website Makers — Inquiries API
+# Sites Maker — Inquiries API
 
 Small Express + MongoDB Atlas backend that stores contact-form submissions
 from the website (`POST /api/inquiries`) and lets you list them
