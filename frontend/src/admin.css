@@ -166,3 +166,89 @@ body.admin-route #root {
   .topbar{grid-template-columns:1fr auto auto;grid-template-areas:"brand theme menu" "title title title"}
   .mobile-menu-toggle{grid-area:menu}
 }
+
+/* Final mobile drawer hardening */
+@media (max-width:700px){
+  .mobile-topbar-brand strong{
+    color:var(--text);
+    background:linear-gradient(90deg,var(--text),var(--gold));
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .mobile-menu{
+    width:min(88vw,360px);
+    min-width:280px;
+    padding:16px 14px max(18px,env(safe-area-inset-bottom));
+    overflow:hidden;
+    isolation:isolate;
+  }
+  .mobile-menu-head{
+    position:relative;
+    z-index:2;
+    flex:0 0 auto;
+    min-height:82px;
+    padding:4px 2px 16px;
+    align-items:center;
+  }
+  .mobile-menu-head .brand-mark{
+    min-width:0;
+    max-width:calc(100% - 54px);
+    flex:1 1 auto;
+  }
+  .mobile-menu-head .brand-logo-img{flex:0 0 38px}
+  .mobile-menu-head .brand-name,
+  .mobile-menu-head small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mobile-menu-close{
+    position:relative;
+    z-index:4;
+    flex:0 0 44px;
+    width:44px;
+    height:44px;
+    min-width:44px;
+    display:grid;
+    place-items:center;
+    padding:0;
+    pointer-events:auto;
+    touch-action:manipulation;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .mobile-menu nav{
+    position:relative;
+    z-index:1;
+    flex:1 1 auto;
+    min-height:0;
+    margin:0;
+    padding:18px 0 12px;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+  }
+  .mobile-menu nav button{
+    position:relative;
+    z-index:1;
+    min-height:52px;
+  }
+  .mobile-menu-logout{
+    position:relative;
+    z-index:2;
+    flex:0 0 auto;
+    margin-top:10px;
+    min-height:48px;
+  }
+  .mobile-menu-backdrop{touch-action:manipulation}
+}
+
+.theme-light .mobile-topbar-brand strong{
+  color:#171717;
+  -webkit-text-fill-color:transparent;
+  background:linear-gradient(90deg,#171717,#9a6d1f);
+  -webkit-background-clip:text;
+  background-clip:text;
+}
+.theme-light .mobile-menu-head .brand-name{
+  color:#171717;
+  -webkit-text-fill-color:transparent;
+  background:linear-gradient(90deg,#171717,#9a6d1f);
+  -webkit-background-clip:text;
+  background-clip:text;
+}
