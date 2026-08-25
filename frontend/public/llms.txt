@@ -1,6 +1,6 @@
-# Website Makers
+# Sites Maker
 
-Website Makers is a web development studio serving businesses with responsive websites, e-commerce stores and custom web applications.
+Sites Maker is a web development studio serving businesses with responsive websites, e-commerce stores and custom web applications.
 
 Website: https://sitesmaker.online/
 Contact: https://sitesmaker.online/#contact

@@ -213,7 +213,7 @@ if (inquiryForm) {
 
 
 // =========================================================
-// WEBSITE MAKERS — ULTRA MOTION PACK
+// Sites Maker — ULTRA MOTION PACK
 // =========================================================
 (() => {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

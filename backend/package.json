@@ -1,7 +1,7 @@
 {
   "name": "website-makers-api",
   "version": "1.2.0",
-  "description": "Production API for Website Makers",
+  "description": "Production API for Sites Maker",
   "main": "server.js",
   "type": "commonjs",
   "scripts": {

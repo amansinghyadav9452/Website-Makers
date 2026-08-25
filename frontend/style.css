@@ -70,12 +70,9 @@
     padding:12px 5%; background:rgba(11,12,16,.72); backdrop-filter:blur(14px) saturate(140%);
     box-shadow:0 1px 0 rgba(255,255,255,.06);
   }
-  .nav-logo{font-family:'Sora',sans-serif; font-weight:700; font-size:1.18rem; color:#fff; text-decoration:none; display:flex; align-items:center; gap:9px;}
-  .nav-logo .mark{
-    width:30px; height:30px; border-radius:8px; background:linear-gradient(135deg,var(--gold-light),var(--gold));
-    display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-weight:600; color:#0b0c10; font-size:.85rem;
-  }
-  .nav-logo span{color:var(--gold-light); font-weight:400;}
+  .nav-logo{font-family:'Sora',sans-serif; font-size:1.18rem; color:#fff; text-decoration:none; display:flex; align-items:center; gap:10px;}
+  .nav-logo-img{width:30px;height:28px;object-fit:contain;display:block;filter:drop-shadow(0 0 8px rgba(230,198,126,.14));}
+  .brand-name{font-family:'Sora',sans-serif;font-weight:800;letter-spacing:-.025em;background:linear-gradient(90deg,#fff 0%,#fff 48%,var(--gold-light) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
   .nav-links{display:flex; gap:32px; list-style:none;}
   .nav-links a{text-decoration:none; color:rgba(255,255,255,.72); font-size:.87rem; font-weight:500; position:relative; padding:4px 0; transition:color .2s;}
   .nav-links a::after{content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--gold-light); transition:width .3s var(--ease);}
@@ -294,8 +291,9 @@
   footer{background:var(--ink); color:rgba(255,255,255,.7); padding:64px 5% 28px;}
   .footer-grid{display:grid; grid-template-columns:2fr 1fr 1fr; gap:40px; margin-bottom:44px;}
   .footer-brand p{font-size:.87rem; line-height:1.7; margin:16px 0 20px; color:var(--muted-light); max-width:320px;}
-  .footer-logo{font-family:'Sora',sans-serif; font-size:1.3rem; font-weight:700; color:#fff; display:flex; align-items:center; gap:9px;}
-  .footer-logo span{color:var(--gold-light); font-weight:400;}
+  .footer-logo{font-family:'Sora',sans-serif; font-size:1.3rem; color:#fff; display:flex; align-items:center; gap:10px;}
+  .footer-logo-img{width:30px;height:27px;object-fit:contain;display:block;}
+  .footer-logo .brand-name{font-size:1.3rem;}
   .footer-col h4{color:#fff; font-weight:600; margin-bottom:18px; font-size:.9rem;}
   .footer-col ul{list-style:none; display:flex; flex-direction:column; gap:11px;}
   .footer-col ul li a{color:var(--muted-light); text-decoration:none; font-size:.86rem; transition:color .2s, padding-left .25s;}
@@ -325,7 +323,7 @@
   @media (max-width:600px){
     nav{padding:16px 4%; gap:10px;}
     .nav-logo{font-size:1rem;}
-    .nav-logo .mark{width:26px; height:26px; font-size:.78rem;}
+    .nav-logo-img{width:26px;height:24px;}
     .nav-cta{padding:9px 14px; font-size:.78rem;}
     section{padding:80px 5%;}
     .form-row{grid-template-columns:1fr;}
@@ -337,7 +335,7 @@
 
 
 /* =========================================================
-   WEBSITE MAKERS — ULTRA MOTION PACK
+   Sites Maker — ULTRA MOTION PACK
    ========================================================= */
 :root{
   --motion-gold:rgba(231,205,147,.9);

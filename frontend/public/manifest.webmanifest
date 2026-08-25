@@ -1,9 +1,17 @@
 {
-  "name": "Website Makers",
-  "short_name": "Website Makers",
+  "name": "Sites Maker",
+  "short_name": "Sites Maker",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f4f0e7",
   "theme_color": "#111214",
-  "description": "Premium websites, stores and web applications built by Website Makers."
+  "description": "Premium websites, stores and web applications built by Sites Maker.",
+  "icons": [
+    {
+      "src": "/assets/sites-maker-icon.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }

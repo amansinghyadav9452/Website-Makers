@@ -66,7 +66,7 @@ async function notifyNewInquiry(inquiry) {
   await transport.sendMail({
     from: process.env.SMTP_FROM || process.env.SMTP_USER,
     to: process.env.ADMIN_NOTIFY_EMAIL,
-    subject: `New Website Makers enquiry — ${inquiry.name}`,
+    subject: `New Sites Maker enquiry — ${inquiry.name}`,
     text: `New enquiry\n\nName: ${inquiry.name}\nEmail: ${inquiry.email}\nPhone: ${inquiry.phone}\nService: ${inquiry.service}\n\n${inquiry.message || ''}`
   });
 }
@@ -140,7 +140,7 @@ router.post('/:id/respond', requireAdmin, async (req, res) => {
     const mongoose = require('mongoose');
     if (!mongoose.isValidObjectId(req.params.id)) return res.status(400).json({ ok: false, error: 'Invalid inquiry id.' });
     const message = String(req.body?.message || '').trim();
-    const subject = String(req.body?.subject || 'Re: Your Website Makers enquiry').trim().slice(0, 180);
+    const subject = String(req.body?.subject || 'Re: Your Sites Maker enquiry').trim().slice(0, 180);
     if (!message || message.length > 5000) return res.status(400).json({ ok: false, error: 'Reply must contain 1–5000 characters.' });
     const inquiry = await Inquiry.findById(req.params.id);
     if (!inquiry) return res.status(404).json({ ok: false, error: 'Inquiry not found.' });
@@ -152,7 +152,7 @@ router.post('/:id/respond', requireAdmin, async (req, res) => {
       replyTo: process.env.SMTP_REPLY_TO || process.env.SMTP_FROM || process.env.SMTP_USER,
       subject,
       text: message,
-      html: `<div style="font-family:Arial,sans-serif;line-height:1.7;color:#222"><p>${escapeHtml(message).replace(/\n/g, '<br>')}</p><hr><small>Website Makers</small></div>`
+      html: `<div style="font-family:Arial,sans-serif;line-height:1.7;color:#222"><p>${escapeHtml(message).replace(/\n/g, '<br>')}</p><hr><small>Sites Maker</small></div>`
     });
     inquiry.responses.push({ message, channel: 'email', sentBy: req.admin.email });
     inquiry.lastResponseAt = new Date();
