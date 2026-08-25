@@ -141,6 +141,44 @@ router.post('/', submitLimiter, async (req, res) => {
   }
 });
 
+
+// Admin customer directory: group inquiries by email.
+router.get('/admin/customers', requireAdmin, async (req, res) => {
+  try {
+    const customers = await Inquiry.aggregate([
+      { $sort: { createdAt: -1 } },
+      {
+        $group: {
+          _id: { $toLower: '$email' },
+          name: { $first: '$name' },
+          email: { $first: '$email' },
+          phone: { $first: '$phone' },
+          enquiries: { $sum: 1 },
+          lastEnquiryAt: { $max: '$createdAt' }
+        }
+      },
+      { $sort: { lastEnquiryAt: -1 } },
+      { $limit: 500 },
+      {
+        $project: {
+          _id: 0,
+          customerId: '$_id',
+          name: 1,
+          email: 1,
+          phone: 1,
+          enquiries: 1,
+          lastEnquiryAt: 1
+        }
+      }
+    ]);
+
+    res.json({ ok: true, data: customers });
+  } catch (err) {
+    logger.error('Failed to fetch customer directory:', err.message);
+    res.status(500).json({ ok: false, error: 'Could not fetch customers.' });
+  }
+});
+
 router.get('/', requireAdmin, async (req, res) => {
   try {
     const { q = '', status = '', priority = '', service = '', page = 1, limit = 50 } = req.query;
