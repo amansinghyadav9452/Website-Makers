@@ -849,3 +849,69 @@ footer::before{
   .submission-thanks{bottom:12px;font-size:.68rem;padding:8px 12px}
 }
 @media(prefers-reduced-motion:reduce){.submission-confetti{display:none}.submission-orbit.active .orbit-item{animation:none}.submission-flow[data-stage="processing"] .submission-icon-wrap{animation:none}}
+
+/* =========================================================
+   QUERY SUBMISSION — FINAL MOTION POLISH
+   ========================================================= */
+body.submission-lock{overflow:hidden!important}
+.submission-flow{contain:layout paint;overscroll-behavior:none}
+.submission-flow.stage-switching .submission-kicker,
+.submission-flow.stage-switching .submission-title,
+.submission-flow.stage-switching .submission-subtitle,
+.submission-flow.stage-switching .submission-icon-wrap,
+.submission-flow.stage-switching .submission-progress,
+.submission-flow.stage-switching .submission-dots,
+.submission-flow.stage-switching .submission-details{animation:stageOut .12s ease both!important}
+.submission-flow:not(.stage-switching) .submission-kicker,
+.submission-flow:not(.stage-switching) .submission-title,
+.submission-flow:not(.stage-switching) .submission-subtitle{animation:stageIn .42s cubic-bezier(.16,1,.3,1) both}
+.submission-flow:not(.stage-switching) .submission-title{animation-delay:.03s}
+.submission-flow:not(.stage-switching) .submission-subtitle{animation-delay:.06s}
+
+/* Keep the orbit itself calm. Only its ring rotates, so labels never look like a
+   washing machine trying to explain a form submission. */
+.submission-orbit{border-color:transparent;animation:none!important}
+.submission-orbit::before{content:'';position:absolute;inset:0;border:1px dashed rgba(231,205,147,.22);border-radius:50%;animation:orbitRing 10s linear infinite}
+.submission-orbit.active .orbit-item{animation:none!important;transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .45s ease}
+.orbit-item small{top:57px;font-size:.62rem;letter-spacing:.04em;color:#aeb3bc;text-shadow:0 1px 10px rgba(0,0,0,.85)}
+.orbit-item{background:rgba(14,16,21,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+
+/* Celebration should radiate from the success icon, not rain mostly into the footer. */
+.submission-confetti{inset:35% 25% 35%;overflow:visible}
+.submission-confetti i{left:50%;top:50%;animation:confettiBurst var(--t) cubic-bezier(.16,.8,.25,1) var(--d) both}
+.submission-flow.celebrate .submission-icon-wrap{box-shadow:0 0 0 12px rgba(115,242,139,.035),0 0 85px rgba(115,242,139,.32)}
+.submission-flow.celebrate .submission-title{color:#f7fff8;text-shadow:0 0 28px rgba(115,242,139,.16)}
+
+/* Details are information, not another headline competing for attention. */
+.submission-details{background:rgba(10,19,14,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.submission-details.visible{animation:detailsIn .55s cubic-bezier(.16,1,.3,1) both}
+.detail-row strong{line-height:1.45}
+.submission-flow[data-stage="final"] .submission-details{box-shadow:0 18px 55px rgba(0,0,0,.28),0 0 30px rgba(115,242,139,.05)}
+.submission-flow[data-stage="final"] .submission-thanks{animation:thanksIn .6s cubic-bezier(.16,1,.3,1) both}
+.submission-cta{box-shadow:0 12px 30px rgba(231,205,147,.14);transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,opacity .35s ease}
+.submission-cta:hover{transform:translateY(-2px)!important;box-shadow:0 16px 38px rgba(231,205,147,.22)}
+.submission-cta:active{transform:translateY(0)!important}
+
+@keyframes stageOut{to{opacity:0;transform:translateY(5px) scale(.985)}}
+@keyframes stageIn{from{opacity:0;transform:translateY(7px) scale(.99)}to{opacity:1;transform:none}}
+@keyframes orbitRing{to{transform:rotate(360deg)}}
+@keyframes confettiBurst{0%{opacity:0;transform:translate3d(0,0,0) rotate(0) scale(.65)}12%{opacity:1}100%{opacity:0;transform:translate3d(var(--drift),var(--rise),0) rotate(560deg) scale(1)}}
+@keyframes detailsIn{from{opacity:0;transform:translateY(22px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes thanksIn{from{opacity:0;transform:translate(-50%,12px) scale(.98)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
+
+@media(max-width:700px){
+  .submission-topbar{gap:10px}
+  .submission-secure{font-size:.58rem}
+  .submission-orbit{width:210px;height:210px}
+  .orbit-top{left:80px}.orbit-bottom{left:80px}.orbit-right{top:80px}.orbit-left{top:80px}
+  .orbit-item{width:46px;height:46px;font-size:.9rem}
+  .orbit-item small{top:52px;font-size:.57rem}
+  .submission-confetti{inset:36% 20% 38%}
+  .submission-details{width:min(100%,360px)}
+  .detail-row{gap:3px}
+  .submission-thanks{max-width:360px}
+}
+@media(prefers-reduced-motion:reduce){
+  .submission-flow.stage-switching *,.submission-flow:not(.stage-switching) *{animation:none!important}
+  .submission-orbit::before,.submission-confetti i{animation:none!important}
+}

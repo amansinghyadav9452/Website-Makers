@@ -203,6 +203,8 @@ if (inquiryForm) {
         <div class="submission-thanks">✦ Thank you for reaching out to <b>Sites Maker</b>.</div>
       </div>`;
     document.body.appendChild(overlay);
+    document.body.classList.add('submission-lock');
+    inquiryForm.setAttribute('aria-hidden', 'true');
 
     const title = overlay.querySelector('.submission-title');
     const subtitle = overlay.querySelector('.submission-subtitle');
@@ -222,22 +224,33 @@ if (inquiryForm) {
         const x = Math.random() * 100;
         const delay = Math.random() * .45;
         const duration = 1.8 + Math.random() * 1.4;
-        const drift = (Math.random() * 140 - 70).toFixed(1);
+        const drift = (Math.random() * 300 - 150).toFixed(1);
+        const rise = -(80 + Math.random() * 260).toFixed(1);
         const color = pieces[i % pieces.length];
         const size = 5 + Math.random() * 5;
-        return `<i style="--x:${x}%;--d:${delay}s;--t:${duration}s;--drift:${drift}px;--c:${color};--s:${size}px"></i>`;
+        return `<i style="--x:${x}%;--d:${delay}s;--t:${duration}s;--drift:${drift}px;--rise:${rise}px;--c:${color};--s:${size}px"></i>`;
       }).join('');
     };
 
-    const setStage = (name, k, t, sub) => {
+    const setStage = async (name, k, t, sub) => {
+      const animated = !reducedMotion && overlay.dataset.stage;
+      if (animated) {
+        overlay.classList.add('stage-switching');
+        await wait(120);
+      }
       overlay.dataset.stage = name;
       kicker.textContent = k;
       title.textContent = t;
       subtitle.textContent = sub;
+      if (animated) {
+        requestAnimationFrame(() => overlay.classList.remove('stage-switching'));
+      }
     };
 
     const finish = () => {
       overlay.classList.add('is-closing');
+      document.body.classList.remove('submission-lock');
+      inquiryForm.removeAttribute('aria-hidden');
       setTimeout(() => overlay.remove(), reducedMotion ? 0 : 520);
     };
 
@@ -248,31 +261,31 @@ if (inquiryForm) {
     cta.addEventListener('click', finish);
 
     (async () => {
-      if (!reducedMotion) overlay.classList.add('is-visible'); else overlay.classList.add('is-visible');
-      setStage('submitting','STEP 01 / 05','Submitting your query','Please wait a moment…');
+      overlay.classList.add('is-visible');
+      await setStage('submitting','STEP 01 / 05','Submitting your query','Please wait a moment…');
       icon.innerHTML = '<span class="plane" aria-hidden="true"><svg viewBox="0 0 64 64" role="img"><path d="M6 30.5 56 8 36 56l-7-19-23-6.5Z" fill="currentColor"/><path d="M29 37 56 8" fill="none" stroke="#fff6d7" stroke-width="2.5" stroke-linecap="round" opacity=".75"/></svg></span>'; 
       progress.style.width = '32%';
       await wait(reducedMotion ? 80 : 1200);
 
-      setStage('processing','STEP 02 / 05','Processing your request','This will just take a few seconds…');
+      await setStage('processing','STEP 02 / 05','Processing your request','This will just take a few seconds…');
       icon.innerHTML = '<span class="pulse-dot"></span>';
       orbit.classList.add('active'); dots.classList.add('active'); progress.style.width = '64%';
       await wait(reducedMotion ? 80 : 1500);
 
-      setStage('success','STEP 03 / 05','Query submitted successfully!','We’ve received your message and will get back to you shortly.');
+      await setStage('success','STEP 03 / 05','Query submitted successfully!','We’ve received your message and will get back to you shortly.');
       icon.innerHTML = '<span class="check">✓</span>';
       orbit.classList.remove('active'); dots.classList.remove('active'); progress.style.width = '100%';
       overlay.classList.add('celebrate');
       makeConfetti();
       await wait(reducedMotion ? 80 : 1700);
 
-      setStage('details','STEP 04 / 05','Your submission is confirmed','Here are your reference details.');
+      await setStage('details','STEP 04 / 05','Your submission is confirmed','Here are your reference details.');
       icon.innerHTML = '<span class="check">✓</span>';
       details.classList.add('visible');
       cta.textContent = 'Back to home →';
       await wait(reducedMotion ? 80 : 1200);
 
-      setStage('final','STEP 05 / 05','You’re all set ✨','Your enquiry is safely in our system.');
+      await setStage('final','STEP 05 / 05','You’re all set ✨','Your enquiry is safely in our system.');
       cta.textContent = 'Back to home →';
       thanks.classList.add('visible');
     })();
