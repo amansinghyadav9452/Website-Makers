@@ -916,27 +916,23 @@ body.submission-lock{overflow:hidden!important}
   .submission-orbit::before,.submission-confetti i{animation:none!important}
 }
 
-/* Final-state composition: CTA straddles the details card, while the thank-you note
-   lives in its own footer lane. This is deliberate, not the usual "absolute-position
-   everything until the screenshot looks okay" ritual. */
+/* Final-state composition: CTA stays in normal document flow, right under the
+   details card — same lane it already occupies at the "details" stage — so it can
+   never straddle or overlap the card regardless of viewport height or content
+   length. Only a settle-in animation marks the stage change; no repositioning. */
 .submission-flow[data-stage="final"] .submission-cta{
-  position:absolute;
-  left:50%;
-  bottom:66px;
-  margin:0;
+  position:relative;
   min-width:150px;
   z-index:7;
-  transform:translateX(-50%);
-}
-.submission-flow[data-stage="final"] .submission-cta:hover{
-  transform:translateX(-50%) translateY(-3px) scale(1.015)!important;
-}
-.submission-flow[data-stage="final"] .submission-cta:active{
-  transform:translateX(-50%) scale(.985)!important;
+  animation:ctaSettle .55s cubic-bezier(.16,1,.3,1) both;
 }
 .submission-flow[data-stage="final"] .submission-thanks{
-  bottom:22px;
   z-index:6;
+}
+@keyframes ctaSettle{
+  0%{transform:scale(.92);opacity:.7}
+  60%{transform:scale(1.035);opacity:1}
+  100%{transform:scale(1);opacity:1}
 }
 
 /* A richer midnight-indigo backdrop replaces the flat black slab. The foreground
@@ -978,13 +974,12 @@ body.submission-lock{overflow:hidden!important}
 
 @media(max-width:700px){
   .submission-flow[data-stage="final"] .submission-cta{
-    bottom:145px;
     min-width:178px;
     padding:14px 24px;
     border-radius:15px;
+    margin-top:18px;
   }
   .submission-flow[data-stage="final"] .submission-thanks{
-    bottom:22px;
     width:calc(100% - 44px);
     max-width:none;
     padding:10px 14px;
@@ -992,45 +987,3 @@ body.submission-lock{overflow:hidden!important}
   }
   .submission-content::before{inset:9% 4% 11%;border-radius:22px}
 }
-
-
-/* =========================================================
-   QUERY SUBMISSION — CTA STRADDLE FIX
-   The CTA is anchored to the details card, matching desktop on every viewport.
-   ========================================================= */
-.submission-details-wrap{
-  position:relative;
-  width:min(510px,90%);
-  margin-top:16px;
-  display:block;
-}
-.submission-details-wrap .submission-details{
-  width:100%;
-  margin:0;
-  box-sizing:border-box;
-}
-.submission-details-wrap .submission-cta{
-  position:absolute;
-  left:50%;
-  bottom:0;
-  margin:0;
-  transform:translate(-50%,50%);
-  z-index:7;
-  white-space:nowrap;
-}
-.submission-details-wrap .submission-cta:hover{transform:translate(-50%,calc(50% - 2px))!important}
-.submission-details-wrap .submission-cta:active{transform:translate(-50%,50%)!important}
-.submission-thanks{margin-top:42px}
-@media(max-width:700px){
-  .submission-details-wrap{width:min(100%,380px);margin-top:12px}
-  .submission-details-wrap .submission-details{width:100%;}
-  .submission-details-wrap .submission-cta{
-    min-width:210px;
-    max-width:calc(100% - 32px);
-    padding:13px 24px;
-  }
-  .submission-thanks{margin-top:42px;bottom:auto;position:relative;left:auto;transform:translateY(8px);width:min(100%,calc(100% - 16px));}
-  .submission-thanks.visible{transform:translateY(0)}
-  .submission-flow[data-stage="final"] .submission-thanks{animation:thanksInMobile .6s cubic-bezier(.16,1,.3,1) both}
-}
-@keyframes thanksInMobile{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}

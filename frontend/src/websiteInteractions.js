@@ -193,14 +193,12 @@ if (inquiryForm) {
           </div>
           <div class="submission-progress"><span></span></div>
           <div class="submission-dots"><i></i><i></i><i></i></div>
-          <div class="submission-details-wrap">
-            <div class="submission-details">
-              <div class="detail-row"><span>QUERY ID</span><strong>#SM-${esc(id)} <button class="copy-query" type="button" title="Copy query ID">⧉</button></strong></div>
-              <div class="detail-row"><span>SUBMITTED ON</span><strong>${esc(submitted)}</strong></div>
-              <div class="detail-row"><span>WE WILL CONTACT YOU ON</span><strong>☎ ${esc(payload.phone)}<br>✉ ${esc(payload.email)}</strong></div>
-            </div>
-            <button class="submission-cta" type="button">Awesome! ✨</button>
+          <div class="submission-details">
+            <div class="detail-row"><span>QUERY ID</span><strong>#SM-${esc(id)} <button class="copy-query" type="button" title="Copy query ID">⧉</button></strong></div>
+            <div class="detail-row"><span>SUBMITTED ON</span><strong>${esc(submitted)}</strong></div>
+            <div class="detail-row"><span>WE WILL CONTACT YOU ON</span><strong>☎ ${esc(payload.phone)}<br>✉ ${esc(payload.email)}</strong></div>
           </div>
+          <button class="submission-cta" type="button">Awesome! ✨</button>
         </div>
         <div class="submission-thanks">✦ Thank you for reaching out to <b>Sites Maker</b>.</div>
       </div>`;
