@@ -254,3 +254,110 @@
   color:transparent;
 }
 .theme-light .brand-wordmark small{color:#756d61}
+
+/* Final mobile drawer hardening */
+.mobile-drawer-backdrop{z-index:2147483000!important;position:fixed!important;inset:0!important;touch-action:none!important}
+.mobile-drawer{z-index:2147483001!important;position:fixed!important;top:0!important;right:0!important;bottom:0!important;height:100dvh!important;max-height:100dvh!important;display:flex!important;flex-direction:column!important;overflow:hidden!important;transform:translate3d(105%,0,0);visibility:hidden;opacity:1}
+.mobile-drawer.open{transform:translate3d(0,0,0);visibility:visible}
+.mobile-drawer-head{display:grid!important;grid-template-columns:minmax(0,1fr) 48px!important;align-items:center!important;gap:14px!important;min-height:72px!important;padding:10px 0 18px!important;flex:0 0 auto!important;overflow:visible!important}
+.mobile-drawer-brand{min-width:0!important;width:100%!important;overflow:visible!important}
+.mobile-drawer-brand .brand-lockup{width:max-content!important;max-width:100%!important;min-width:0!important;display:flex!important;flex:0 0 auto!important;align-items:center!important;gap:10px!important}
+.mobile-drawer-brand .brand-wordmark{width:max-content!important;min-width:0!important;flex:0 0 auto!important;display:flex!important;overflow:visible!important}
+.mobile-drawer-brand .brand-name{display:flex!important;flex-wrap:nowrap!important;white-space:nowrap!important;width:max-content!important;max-width:none!important;overflow:visible!important}
+.mobile-drawer-brand .brand-name b,.mobile-drawer-brand .brand-name em{display:inline!important;white-space:nowrap!important;word-break:keep-all!important;overflow:visible!important}
+.mobile-drawer-brand .brand-wordmark small{white-space:nowrap!important;display:block!important}
+.mobile-drawer .drawer-close{width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;position:relative!important;z-index:2147483003!important;pointer-events:auto!important;touch-action:manipulation!important;cursor:pointer!important;opacity:1!important;visibility:visible!important}
+.mobile-drawer nav{flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;padding:18px 0!important;-webkit-overflow-scrolling:touch!important}
+.mobile-drawer nav button{min-height:54px!important;flex:0 0 auto!important}
+.mobile-drawer-footer{flex:0 0 auto!important}
+
+/* Portal drawer gets its theme variables directly because it lives under <body>. */
+.mobile-drawer.theme-light{--bg:#f5f1e7;--panel:#fffdf8;--panel2:#f8f4eb;--line:#1a1a1a18;--text:#24211d;--muted:#6f6a61;--gold:#9a6f20;--teal:#168e7c;--violet:#735be8;--red:#b33f3f;background:#fffdf8!important;color:#24211d!important;border-left-color:#1a1a1a18!important;box-shadow:-35px 0 100px #0003!important}
+.mobile-drawer-backdrop.theme-light{background:#3a342b66!important}
+.mobile-drawer.theme-light .brand-wordmark b{color:#24211d!important}
+.mobile-drawer.theme-light .brand-wordmark em{background:linear-gradient(90deg,#805b17,#b07d27)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
+.mobile-drawer.theme-light .brand-wordmark small{color:#746b5e!important}
+.mobile-drawer.theme-light .mobile-drawer-head{border-bottom-color:#1a1a1a18!important}
+.mobile-drawer.theme-light .drawer-close{background:#fff!important;color:#26231f!important;border-color:#1a1a1a18!important}
+.mobile-drawer.theme-light nav button{color:#5e5951!important;background:transparent!important}
+.mobile-drawer.theme-light nav button b{color:#4b4740!important}
+.mobile-drawer.theme-light nav button span{color:#746f67!important}
+.mobile-drawer.theme-light nav button i{color:#9a6f20!important}
+.mobile-drawer.theme-light nav button.active{color:#24211d!important;background:linear-gradient(100deg,#b889311b,#6e55200a)!important;border-color:#a67b2f35!important;box-shadow:inset 3px 0 0 #9a6f20,0 10px 30px #5b4a2610!important}
+.mobile-drawer.theme-light nav button.active b,.mobile-drawer.theme-light nav button.active span{color:#24211d!important}
+.mobile-drawer.theme-light .mobile-drawer-footer{border-top-color:#1a1a1a18!important}
+.mobile-drawer.theme-light .drawer-theme{background:#fff!important;color:#292621!important;border-color:#1a1a1a18!important}
+.mobile-drawer.theme-light .drawer-logout{background:#fff8f6!important;color:#b34747!important;border-color:#c94b4b25!important}
+
+/* Stronger light-theme text contrast across the application */
+.admin-shell.theme-light{color:#24211d!important}
+.admin-shell.theme-light .workspace-card,
+.admin-shell.theme-light .stat-card,
+.admin-shell.theme-light .search,
+.admin-shell.theme-light .filters select,
+.admin-shell.theme-light .message-box,
+.admin-shell.theme-light .health,
+.admin-shell.theme-light .login-card{color:#24211d}
+.admin-shell.theme-light .workspace-head h2,
+.admin-shell.theme-light .drawer-head h2,
+.admin-shell.theme-light .reply-head h2,
+.admin-shell.theme-light .topbar h1,
+.admin-shell.theme-light .stat-card strong,
+.admin-shell.theme-light .customer-cell strong,
+.admin-shell.theme-light .metric-row b,
+.admin-shell.theme-light .empty h3{color:#24211d!important}
+.admin-shell.theme-light .workspace-head p,
+.admin-shell.theme-light .stat-card span,
+.admin-shell.theme-light .stat-card small,
+.admin-shell.theme-light .customer-cell small,
+.admin-shell.theme-light .date,
+.admin-shell.theme-light .service-pill,
+.admin-shell.theme-light .muted,
+.admin-shell.theme-light .empty,
+.admin-shell.theme-light .empty p,
+.admin-shell.theme-light .loading,
+.admin-shell.theme-light .drawer-head p,
+.admin-shell.theme-light .timeline-item small{color:#6f6a61!important}
+.admin-shell.theme-light th{color:#625c52!important}
+.admin-shell.theme-light td{color:#4b4740!important}
+.admin-shell.theme-light .search input{color:#2d2924!important}
+.admin-shell.theme-light .search input::placeholder{color:#777168!important;opacity:1}
+.admin-shell.theme-light .form-grid input,
+.admin-shell.theme-light .form-grid textarea,
+.admin-shell.theme-light .form-grid select,
+.admin-shell.theme-light .quote-form input,
+.admin-shell.theme-light .quote-form textarea,
+.admin-shell.theme-light .quote-form select,
+.admin-shell.theme-light .drawer-section select,
+.admin-shell.theme-light .drawer-section textarea,
+.admin-shell.theme-light .reply-modal input,
+.admin-shell.theme-light .reply-modal textarea{color:#2d2924!important;background:#fff!important}
+.admin-shell.theme-light .form-grid input::placeholder,
+.admin-shell.theme-light .form-grid textarea::placeholder,
+.admin-shell.theme-light .quote-form input::placeholder,
+.admin-shell.theme-light .quote-form textarea::placeholder,
+.admin-shell.theme-light .drawer-section textarea::placeholder,
+.admin-shell.theme-light .reply-modal input::placeholder,
+.admin-shell.theme-light .reply-modal textarea::placeholder{color:#777168!important;opacity:1}
+.admin-shell.theme-light .form-grid label,
+.admin-shell.theme-light .quote-form label,
+.admin-shell.theme-light .drawer-section>label,
+.admin-shell.theme-light .message-box label,
+.admin-shell.theme-light .timeline>label,
+.admin-shell.theme-light .reply-modal label{color:#706655!important}
+.admin-shell.theme-light .message-box p,
+.admin-shell.theme-light .timeline-item p{color:#454039!important}
+.admin-shell.theme-light .secondary-btn{color:#3b3731!important;background:#fff!important}
+.admin-shell.theme-light .icon-btn,
+.admin-shell.theme-light .theme-toggle,
+.admin-shell.theme-light .hamburger-btn,
+.admin-shell.theme-light .export-btn{color:#292621!important}
+
+@media(max-width:700px){
+  .mobile-drawer{width:min(390px,94vw)!important;padding:18px 18px 16px!important}
+  .mobile-drawer-head{min-height:78px!important}
+  .mobile-drawer-brand .brand-logo-wrap{width:48px!important;height:48px!important;border-radius:14px!important}
+  .mobile-drawer-brand .brand-logo-wrap img{width:42px!important;height:42px!important}
+  .mobile-drawer-brand .brand-wordmark b,.mobile-drawer-brand .brand-wordmark em{font-size:18px!important;line-height:1!important}
+  .mobile-drawer-brand .brand-wordmark{gap:6px!important}
+}

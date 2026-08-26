@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useTheme } from './hooks/useTheme';
 import './admin.css';
 
@@ -67,12 +68,17 @@ export default function AdminApp(){
         {tab==='clients'&&<ClientManager clients={clients} token={token} onChange={loadExtra} onToast={setToast}/>}
       </div>
     </main>
-    <div className={`mobile-drawer-backdrop ${menuOpen?'open':''}`} onClick={()=>setMenuOpen(false)} aria-hidden="true" />
-    <aside className={`mobile-drawer ${menuOpen?'open':''}`} aria-hidden={!menuOpen}>
-      <div className="mobile-drawer-head"><BrandLockup /><button type="button" className="drawer-close" onPointerDown={e=>{e.preventDefault();e.stopPropagation();setMenuOpen(false)}} onClick={e=>{e.stopPropagation();setMenuOpen(false)}} aria-label="Close navigation">×</button></div>
-      <nav>{navItems.map(([id,ic,l])=><button type="button" key={id} className={tab===id?'active':''} onClick={()=>navigate(id)}><span>{ic}</span><b>{l}</b>{tab===id&&<i>●</i>}</button>)}</nav>
-      <div className="mobile-drawer-footer"><button type="button" className="drawer-theme" onClick={toggleTheme}>{theme==='dark'?'☀ Light theme':'☾ Dark theme'}</button><button type="button" className="drawer-logout" onClick={logout}>↪ Sign out</button></div>
-    </aside>
+    {typeof document !== 'undefined' && createPortal(<>
+      <div className={`mobile-drawer-backdrop ${menuOpen?'open':''} ${theme==='light'?'theme-light':''}`} onPointerDown={e=>{if(e.target===e.currentTarget)setMenuOpen(false)}} onTouchStart={e=>{if(e.target===e.currentTarget)setMenuOpen(false)}} aria-hidden="true" />
+      <aside className={`mobile-drawer ${menuOpen?'open':''} ${theme==='light'?'theme-light':''}`} aria-hidden={!menuOpen}>
+        <div className="mobile-drawer-head">
+          <div className="mobile-drawer-brand"><BrandLockup /></div>
+          <button type="button" className="drawer-close" onPointerDown={e=>{e.preventDefault();e.stopPropagation();setMenuOpen(false)}} onTouchStart={e=>{e.preventDefault();e.stopPropagation();setMenuOpen(false)}} onMouseDown={e=>{e.preventDefault();e.stopPropagation();setMenuOpen(false)}} onClick={e=>{e.preventDefault();e.stopPropagation();setMenuOpen(false)}} aria-label="Close navigation">×</button>
+        </div>
+        <nav>{navItems.map(([id,ic,l])=><button type="button" key={id} className={tab===id?'active':''} onClick={()=>navigate(id)}><span>{ic}</span><b>{l}</b>{tab===id&&<i>●</i>}</button>)}</nav>
+        <div className="mobile-drawer-footer"><button type="button" className="drawer-theme" onClick={toggleTheme}>{theme==='dark'?'☀ Light theme':'☾ Dark theme'}</button><button type="button" className="drawer-logout" onClick={logout}>↪ Sign out</button></div>
+      </aside>
+    </>, document.body)}
     {selected&&<DetailDrawer inquiry={selected} onClose={()=>setSelected(null)} onUpdate={update} onReply={()=>setReplyOpen(true)} onDelete={()=>remove(selected._id)}/>} {replyOpen&&selected&&<ReplyModal inquiry={selected} token={token} onClose={()=>setReplyOpen(false)} onSent={d=>{setSelected(d);setInquiries(x=>x.map(i=>i._id===d._id?d:i));setReplyOpen(false);setToast('Reply sent')}}/>}{toast&&<div className="admin-toast">✓ {toast}</div>}
   </div>
 }
