@@ -795,11 +795,11 @@ footer::before{
    ========================================================= */
 .submission-flow{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;opacity:0;transition:opacity .45s ease;isolation:isolate}
 .submission-flow.is-visible{opacity:1}
-.submission-backdrop{position:absolute;inset:0;background:rgba(4,5,7,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.submission-backdrop{position:absolute;inset:0;background:rgba(4,5,7,.975);backdrop-filter:blur(24px) saturate(.72);-webkit-backdrop-filter:blur(24px) saturate(.72)}
 .submission-stage{position:relative;width:min(920px,92vw);min-height:min(720px,88vh);overflow:hidden;border:1px solid rgba(231,205,147,.18);border-radius:30px;background:radial-gradient(circle at 50% 28%,rgba(198,161,91,.11),transparent 36%),linear-gradient(145deg,#111318,#090a0d);box-shadow:0 40px 120px rgba(0,0,0,.65),0 0 80px rgba(198,161,91,.08);transform:translateY(22px) scale(.97);transition:transform .7s cubic-bezier(.16,1,.3,1)}
 .submission-flow.is-visible .submission-stage{transform:none}
 .submission-topbar{position:absolute;top:26px;left:30px;right:30px;display:flex;justify-content:space-between;align-items:center;color:#fff;font-size:.88rem;z-index:4}.submission-brand{font-family:'Sora',sans-serif;font-weight:600}.submission-brand b{color:var(--gold-light)}.submission-secure{font:600 .66rem 'JetBrains Mono',monospace;letter-spacing:.1em;color:#77d8c4}.submission-secure::first-letter{color:#49c2b0}
-.submission-form-ghost{position:absolute;inset:95px 7% 7%;opacity:.09;filter:blur(.2px);pointer-events:none}.submission-form-ghost h3{color:#fff;font-size:1.25rem;margin-bottom:30px}.ghost-line,.ghost-box{height:48px;border:1px solid #fff;border-radius:10px;margin:16px 0}.ghost-line{width:52%}.ghost-line.wide{width:78%}.ghost-box{height:110px}
+.submission-form-ghost{display:none!important}.submission-form-ghost h3{color:#fff;font-size:1.25rem;margin-bottom:30px}.ghost-line,.ghost-box{height:48px;border:1px solid #fff;border-radius:10px;margin:16px 0}.ghost-line{width:52%}.ghost-line.wide{width:78%}.ghost-box{height:110px}
 .submission-content{position:relative;z-index:3;min-height:720px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:95px 28px 55px;text-align:center}.submission-kicker{font:600 .68rem 'JetBrains Mono',monospace;letter-spacing:.2em;color:var(--gold-light);margin-bottom:12px}.submission-title{max-width:600px;margin:0;color:#fff;font-size:clamp(1.75rem,4vw,3rem);line-height:1.05;letter-spacing:-.04em}.submission-subtitle{margin:14px 0 25px;color:#9297a2;font-size:.95rem}.submission-icon-wrap{width:122px;height:122px;border-radius:50%;display:grid;place-items:center;margin-bottom:26px;border:1px solid rgba(231,205,147,.35);background:radial-gradient(circle,rgba(231,205,147,.18),rgba(231,205,147,.02) 64%);box-shadow:0 0 0 8px rgba(231,205,147,.025),0 0 55px rgba(231,205,147,.18);animation:submissionPulse 2.1s ease-in-out infinite}.submission-icon{font-size:3rem;color:var(--gold-light);filter:drop-shadow(0 0 18px rgba(231,205,147,.6))}.plane{display:block;transform:rotate(-18deg);animation:planeFly 1.15s ease-in-out infinite}.pulse-dot{display:block;width:28px;height:28px;border-radius:50%;background:#e7cd93;box-shadow:0 0 0 14px rgba(231,205,147,.09),0 0 35px rgba(231,205,147,.7);animation:pulseDot 1.1s ease-in-out infinite}.check{display:block;color:#73f28b;font-size:4rem;font-weight:800;text-shadow:0 0 22px rgba(115,242,139,.55);animation:checkIn .7s cubic-bezier(.16,1.3,.3,1) both}
 .submission-progress{width:min(340px,80%);height:5px;border-radius:10px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:18px}.submission-progress span{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#a8792d,#f2d58f,#49c2b0);box-shadow:0 0 14px rgba(231,205,147,.6);transition:width 1.2s cubic-bezier(.16,1,.3,1)}
 .submission-orbit{position:absolute;width:260px;height:260px;border:1px solid rgba(231,205,147,.16);border-radius:50%;opacity:0;transform:scale(.7);transition:opacity .5s,transform .7s}.submission-orbit.active{opacity:1;transform:scale(1);animation:orbitSpin 8s linear infinite}.orbit-item{position:absolute;width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:#121419;border:1px solid rgba(231,205,147,.35);color:var(--gold-light);font-weight:700;box-shadow:0 0 20px rgba(231,205,147,.12)}.orbit-item small{position:absolute;top:55px;font:500 .55rem 'JetBrains Mono',monospace;color:#858a94;white-space:nowrap}.orbit-top{top:-25px;left:105px}.orbit-right{right:-25px;top:105px}.orbit-bottom{bottom:-25px;left:105px}.orbit-left{left:-25px;top:105px}
@@ -809,3 +809,43 @@ footer::before{
 @keyframes submissionPulse{50%{transform:scale(1.06);box-shadow:0 0 0 14px rgba(231,205,147,.03),0 0 75px rgba(231,205,147,.25)}}@keyframes planeFly{0%,100%{transform:translate(-4px,3px) rotate(-18deg)}50%{transform:translate(8px,-8px) rotate(-11deg)}}@keyframes pulseDot{50%{transform:scale(1.35)}}@keyframes checkIn{from{transform:scale(.2) rotate(-18deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}@keyframes orbitSpin{to{transform:rotate(360deg)}}@keyframes dotBounce{50%{transform:translateY(-5px);opacity:.45}}@keyframes successGlow{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
 @media(max-width:700px){.submission-stage{width:94vw;min-height:82vh;border-radius:24px}.submission-content{min-height:82vh;padding:82px 18px 35px}.submission-topbar{top:20px;left:20px;right:20px}.submission-form-ghost{inset:80px 6% 5%}.submission-icon-wrap{width:100px;height:100px}.submission-icon{font-size:2.5rem}.submission-orbit{width:220px;height:220px}.orbit-top{left:85px}.orbit-bottom{left:85px}.orbit-right{top:85px}.orbit-left{top:85px}.detail-row{flex-direction:column;gap:4px}.submission-title{font-size:1.8rem}.submission-subtitle{font-size:.85rem}}
 @media(prefers-reduced-motion:reduce){.submission-flow,.submission-stage,.submission-details,.submission-cta,.submission-thanks{transition:none}.submission-icon-wrap,.plane,.pulse-dot,.submission-orbit,.submission-dots i,.submission-flow.celebrate .submission-stage::after{animation:none}.submission-progress span{transition:none}}
+
+/* Submission isolation: the underlying inquiry UI must never compete with the animation. */
+.submission-flow{background:rgba(3,4,6,.08)}
+.submission-stage{isolation:isolate}
+.submission-content{background:transparent}
+.submission-particles,.submission-confetti{z-index:5}
+
+/* Final submission-flow polish: keep motion legible and the entire result visible. */
+.submission-content{box-sizing:border-box}
+.submission-icon svg{width:52px;height:52px;display:block}
+.plane{display:grid;place-items:center;transform-origin:50% 50%}
+.submission-flow[data-stage="processing"] .submission-icon-wrap{animation:processingPulse 1.4s ease-in-out infinite}
+.submission-orbit.active .orbit-item{animation:orbitCounterSpin 8s linear infinite}
+.submission-flow[data-stage="processing"] .submission-progress span{background:linear-gradient(90deg,#c28c32,#f2d58f,#49c2b0)}
+.submission-confetti{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:5;opacity:0}
+.submission-flow.celebrate .submission-confetti{opacity:1}
+.submission-confetti i{position:absolute;left:var(--x);top:-20px;width:var(--s);height:calc(var(--s) * .58);background:var(--c);border-radius:2px;box-shadow:0 0 10px color-mix(in srgb,var(--c),transparent 35%);animation:confettiFall var(--t) cubic-bezier(.2,.7,.3,1) var(--d) both;transform:rotate(0deg)}
+.submission-thanks{position:absolute;left:50%;bottom:22px;transform:translate(-50%,8px);width:min(510px,calc(100% - 40px));box-sizing:border-box;text-align:center;z-index:6}
+.submission-thanks.visible{transform:translate(-50%,0)}
+.submission-flow[data-stage="final"] .submission-progress{opacity:.65}
+.submission-flow[data-stage="final"] .submission-cta{opacity:1;transform:none;pointer-events:auto}
+@keyframes processingPulse{50%{transform:scale(1.04);box-shadow:0 0 0 16px rgba(231,205,147,.035),0 0 75px rgba(231,205,147,.28)}}
+@keyframes orbitCounterSpin{to{transform:rotate(-360deg)}}
+@keyframes confettiFall{0%{transform:translate3d(0,-20px,0) rotate(0deg);opacity:0}10%{opacity:1}100%{transform:translate3d(var(--drift),calc(100vh + 80px),0) rotate(620deg);opacity:0}}
+@media(max-width:700px){
+  .submission-stage{width:min(94vw,560px);min-height:min(86vh,1080px);height:auto}
+  .submission-content{min-height:min(86vh,1080px);height:auto;padding:74px 16px 78px}
+  .submission-icon-wrap{width:92px;height:92px;margin-bottom:18px}
+  .submission-icon{font-size:2.3rem}
+  .submission-icon svg{width:44px;height:44px}
+  .submission-title{font-size:clamp(1.55rem,7vw,2rem);max-width:330px}
+  .submission-subtitle{margin:10px 0 16px;max-width:330px}
+  .submission-progress{margin-top:12px}
+  .submission-details{width:min(100%,380px);margin-top:12px;padding:13px 15px;max-height:220px}
+  .detail-row{padding:8px 0}
+  .detail-row strong{font-size:.72rem}
+  .submission-cta{margin-top:14px;padding:11px 22px}
+  .submission-thanks{bottom:12px;font-size:.68rem;padding:8px 12px}
+}
+@media(prefers-reduced-motion:reduce){.submission-confetti{display:none}.submission-orbit.active .orbit-item{animation:none}.submission-flow[data-stage="processing"] .submission-icon-wrap{animation:none}}

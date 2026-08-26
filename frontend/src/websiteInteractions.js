@@ -178,12 +178,8 @@ if (inquiryForm) {
     overlay.innerHTML = `
       <div class="submission-backdrop"></div>
       <div class="submission-stage" aria-live="polite">
-        <div class="submission-particles" aria-hidden="true"></div>
+        <div class="submission-particles" aria-hidden="true"></div><div class="submission-confetti" aria-hidden="true"></div>
         <div class="submission-topbar"><span class="submission-brand">Sites <b>Maker</b></span><span class="submission-secure">● Encrypted</span></div>
-        <div class="submission-form-ghost" aria-hidden="true">
-          <h3>Submit your query</h3>
-          <div class="ghost-line wide"></div><div class="ghost-line"></div><div class="ghost-line wide"></div><div class="ghost-line"></div><div class="ghost-box"></div>
-        </div>
         <div class="submission-content">
           <div class="submission-icon-wrap"><div class="submission-icon"></div></div>
           <div class="submission-kicker"></div>
@@ -218,6 +214,20 @@ if (inquiryForm) {
     const cta = overlay.querySelector('.submission-cta');
     const thanks = overlay.querySelector('.submission-thanks');
     const dots = overlay.querySelector('.submission-dots');
+    const confetti = overlay.querySelector('.submission-confetti');
+    const makeConfetti = () => {
+      if (!confetti || reducedMotion) return;
+      const pieces = ['#f2d58f','#73f28b','#f59eae','#78d6ff','#ffffff','#d9b75c'];
+      confetti.innerHTML = Array.from({length: 34}, (_, i) => {
+        const x = Math.random() * 100;
+        const delay = Math.random() * .45;
+        const duration = 1.8 + Math.random() * 1.4;
+        const drift = (Math.random() * 140 - 70).toFixed(1);
+        const color = pieces[i % pieces.length];
+        const size = 5 + Math.random() * 5;
+        return `<i style="--x:${x}%;--d:${delay}s;--t:${duration}s;--drift:${drift}px;--c:${color};--s:${size}px"></i>`;
+      }).join('');
+    };
 
     const setStage = (name, k, t, sub) => {
       overlay.dataset.stage = name;
@@ -239,20 +249,21 @@ if (inquiryForm) {
 
     (async () => {
       if (!reducedMotion) overlay.classList.add('is-visible'); else overlay.classList.add('is-visible');
-      setStage('submitting','STEP 01 / 04','Submitting your query','Please wait a moment…');
-      icon.innerHTML = '<span class="plane">➤</span>';
+      setStage('submitting','STEP 01 / 05','Submitting your query','Please wait a moment…');
+      icon.innerHTML = '<span class="plane" aria-hidden="true"><svg viewBox="0 0 64 64" role="img"><path d="M6 30.5 56 8 36 56l-7-19-23-6.5Z" fill="currentColor"/><path d="M29 37 56 8" fill="none" stroke="#fff6d7" stroke-width="2.5" stroke-linecap="round" opacity=".75"/></svg></span>'; 
       progress.style.width = '32%';
       await wait(reducedMotion ? 80 : 1200);
 
-      setStage('processing','STEP 02 / 04','Processing your request','This will just take a few seconds…');
+      setStage('processing','STEP 02 / 05','Processing your request','This will just take a few seconds…');
       icon.innerHTML = '<span class="pulse-dot"></span>';
       orbit.classList.add('active'); dots.classList.add('active'); progress.style.width = '64%';
       await wait(reducedMotion ? 80 : 1500);
 
-      setStage('success','STEP 03 / 04','Query submitted successfully!','We’ve received your message and will get back to you shortly.');
+      setStage('success','STEP 03 / 05','Query submitted successfully!','We’ve received your message and will get back to you shortly.');
       icon.innerHTML = '<span class="check">✓</span>';
       orbit.classList.remove('active'); dots.classList.remove('active'); progress.style.width = '100%';
       overlay.classList.add('celebrate');
+      makeConfetti();
       await wait(reducedMotion ? 80 : 1700);
 
       setStage('details','STEP 04 / 05','Your submission is confirmed','Here are your reference details.');
@@ -262,6 +273,7 @@ if (inquiryForm) {
       await wait(reducedMotion ? 80 : 1200);
 
       setStage('final','STEP 05 / 05','You’re all set ✨','Your enquiry is safely in our system.');
+      cta.textContent = 'Back to home →';
       thanks.classList.add('visible');
     })();
     return overlay;
