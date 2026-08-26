@@ -159,9 +159,114 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){
   document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
 }
 
-// ---- Contact form: submit to backend (MongoDB Atlas via API) ----
+// ---- Contact form: premium animated submission flow ----
 const inquiryForm = document.getElementById('inquiryForm');
 if (inquiryForm) {
+  const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+  const esc = value => String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function buildSubmissionOverlay(payload, result) {
+    const old = document.querySelector('.submission-flow');
+    if (old) old.remove();
+    const id = result?.id ? String(result.id).slice(-6).toUpperCase() : 'PENDING';
+    const submitted = new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date());
+    const overlay = document.createElement('div');
+    overlay.className = 'submission-flow';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.innerHTML = `
+      <div class="submission-backdrop"></div>
+      <div class="submission-stage" aria-live="polite">
+        <div class="submission-particles" aria-hidden="true"></div>
+        <div class="submission-topbar"><span class="submission-brand">Sites <b>Maker</b></span><span class="submission-secure">● Encrypted</span></div>
+        <div class="submission-form-ghost" aria-hidden="true">
+          <h3>Submit your query</h3>
+          <div class="ghost-line wide"></div><div class="ghost-line"></div><div class="ghost-line wide"></div><div class="ghost-line"></div><div class="ghost-box"></div>
+        </div>
+        <div class="submission-content">
+          <div class="submission-icon-wrap"><div class="submission-icon"></div></div>
+          <div class="submission-kicker"></div>
+          <h2 class="submission-title"></h2>
+          <p class="submission-subtitle"></p>
+          <div class="submission-orbit" aria-hidden="true">
+            <span class="orbit-item orbit-top">✉<small>Sending</small></span>
+            <span class="orbit-item orbit-right">✓<small>Validating</small></span>
+            <span class="orbit-item orbit-bottom">▣<small>Securing</small></span>
+            <span class="orbit-item orbit-left">▤<small>Storing</small></span>
+          </div>
+          <div class="submission-progress"><span></span></div>
+          <div class="submission-dots"><i></i><i></i><i></i></div>
+          <div class="submission-details">
+            <div class="detail-row"><span>QUERY ID</span><strong>#SM-${esc(id)} <button class="copy-query" type="button" title="Copy query ID">⧉</button></strong></div>
+            <div class="detail-row"><span>SUBMITTED ON</span><strong>${esc(submitted)}</strong></div>
+            <div class="detail-row"><span>WE WILL CONTACT YOU ON</span><strong>☎ ${esc(payload.phone)}<br>✉ ${esc(payload.email)}</strong></div>
+          </div>
+          <button class="submission-cta" type="button">Awesome! ✨</button>
+        </div>
+        <div class="submission-thanks">✦ Thank you for reaching out to <b>Sites Maker</b>.</div>
+      </div>`;
+    document.body.appendChild(overlay);
+
+    const title = overlay.querySelector('.submission-title');
+    const subtitle = overlay.querySelector('.submission-subtitle');
+    const kicker = overlay.querySelector('.submission-kicker');
+    const icon = overlay.querySelector('.submission-icon-wrap');
+    const progress = overlay.querySelector('.submission-progress span');
+    const orbit = overlay.querySelector('.submission-orbit');
+    const details = overlay.querySelector('.submission-details');
+    const cta = overlay.querySelector('.submission-cta');
+    const thanks = overlay.querySelector('.submission-thanks');
+    const dots = overlay.querySelector('.submission-dots');
+
+    const setStage = (name, k, t, sub) => {
+      overlay.dataset.stage = name;
+      kicker.textContent = k;
+      title.textContent = t;
+      subtitle.textContent = sub;
+    };
+
+    const finish = () => {
+      overlay.classList.add('is-closing');
+      setTimeout(() => overlay.remove(), reducedMotion ? 0 : 520);
+    };
+
+    overlay.querySelector('.copy-query')?.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(`#SM-${id}`); } catch {}
+      overlay.querySelector('.copy-query').textContent = '✓';
+    });
+    cta.addEventListener('click', finish);
+
+    (async () => {
+      if (!reducedMotion) overlay.classList.add('is-visible'); else overlay.classList.add('is-visible');
+      setStage('submitting','STEP 01 / 04','Submitting your query','Please wait a moment…');
+      icon.innerHTML = '<span class="plane">➤</span>';
+      progress.style.width = '32%';
+      await wait(reducedMotion ? 80 : 1200);
+
+      setStage('processing','STEP 02 / 04','Processing your request','This will just take a few seconds…');
+      icon.innerHTML = '<span class="pulse-dot"></span>';
+      orbit.classList.add('active'); dots.classList.add('active'); progress.style.width = '64%';
+      await wait(reducedMotion ? 80 : 1500);
+
+      setStage('success','STEP 03 / 04','Query submitted successfully!','We’ve received your message and will get back to you shortly.');
+      icon.innerHTML = '<span class="check">✓</span>';
+      orbit.classList.remove('active'); dots.classList.remove('active'); progress.style.width = '100%';
+      overlay.classList.add('celebrate');
+      await wait(reducedMotion ? 80 : 1700);
+
+      setStage('details','STEP 04 / 05','Your submission is confirmed','Here are your reference details.');
+      icon.innerHTML = '<span class="check">✓</span>';
+      details.classList.add('visible');
+      cta.textContent = 'Back to home →';
+      await wait(reducedMotion ? 80 : 1200);
+
+      setStage('final','STEP 05 / 05','You’re all set ✨','Your enquiry is safely in our system.');
+      thanks.classList.add('visible');
+    })();
+    return overlay;
+  }
+
   inquiryForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const statusEl = document.getElementById('formStatus');
@@ -172,7 +277,7 @@ if (inquiryForm) {
       email: document.getElementById('f-email').value.trim(),
       service: document.getElementById('f-service').value,
       message: document.getElementById('f-message').value.trim(),
-      website: document.getElementById('f-website').value // honeypot — must stay empty
+      website: document.getElementById('f-website')?.value || ''
     };
     if (!payload.name || !payload.phone || !payload.email) {
       statusEl.textContent = 'Please fill your name, phone and email.';
@@ -198,9 +303,8 @@ if (inquiryForm) {
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || 'Request failed');
-      statusEl.textContent = 'Thank you! We will contact you soon at 8957197142.';
-      statusEl.style.color = '#49c2b0';
       inquiryForm.reset();
+      buildSubmissionOverlay(payload, data);
     } catch (err) {
       statusEl.textContent = err?.message || 'Unable to reach the server. Please try again or call us at 8957197142.';
       statusEl.style.color = '#e0716b';
@@ -210,7 +314,6 @@ if (inquiryForm) {
     }
   });
 }
-
 
 // =========================================================
 // SITES MAKER — ULTRA MOTION PACK
