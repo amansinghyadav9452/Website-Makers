@@ -1004,3 +1004,127 @@
 .admin-shell .export-btn{
   transition:transform .2s var(--ease),background-color .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease),box-shadow .2s var(--ease),opacity .2s var(--ease)!important;
 }
+
+
+/* ===== Inquiry detail responsive + theme parity ===== */
+.admin-shell.theme-light .drawer{
+  background:linear-gradient(180deg,#fffdf9 0%,#f7f2e8 100%)!important;
+  color:#292621!important;
+  border-left-color:#2b251b18!important;
+  box-shadow:-30px 0 100px rgba(67,49,20,.14)!important;
+}
+.admin-shell.theme-light .drawer .eyebrow{color:#806327!important}
+.admin-shell.theme-light .drawer .drawer-head h2{color:#1d1a16!important}
+.admin-shell.theme-light .drawer .drawer-head p{color:#706a61!important}
+.admin-shell.theme-light .drawer .drawer-section>label,
+.admin-shell.theme-light .drawer .message-box label,
+.admin-shell.theme-light .drawer .timeline>label{color:#756b5c!important}
+.admin-shell.theme-light .drawer .segmented button{
+  color:#625c53!important;
+  background:#ffffff!important;
+  border-color:#2b251b18!important;
+}
+.admin-shell.theme-light .drawer .segmented button:hover{
+  color:#292621!important;
+  background:#f5efe4!important;
+  border-color:#a67b2f35!important;
+}
+.admin-shell.theme-light .drawer .segmented button.active{
+  color:#6f5116!important;
+  background:#a67b2f12!important;
+  border-color:#a67b2f55!important;
+  box-shadow:inset 0 2px 0 #a67b2f;
+}
+.admin-shell.theme-light .drawer .drawer-section select,
+.admin-shell.theme-light .drawer .read-field,
+.admin-shell.theme-light .drawer .drawer-section textarea{
+  background:#fff!important;
+  color:#292621!important;
+  border-color:#2b251b22!important;
+  box-shadow:0 4px 18px rgba(67,49,20,.04);
+}
+.admin-shell.theme-light .drawer .drawer-section select:focus,
+.admin-shell.theme-light .drawer .drawer-section textarea:focus{
+  border-color:#a67b2f66!important;
+  box-shadow:0 0 0 3px #a67b2f12!important;
+}
+.admin-shell.theme-light .drawer .drawer-section textarea::placeholder{color:#7b746a!important;opacity:1}
+.admin-shell.theme-light .drawer .message-box{
+  background:#fff!important;
+  border-color:#2b251b18!important;
+  box-shadow:0 8px 28px rgba(67,49,20,.04);
+}
+.admin-shell.theme-light .drawer .message-box p{color:#454039!important}
+.admin-shell.theme-light .drawer .save-note{
+  color:#3b3731!important;
+  background:#fff!important;
+  border-color:#2b251b20!important;
+}
+.admin-shell.theme-light .drawer .save-note:hover{background:#f4eee3!important;border-color:#a67b2f35!important}
+.admin-shell.theme-light .drawer .timeline{border-top-color:#2b251b18!important}
+.admin-shell.theme-light .drawer .timeline-item small{color:#756e64!important}
+.admin-shell.theme-light .drawer .timeline-item p{color:#4b463f!important}
+.admin-shell.theme-light .drawer .drawer-footer{border-top-color:#2b251b18!important;color:#655f56!important}
+.admin-shell.theme-light .drawer .danger-btn{
+  color:#9e3030!important;
+  background:#fff1ef!important;
+  border-color:#c94b4b45!important;
+}
+.admin-shell.theme-light .drawer .danger-btn:hover{color:#7e2020!important;background:#ffe1de!important;border-color:#b83b3b70!important}
+.admin-shell.theme-light .drawer .secondary-btn{
+  color:#3b3731!important;
+  background:#fff!important;
+  border-color:#2b251b20!important;
+}
+.admin-shell.theme-light .drawer .secondary-btn:hover{background:#f5efe5!important;border-color:#a67b2f35!important}
+.admin-shell.theme-light .drawer .icon-btn{
+  background:#fff!important;
+  color:#292621!important;
+  border-color:#2b251b20!important;
+}
+.admin-shell.theme-light .drawer .icon-btn:hover{background:#f7eee9!important;color:#8b3535!important;border-color:#c94b4b45!important}
+
+/* The detail view is a first-class workspace on desktop, not a cramped 500px afterthought. */
+@media(min-width:701px){
+  .drawer{
+    width:min(780px,100vw)!important;
+    padding:clamp(28px,3.2vw,46px)!important;
+  }
+  .drawer-head{align-items:flex-start!important;gap:24px!important}
+  .drawer-head>div{min-width:0!important}
+  .drawer-actions{flex-wrap:wrap!important}
+  .drawer-actions>*{min-height:42px!important}
+}
+
+/* Mobile inquiry detail: full viewport, single-column controls, no horizontal squeeze. */
+@media(max-width:700px){
+  .drawer-layer{z-index:3000!important}
+  .drawer-backdrop{background:#000b!important;backdrop-filter:blur(7px)!important}
+  .drawer{
+    width:100vw!important;
+    max-width:100vw!important;
+    right:0!important;
+    left:auto!important;
+    padding:22px 16px calc(28px + env(safe-area-inset-bottom))!important;
+    border-left:0!important;
+    overflow-x:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+  }
+  .drawer-head{gap:14px!important;align-items:flex-start!important}
+  .drawer-head h2{font-size:30px!important;line-height:1.08!important;word-break:break-word!important}
+  .drawer-head p{margin-top:6px!important;font-size:12px!important;word-break:break-word!important}
+  .drawer-head .icon-btn{width:48px!important;height:48px!important;min-width:48px!important;padding:0!important;display:grid!important;place-items:center!important}
+  .drawer-actions{display:grid!important;grid-template-columns:1fr 1fr 1fr!important;gap:8px!important;margin:22px 0 26px!important}
+  .drawer-actions>*{min-width:0!important;white-space:nowrap!important;text-align:center!important;padding:12px 8px!important}
+  .drawer-section{margin:22px 0!important}
+  .drawer-section.two{grid-template-columns:1fr!important;gap:18px!important}
+  .drawer-section select,.read-field{height:52px!important}
+  .segmented{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important}
+  .segmented button{min-height:48px!important;padding:8px 7px!important;font-size:10px!important}
+  .message-box{padding:16px!important}
+  .message-box p{font-size:13px!important;line-height:1.65!important}
+  .drawer-section textarea{min-height:160px!important;font-size:13px!important;line-height:1.55!important}
+  .save-note{min-height:44px!important;padding:10px 14px!important}
+  .drawer-footer{flex-direction:column!important;align-items:stretch!important;padding-top:18px!important;margin-top:24px!important}
+  .drawer-footer .danger-btn{width:100%!important;min-height:46px!important}
+}
