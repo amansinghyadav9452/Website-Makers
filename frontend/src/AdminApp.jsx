@@ -23,7 +23,91 @@ async function api(path, options={}, token){
 
 function BrandLockup({subtitle='ADMIN CONSOLE'}){return <div className="brand-lockup"><span className="brand-logo-wrap"><img src="/assets/sites-maker-logo.png" alt="Sites Maker logo"/></span><span className="brand-wordmark"><span className="brand-name"><b>Sites</b><em>Maker</em></span><small>{subtitle}</small></span></div>}
 
-function Login({onLogin,theme,toggleTheme}){const[email,setEmail]=useState(''),[password,setPassword]=useState(''),[busy,setBusy]=useState(false),[error,setError]=useState('');const submit=async e=>{e.preventDefault();setBusy(true);setError('');try{const d=await api('/api/inquiries/admin/login',{method:'POST',body:JSON.stringify({email,password})});sessionStorage.setItem(TOKEN_KEY,d.token);onLogin(d.token)}catch(err){setError(err.message)}finally{setBusy(false)}};return <div className={`admin-auth ${theme==='light'?'theme-light':'theme-dark'}`}><div className="auth-orb orb-one"/><div className="auth-orb orb-two"/><div className="auth-topbar"><div className="auth-status"><i/> Secure admin access</div><button type="button" className="auth-theme-toggle" onClick={toggleTheme} aria-label={`Switch to ${theme==='dark'?'light':'dark'} theme`}>{theme==='dark'?'☀':'☾'}</button></div><div className="login-card"><BrandLockup subtitle="ADMIN CONSOLE" /><div className="login-copy"><span className="eyebrow">Private workspace</span><h1>Welcome back.</h1><p>Leads, customers, quotes, reviews and analytics in one command center.</p></div><form onSubmit={submit}><label>Admin email<input type="email" autoComplete="username" value={email} onChange={e=>setEmail(e.target.value)} placeholder="admin@yourdomain.com" required/></label><label>Password<input type="password" autoComplete="current-password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="••••••••••••" required/></label>{error&&<div className="auth-error">{error}</div>}<button className="primary-btn" disabled={busy}>{busy?'Authenticating…':'Enter command center'} <span>↗</span></button></form><div className="secure-line">⌁ Protected JWT session · 8 hours</div></div></div>}
+function Login({onLogin,theme,toggleTheme}){
+  const [email,setEmail]=useState(''),[password,setPassword]=useState(''),[busy,setBusy]=useState(false),[error,setError]=useState(''),[authStage,setAuthStage]=useState('idle');
+
+  const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+
+  const submit=async e=>{
+    e.preventDefault();
+    if(busy)return;
+    setBusy(true);
+    setError('');
+    setAuthStage('verifying');
+    try{
+      const d=await api('/api/inquiries/admin/login',{method:'POST',body:JSON.stringify({email,password})});
+      setAuthStage('securing');
+      await wait(650);
+      setAuthStage('granted');
+      await wait(900);
+      sessionStorage.setItem(TOKEN_KEY,d.token);
+      onLogin(d.token);
+    }catch(err){
+      setAuthStage('error');
+      setError(err.message);
+      setBusy(false);
+      setTimeout(()=>setAuthStage('idle'),2200);
+    }
+  };
+
+  const authenticating=busy && authStage!=='idle' && authStage!=='error';
+
+  return <div className={`admin-auth ${theme==='light'?'theme-light':'theme-dark'}`}>
+    <div className="auth-orb orb-one"/>
+    <div className="auth-orb orb-two"/>
+
+    <div className="auth-topbar">
+      <div className="auth-status"><i/> Secure admin access</div>
+      <button type="button" className="auth-theme-toggle" onClick={toggleTheme} aria-label={`Switch to ${theme==='dark'?'light':'dark'} theme`}>{theme==='dark'?'☀':'☾'}</button>
+    </div>
+
+    <div className={`login-card ${authenticating?'is-authenticating':''} ${authStage==='granted'?'is-granted':''}`}>
+      <BrandLockup subtitle="ADMIN CONSOLE" />
+
+      <div className="login-copy">
+        <span className="eyebrow">Private workspace</span>
+        <h1>Welcome back.</h1>
+        <p>Leads, customers, quotes, reviews and analytics in one command center.</p>
+      </div>
+
+      <form onSubmit={submit} aria-busy={authenticating}>
+        <label>Admin email
+          <input type="email" autoComplete="username" value={email} onChange={e=>setEmail(e.target.value)} placeholder="admin@yourdomain.com" required disabled={busy}/>
+        </label>
+        <label>Password
+          <input type="password" autoComplete="current-password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="••••••••••••" required disabled={busy}/>
+        </label>
+
+        {error&&<div className="auth-error">{error}</div>}
+
+        <button className="primary-btn auth-submit" disabled={busy}>
+          <span className="auth-submit-label">{busy?'Authenticating…':'Enter command center'}</span>
+          <span className="auth-submit-icon">{busy?'◌':'↗'}</span>
+        </button>
+      </form>
+
+      <div className="secure-line">⌁ Protected JWT session · 8 hours</div>
+
+      {authenticating&&<div className="auth-transition" role="status" aria-live="polite">
+        <div className={`auth-transition-stage stage-${authStage}`}>
+          <div className="auth-transition-mark">
+            <span className="auth-ring ring-a"/>
+            <span className="auth-ring ring-b"/>
+            <span className="auth-stage-icon">{authStage==='granted'?'✓':'♢'}</span>
+          </div>
+          <span className="auth-stage-kicker">
+            {authStage==='verifying'?'VERIFYING CREDENTIALS':authStage==='securing'?'SECURING CONNECTION':'ACCESS GRANTED'}
+          </span>
+          <strong>{authStage==='verifying'?'Checking your access':authStage==='securing'?'Establishing secure channel':'Welcome to your command center'}</strong>
+          <small>{authStage==='verifying'?'Please wait a moment…':authStage==='securing'?'Protected session is being prepared…':'Redirecting securely…'}</small>
+          <div className="auth-progress"><i/></div>
+        </div>
+      </div>}
+
+      {authStage==='granted'&&<div className="auth-granted-flash" aria-hidden="true"><span>✓</span></div>}
+    </div>
+  </div>
+}
 
 export default function AdminApp(){
   const[token,setToken]=useState(()=>sessionStorage.getItem(TOKEN_KEY));
