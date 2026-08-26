@@ -361,3 +361,144 @@
   .mobile-drawer-brand .brand-wordmark b,.mobile-drawer-brand .brand-wordmark em{font-size:18px!important;line-height:1!important}
   .mobile-drawer-brand .brand-wordmark{gap:6px!important}
 }
+
+/* ===== Final mobile drawer + auth UX pass ===== */
+@media (max-width:700px){
+  .mobile-drawer{
+    width:min(82vw,330px)!important;
+    min-width:286px!important;
+    padding:18px 16px 14px!important;
+    border-left:1px solid var(--line)!important;
+  }
+  .mobile-drawer-head{
+    min-height:104px!important;
+    height:104px!important;
+    padding:4px 0 20px!important;
+    display:flex!important;
+    align-items:center!important;
+    border-bottom:1px solid var(--line)!important;
+    flex:0 0 104px!important;
+  }
+  .mobile-drawer-brand,
+  .mobile-drawer-brand .brand-lockup,
+  .mobile-drawer-brand .brand-wordmark{
+    width:auto!important;
+    max-width:100%!important;
+  }
+  .mobile-drawer-brand .brand-lockup{gap:10px!important}
+  .mobile-drawer-brand .brand-logo-wrap{width:52px!important;height:52px!important;border-radius:15px!important;flex:0 0 52px!important}
+  .mobile-drawer-brand .brand-logo-wrap img{width:46px!important;height:46px!important}
+  .mobile-drawer-brand .brand-name b,.mobile-drawer-brand .brand-name em{font-size:17px!important;line-height:1!important}
+  .mobile-drawer-brand .brand-wordmark{gap:5px!important}
+  .mobile-drawer nav{
+    padding:18px 0 20px!important;
+    gap:5px!important;
+    flex:1 1 auto!important;
+  }
+  .mobile-drawer nav button{min-height:54px!important;padding:13px 12px!important}
+  .mobile-drawer-footer{padding-top:12px!important}
+}
+
+/* The drawer is intentionally closed by tapping outside it. No close icon. */
+.mobile-drawer-backdrop{cursor:pointer!important}
+.mobile-drawer-backdrop.open{pointer-events:auto!important}
+
+/* Login screen: uses the same theme state even before an authenticated shell exists. */
+.admin-auth{
+  min-height:100dvh;
+  position:relative;
+  display:grid;
+  place-items:center;
+  padding:28px 20px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 15% 15%,#e6c67e10,transparent 25%),
+    radial-gradient(circle at 85% 80%,#4bd0bd08,transparent 25%),
+    #08090b;
+  color:#f4f3ef;
+}
+.admin-auth:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background-image:linear-gradient(#ffffff05 1px,transparent 1px),linear-gradient(90deg,#ffffff05 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:linear-gradient(to bottom,transparent,#000 20%,#000 80%,transparent);
+}
+.auth-topbar{
+  position:absolute;
+  top:24px;
+  right:24px;
+  z-index:4;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.auth-status{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:9px 12px;
+  border:1px solid #ffffff12;
+  border-radius:999px;
+  background:#ffffff06;
+  color:#9a9da6;
+  font:600 9px 'DM Mono';
+  letter-spacing:.7px;
+  text-transform:uppercase;
+}
+.auth-status i{width:6px;height:6px;border-radius:50%;background:#4bd0bd;box-shadow:0 0 10px #4bd0bd}
+.auth-theme-toggle{
+  width:42px;height:42px;border-radius:12px;border:1px solid #ffffff12;background:#ffffff08;color:#eee;cursor:pointer;font-size:18px;display:grid;place-items:center;transition:.2s var(--ease)
+}
+.auth-theme-toggle:hover{transform:translateY(-2px);border-color:#e6c67e44}
+.login-card{
+  position:relative;
+  z-index:2;
+  width:min(100%,460px);
+  padding:34px;
+  border:1px solid #ffffff12;
+  border-radius:26px;
+  background:linear-gradient(145deg,#121419f5,#0d0f12f5);
+  box-shadow:0 35px 100px #0007,0 1px 0 #ffffff08 inset;
+  backdrop-filter:blur(24px);
+}
+.login-card .brand-lockup{margin-bottom:34px}
+.login-copy{margin-bottom:28px}
+.login-copy h1{font:700 clamp(32px,5vw,42px) 'Playfair Display',Georgia;margin:10px 0 10px;letter-spacing:-.025em}
+.login-copy p{max-width:390px;color:#858994;font-size:12px;line-height:1.7;margin:0}
+.login-card form{display:grid;gap:18px}
+.login-card form label{display:grid;gap:8px;color:#a9abb3;font:700 10px 'DM Mono';letter-spacing:.5px;text-transform:uppercase}
+.login-card input{width:100%;height:50px;border:1px solid #ffffff12;border-radius:12px;background:#090a0d;color:#f4f3ef;outline:0;padding:0 14px;font:500 13px Manrope;transition:.2s var(--ease)}
+.login-card input:focus{border-color:#e6c67e66;box-shadow:0 0 0 4px #e6c67e0b}
+.login-card input::placeholder{color:#555963}
+.login-card .primary-btn{width:100%;height:50px;margin-top:4px;border-radius:12px;font-weight:800}
+.secure-line{margin-top:22px;padding-top:17px;border-top:1px solid #ffffff0c;color:#686c76;font:500 9px 'DM Mono';letter-spacing:.4px}
+.auth-error{padding:10px 12px;border:1px solid #ff777733;border-radius:10px;background:#ff77770b;color:#ff9a9a;font-size:11px;line-height:1.5}
+.admin-auth.theme-light{
+  background:
+    radial-gradient(circle at 12% 12%,#d8b55b2b,transparent 26%),
+    radial-gradient(circle at 88% 82%,#168e7c0b,transparent 25%),
+    #f3eee3;
+  color:#24211d;
+}
+.admin-auth.theme-light:before{background-image:linear-gradient(#2a241b08 1px,transparent 1px),linear-gradient(90deg,#2a241b08 1px,transparent 1px)}
+.admin-auth.theme-light .auth-status{border-color:#2b251b16;background:#ffffff99;color:#70695f}
+.admin-auth.theme-light .auth-theme-toggle{border-color:#2b251b16;background:#fff;color:#292621}
+.admin-auth.theme-light .login-card{background:linear-gradient(145deg,#fffdf9f7,#f8f2e7f7);border-color:#2b251b16;box-shadow:0 30px 90px #5b4a2620,0 1px 0 #fff inset;color:#24211d}
+.admin-auth.theme-light .login-copy p{color:#706a61}
+.admin-auth.theme-light .login-card form label{color:#6e675c}
+.admin-auth.theme-light .login-card input{background:#fff;color:#24211d;border-color:#2b251b1c}
+.admin-auth.theme-light .login-card input::placeholder{color:#918a7f}
+.admin-auth.theme-light .secure-line{border-color:#2b251b12;color:#787166}
+.admin-auth.theme-light .auth-error{color:#a33f3f;background:#c94b4b09;border-color:#c94b4b25}
+
+/* More deliberate desktop admin proportions and hierarchy. */
+@media(min-width:701px){
+  .sidebar{width:236px;padding:24px 16px}
+  .admin-main{margin-left:236px;width:calc(100% - 236px)}
+  .sidebar nav{margin-top:42px}
+  .sidebar nav button{min-height:46px}
+  .topbar{margin-bottom:30px}
+}
