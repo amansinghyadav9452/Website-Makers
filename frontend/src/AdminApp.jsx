@@ -69,7 +69,7 @@ export default function AdminApp(){
       </div>
     </main>
     {typeof document !== 'undefined' && createPortal(<>
-      <div className={`mobile-drawer-backdrop ${menuOpen?'open':''} ${theme==='light'?'theme-light':''}`} onPointerDown={e=>{if(e.target===e.currentTarget)setMenuOpen(false)}} onTouchStart={e=>{if(e.target===e.currentTarget)setMenuOpen(false)}} aria-hidden="true" />
+      <div className={`mobile-drawer-backdrop ${menuOpen?'open':''} ${theme==='light'?'theme-light':''}`} onClick={()=>setMenuOpen(false)} role="button" tabIndex={menuOpen?0:-1} aria-label="Close navigation" aria-hidden={!menuOpen} />
       <aside className={`mobile-drawer ${menuOpen?'open':''} ${theme==='light'?'theme-light':''}`} aria-hidden={!menuOpen}>
         <div className="mobile-drawer-head">
           <div className="mobile-drawer-brand"><BrandLockup /></div>

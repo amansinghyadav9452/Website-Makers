@@ -502,3 +502,157 @@
   .sidebar nav button{min-height:46px}
   .topbar{margin-bottom:30px}
 }
+
+
+/* Final mobile drawer layout hardening.
+   Keep the brand/header in normal flow so navigation can never paint over it. */
+@media (max-width:700px){
+  .mobile-drawer{
+    width:min(82vw,330px)!important;
+    min-width:280px!important;
+    max-width:330px!important;
+    padding:20px 18px 16px!important;
+    display:flex!important;
+    flex-direction:column!important;
+    gap:0!important;
+    overflow:hidden!important;
+    isolation:isolate!important;
+  }
+
+  .mobile-drawer-head{
+    position:relative!important;
+    display:block!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    padding:0 0 18px!important;
+    margin:0!important;
+    border-bottom:1px solid var(--line)!important;
+    flex:0 0 auto!important;
+    overflow:visible!important;
+  }
+
+  .mobile-drawer-brand{
+    position:relative!important;
+    display:block!important;
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    overflow:visible!important;
+  }
+
+  .mobile-drawer-brand .brand-lockup{
+    display:flex!important;
+    align-items:center!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    gap:11px!important;
+    overflow:visible!important;
+  }
+
+  .mobile-drawer-brand .brand-logo-wrap{
+    width:50px!important;
+    height:50px!important;
+    flex:0 0 50px!important;
+    border-radius:15px!important;
+  }
+
+  .mobile-drawer-brand .brand-logo-wrap img{
+    width:44px!important;
+    height:44px!important;
+  }
+
+  .mobile-drawer-brand .brand-wordmark{
+    display:flex!important;
+    flex:1 1 auto!important;
+    width:auto!important;
+    min-width:0!important;
+    max-width:none!important;
+    overflow:visible!important;
+    gap:5px!important;
+  }
+
+  .mobile-drawer-brand .brand-name{
+    display:flex!important;
+    align-items:baseline!important;
+    flex-wrap:nowrap!important;
+    width:max-content!important;
+    max-width:100%!important;
+    white-space:nowrap!important;
+    overflow:visible!important;
+  }
+
+  .mobile-drawer-brand .brand-name b,
+  .mobile-drawer-brand .brand-name em{
+    display:inline!important;
+    white-space:nowrap!important;
+    word-break:normal!important;
+    font-size:18px!important;
+    line-height:1!important;
+  }
+
+  .mobile-drawer-brand .brand-wordmark small{
+    display:block!important;
+    width:max-content!important;
+    max-width:100%!important;
+    white-space:nowrap!important;
+    font-size:7px!important;
+    line-height:1!important;
+  }
+
+  .mobile-drawer nav{
+    position:relative!important;
+    inset:auto!important;
+    display:flex!important;
+    flex:1 1 auto!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    width:100%!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:18px 0 20px!important;
+    gap:5px!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    transform:none!important;
+  }
+
+  .mobile-drawer nav button{
+    position:relative!important;
+    display:flex!important;
+    flex:0 0 auto!important;
+    align-items:center!important;
+    width:100%!important;
+    min-height:52px!important;
+    margin:0!important;
+    padding:13px 12px!important;
+    gap:14px!important;
+    transform:none!important;
+  }
+
+  .mobile-drawer nav button:hover{transform:translateX(2px)!important}
+
+  .mobile-drawer-footer{
+    position:relative!important;
+    width:100%!important;
+    flex:0 0 auto!important;
+    margin:0!important;
+    padding:14px 0 0!important;
+    display:grid!important;
+    gap:8px!important;
+    border-top:1px solid var(--line)!important;
+  }
+
+  .mobile-drawer-footer button{
+    position:relative!important;
+    width:100%!important;
+    min-height:48px!important;
+  }
+
+  /* The drawer has no close button by design. Outside click is the close action. */
+  .mobile-drawer-backdrop{
+    cursor:pointer!important;
+    touch-action:manipulation!important;
+  }
+}
