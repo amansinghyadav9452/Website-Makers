@@ -656,3 +656,9 @@
     touch-action:manipulation!important;
   }
 }
+
+/* Mobile login: keep the auth card clean. Desktop-only status/theme controls. */
+@media (max-width:700px){
+  .admin-auth .auth-topbar{display:none!important}
+  .admin-auth{padding:18px 14px}
+}
