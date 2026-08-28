@@ -25,6 +25,12 @@ function BrandLockup({subtitle='ADMIN CONSOLE'}){return <div className="brand-lo
 
 function Login({onLogin,theme,toggleTheme}){
   const [email,setEmail]=useState(''),[password,setPassword]=useState(''),[busy,setBusy]=useState(false),[error,setError]=useState(''),[authStage,setAuthStage]=useState('idle');
+  const [entryReady,setEntryReady]=useState(false);
+
+  useEffect(()=>{
+    const timer=setTimeout(()=>setEntryReady(true),1850);
+    return()=>clearTimeout(timer);
+  },[]);
 
   const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 
@@ -37,9 +43,9 @@ function Login({onLogin,theme,toggleTheme}){
     try{
       const d=await api('/api/inquiries/admin/login',{method:'POST',body:JSON.stringify({email,password})});
       setAuthStage('securing');
-      await wait(720);
+      await wait(650);
       setAuthStage('granted');
-      await wait(1050);
+      await wait(900);
       sessionStorage.setItem(TOKEN_KEY,d.token);
       onLogin(d.token);
     }catch(err){
@@ -51,16 +57,23 @@ function Login({onLogin,theme,toggleTheme}){
   };
 
   const authenticating=busy && authStage!=='idle' && authStage!=='error';
-  const stageCopy={
-    verifying:{kicker:'STEP 01 / 03',title:'Verifying access',detail:'Checking your administrator credentials.'},
-    securing:{kicker:'STEP 02 / 03',title:'Securing session',detail:'Establishing an encrypted command channel.'},
-    granted:{kicker:'STEP 03 / 03',title:'Access granted',detail:'Your command center is ready.'}
-  };
-  const copy=stageCopy[authStage]||stageCopy.verifying;
 
-  return <div className={`admin-auth ${theme==='light'?'theme-light':'theme-dark'}`}>
+  return <div className={`admin-auth ${theme==='light'?'theme-light':'theme-dark'} ${entryReady?'entry-ready':''}`}>
     <div className="auth-orb orb-one"/>
     <div className="auth-orb orb-two"/>
+    <div className="auth-entry" aria-hidden="true">
+      <div className="auth-entry-grid"/>
+      <div className="auth-entry-core">
+        <div className="auth-entry-ring ring-one"/>
+        <div className="auth-entry-ring ring-two"/>
+        <div className="auth-entry-ring ring-three"/>
+        <div className="auth-entry-logo"><img src="/assets/sites-maker-logo.png" alt=""/></div>
+        <div className="auth-entry-sweep"/>
+      </div>
+      <div className="auth-entry-wordmark"><span>Sites</span> <em>Maker</em></div>
+      <div className="auth-entry-label">ADMIN CONSOLE</div>
+      <div className="auth-entry-line"><i/></div>
+    </div>
 
     <div className="auth-topbar">
       <div className="auth-status"><i/> Secure admin access</div>
@@ -95,30 +108,17 @@ function Login({onLogin,theme,toggleTheme}){
       <div className="secure-line">⌁ Protected JWT session · 8 hours</div>
 
       {authenticating&&<div className="auth-transition" role="status" aria-live="polite">
-        <div className="auth-transition-noise" aria-hidden="true"/>
-        <div className="auth-transition-stage stage-shell">
-          <div className="auth-scan-grid" aria-hidden="true">
-            <span className="scan-node node-one"/><span className="scan-node node-two"/><span className="scan-node node-three"/>
-            <span className="scan-line"/>
-          </div>
-
+        <div className={`auth-transition-stage stage-${authStage}`}>
           <div className="auth-transition-mark">
-            <span className="auth-halo halo-one"/>
-            <span className="auth-halo halo-two"/>
             <span className="auth-ring ring-a"/>
             <span className="auth-ring ring-b"/>
-            <span className="auth-stage-icon">{authStage==='granted'?'✓':'⌁'}</span>
+            <span className="auth-stage-icon">{authStage==='granted'?'✓':'♢'}</span>
           </div>
-
-          <div className="auth-stage-kicker">{copy.kicker}</div>
-          <strong>{copy.title}</strong>
-          <small>{copy.detail}</small>
-
-          <div className="auth-step-track" aria-hidden="true">
-            <i className={authStage==='verifying'||authStage==='securing'||authStage==='granted'?'active':''}/>
-            <i className={authStage==='securing'||authStage==='granted'?'active':''}/>
-            <i className={authStage==='granted'?'active':''}/>
-          </div>
+          <span className="auth-stage-kicker">
+            {authStage==='verifying'?'VERIFYING CREDENTIALS':authStage==='securing'?'SECURING CONNECTION':'ACCESS GRANTED'}
+          </span>
+          <strong>{authStage==='verifying'?'Checking your access':authStage==='securing'?'Establishing secure channel':'Welcome to your command center'}</strong>
+          <small>{authStage==='verifying'?'Please wait a moment…':authStage==='securing'?'Protected session is being prepared…':'Redirecting securely…'}</small>
           <div className="auth-progress"><i/></div>
         </div>
       </div>}
