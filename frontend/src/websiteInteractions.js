@@ -18,6 +18,7 @@ export function initWebsiteInteractions(apiBaseUrl) {
     // confirmed audio started — a blocked/failed attempt never sets it, so
     // later triggers (like the tap button) can always still try.
     let soundPlayed = false;
+    let attemptInFlight = false; // stops one physical tap (touchstart+pointerdown+click all firing) from playing twice
 
     const playChime = () => {
       try {
@@ -50,12 +51,13 @@ export function initWebsiteInteractions(apiBaseUrl) {
       const fileVoice = new Audio('/assets/welcome-voice.mp3');
       fileVoice.volume = 1;
       fileVoice.play()
-        .then(() => { soundPlayed = true; })
-        .catch(() => {}); // file missing/blocked → silently does nothing, safe to retry later
+        .then(() => { soundPlayed = true; attemptInFlight = false; })
+        .catch(() => { attemptInFlight = false; }); // file missing/blocked → safe to retry later
     };
 
     const playWelcomeSound = () => {
-      if (soundPlayed) return; // already confirmed playing — don't restart/overlap
+      if (soundPlayed || attemptInFlight) return; // already playing/played — never overlap
+      attemptInFlight = true;
       playChime();
       setTimeout(playVoiceFile, 550);
     };
@@ -67,15 +69,20 @@ export function initWebsiteInteractions(apiBaseUrl) {
 
     // Explicit "Tap for sound" button — a real click is always a valid user
     // gesture, so this is guaranteed to play regardless of any earlier
-    // blocked attempt, for as long as the button is visible.
+    // blocked attempt, for as long as the button is visible. stopPropagation
+    // keeps this single tap from also re-triggering the window listeners
+    // above (which would otherwise double the sound).
     const tapBtn = document.getElementById('preloaderTap');
     if (tapBtn) {
-      tapBtn.addEventListener('click', () => {
-        soundPlayed = false; // force a fresh, guaranteed attempt on this real click
-        playChime();
-        setTimeout(playVoiceFile, 550);
+      tapBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        soundPlayed = false; attemptInFlight = false; // force a fresh, guaranteed attempt
+        playWelcomeSound();
         tapBtn.classList.add('tapped');
       });
+      ['pointerdown', 'touchstart'].forEach(evt =>
+        tapBtn.addEventListener(evt, (e) => e.stopPropagation(), { passive: true })
+      );
     }
 
     let done = false;
