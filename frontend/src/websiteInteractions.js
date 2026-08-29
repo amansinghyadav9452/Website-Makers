@@ -11,61 +11,71 @@ export function initWebsiteInteractions(apiBaseUrl) {
     requestAnimationFrame(() => pre.classList.add('fill'));
 
     // ---- Welcome sound (chime + voice) ----
-    // No audio file needed: chime is synthesized, voice uses the browser's
-    // built-in speech engine. Mobile browsers block audio until the user has
-    // interacted with the page at least once, so we try immediately and,
-    // if blocked, fire on the very first tap/scroll instead.
+    // No audio file needed for the chime: it's synthesized. Mobile browsers
+    // block audio until the user has interacted with the page, so we try
+    // immediately (best-effort, silent if blocked) AND on the first
+    // scroll/tap anywhere. `soundPlayed` only flips true once we've actually
+    // confirmed audio started — a blocked/failed attempt never sets it, so
+    // later triggers (like the tap button) can always still try.
     let soundPlayed = false;
-    const playWelcomeSound = () => {
-      if (soundPlayed) return;
-      soundPlayed = true;
 
-      // ---- Chime (always synthesized, no file needed, always pleasant) ----
+    const playChime = () => {
       try {
         const Ctx = window.AudioContext || window.webkitAudioContext;
-        if (Ctx) {
-          const ctx = new Ctx();
-          const now = ctx.currentTime;
-          [523.25, 659.25, 784].forEach((freq, i) => {
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'sine';
-            osc.frequency.value = freq;
-            const start = now + i * 0.14;
-            gain.gain.setValueAtTime(0, start);
-            gain.gain.linearRampToValueAtTime(0.18, start + 0.03);
-            gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.6);
-            osc.connect(gain).connect(ctx.destination);
-            osc.start(start);
-            osc.stop(start + 0.65);
-          });
-        }
+        if (!Ctx) return;
+        const ctx = new Ctx();
+        if (ctx.state === 'suspended') ctx.resume();
+        const now = ctx.currentTime;
+        [523.25, 659.25, 784].forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.value = freq;
+          const start = now + i * 0.14;
+          gain.gain.setValueAtTime(0, start);
+          gain.gain.linearRampToValueAtTime(0.18, start + 0.03);
+          gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.6);
+          osc.connect(gain).connect(ctx.destination);
+          osc.start(start);
+          osc.stop(start + 0.65);
+        });
       } catch (e) { /* Web Audio unsupported — ignore */ }
-
-      // ---- Voice: ONLY plays if you've added a real recorded file ----
-      // Drop a human-voice mp3 at /public/assets/welcome-voice.mp3 (e.g. from
-      // ttsmp3.com or ElevenLabs, Indian English female voice) and it will
-      // play automatically after the chime. If the file isn't there, nothing
-      // else plays — no robotic fallback voice, just the chime.
-      setTimeout(() => {
-        const fileVoice = new Audio('/assets/welcome-voice.mp3');
-        fileVoice.volume = 1;
-        fileVoice.play().catch(() => {}); // file missing/blocked → silently does nothing
-      }, 550);
     };
-    playWelcomeSound();
+
+    // Drop a human-voice mp3 at /public/assets/welcome-voice.mp3 (e.g. from
+    // ttsmp3.com or ElevenLabs, Indian English female voice) and it plays
+    // automatically after the chime. No file → nothing plays here, no
+    // robotic fallback voice — just the chime.
+    const playVoiceFile = () => {
+      const fileVoice = new Audio('/assets/welcome-voice.mp3');
+      fileVoice.volume = 1;
+      fileVoice.play()
+        .then(() => { soundPlayed = true; })
+        .catch(() => {}); // file missing/blocked → silently does nothing, safe to retry later
+    };
+
+    const playWelcomeSound = () => {
+      if (soundPlayed) return; // already confirmed playing — don't restart/overlap
+      playChime();
+      setTimeout(playVoiceFile, 550);
+    };
+
+    playWelcomeSound(); // best-effort attempt on load
     ['pointerdown', 'touchstart', 'scroll', 'click'].forEach(evt =>
-      window.addEventListener(evt, playWelcomeSound, { once: true, passive: true })
+      window.addEventListener(evt, playWelcomeSound, { passive: true })
     );
 
-    // Explicit "Tap for sound" button — guarantees a user gesture, so audio
-    // is never blocked by the browser's autoplay policy on this tap.
+    // Explicit "Tap for sound" button — a real click is always a valid user
+    // gesture, so this is guaranteed to play regardless of any earlier
+    // blocked attempt, for as long as the button is visible.
     const tapBtn = document.getElementById('preloaderTap');
     if (tapBtn) {
       tapBtn.addEventListener('click', () => {
-        playWelcomeSound();
+        soundPlayed = false; // force a fresh, guaranteed attempt on this real click
+        playChime();
+        setTimeout(playVoiceFile, 550);
         tapBtn.classList.add('tapped');
-      }, { once: true });
+      });
     }
 
     let done = false;
