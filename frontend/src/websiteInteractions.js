@@ -31,27 +31,35 @@ export function initWebsiteInteractions(apiBaseUrl) {
       const oldText = this.el.textContent;
       const length = Math.max(oldText.length, newText.length);
       this.queue = [];
+      // slower reveal: each character starts later and takes longer to lock in
       for (let i = 0; i < length; i++) {
         const from = oldText[i] || '';
         const to = newText[i] || '';
-        const start = Math.floor(Math.random() * 20);
-        const end = start + Math.floor(Math.random() * 20);
+        const start = i * 2 + Math.floor(Math.random() * 8);
+        const end = start + 22 + Math.floor(Math.random() * 22);
         this.queue.push({ from, to, start, end });
       }
       cancelAnimationFrame(this.frameRequest);
       this.frame = 0;
+      this.lastTick = 0;
       return new Promise((resolve) => {
         this.resolve = resolve;
         this.update();
       });
     }
-    update() {
+    update(now) {
+      // throttle to ~20fps so the scramble reads clearly instead of flickering
+      if (now && now - this.lastTick < 55) {
+        this.frameRequest = requestAnimationFrame((t) => this.update(t));
+        return;
+      }
+      this.lastTick = now || 0;
       let output = '', complete = 0;
       for (let i = 0, n = this.queue.length; i < n; i++) {
         let { from, to, start, end, char } = this.queue[i];
         if (this.frame >= end) { complete++; output += to; }
         else if (this.frame >= start) {
-          if (!char || Math.random() < 0.28) {
+          if (!char || Math.random() < 0.22) {
             char = this.chars[Math.floor(Math.random() * this.chars.length)];
             this.queue[i].char = char;
           }
@@ -60,7 +68,8 @@ export function initWebsiteInteractions(apiBaseUrl) {
       }
       this.el.innerHTML = output;
       if (complete === this.queue.length) { this.resolve(); return; }
-      this.frameRequest = requestAnimationFrame(() => { this.frame++; this.update(); });
+      this.frame++;
+      this.frameRequest = requestAnimationFrame((t) => this.update(t));
     }
   }
 
@@ -76,7 +85,7 @@ export function initWebsiteInteractions(apiBaseUrl) {
       // show random characters immediately so the line never flashes readable text first
       line.textContent = finalText.split('').map(c => c === ' ' ? ' ' : scrambleChars[Math.floor(Math.random() * scrambleChars.length)]).join('');
       const scrambler = new TextScramble(line);
-      const delay = 800 + idx * 400;
+      const delay = 1000 + idx * 900;
       setTimeout(() => {
         line.classList.add('scrambling');
         scrambler.setText(finalText).then(() => {
