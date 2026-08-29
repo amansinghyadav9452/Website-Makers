@@ -1061,3 +1061,34 @@ body.submission-lock{overflow:hidden!important}
 @media (max-width:760px){
   .cursor-orb{ display:none; }
 }
+
+/* ---- Preloader "Tap for sound" button ---- */
+.preloader-tap{
+  margin-top:6px;
+  padding:9px 18px;
+  border-radius:99px;
+  border:1px solid rgba(212,175,55,.45);
+  background:rgba(212,175,55,.08);
+  color:var(--gold-light,#d4af37);
+  font:600 12px/1 "JetBrains Mono", monospace;
+  letter-spacing:.3px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  animation:preloader-tap-pulse 1.6s ease-in-out infinite;
+  transition:opacity .35s ease, transform .35s ease;
+}
+.preloader-tap:active{ transform:scale(.94); }
+.preloader-tap.tapped{
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(6px);
+}
+@keyframes preloader-tap-pulse{
+  0%,100%{ box-shadow:0 0 0 0 rgba(212,175,55,.35); }
+  50%{ box-shadow:0 0 0 8px rgba(212,175,55,0); }
+}
+@media (prefers-reduced-motion:reduce){
+  .preloader-tap{ animation:none; }
+}

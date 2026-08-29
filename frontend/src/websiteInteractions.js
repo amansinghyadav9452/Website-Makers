@@ -58,6 +58,16 @@ export function initWebsiteInteractions(apiBaseUrl) {
       window.addEventListener(evt, playWelcomeSound, { once: true, passive: true })
     );
 
+    // Explicit "Tap for sound" button — guarantees a user gesture, so audio
+    // is never blocked by the browser's autoplay policy on this tap.
+    const tapBtn = document.getElementById('preloaderTap');
+    if (tapBtn) {
+      tapBtn.addEventListener('click', () => {
+        playWelcomeSound();
+        tapBtn.classList.add('tapped');
+      }, { once: true });
+    }
+
     let done = false;
     const hide = () => {
       if (done) return; done = true;
