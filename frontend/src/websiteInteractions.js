@@ -1,6 +1,125 @@
 export function initWebsiteInteractions(apiBaseUrl) {
   if (typeof window === 'undefined') return () => {};
   let cleaned = false;
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- Preloader ----
+  (() => {
+    const pre = document.getElementById('preloader');
+    if (!pre) return;
+    if (prefersReduced) { pre.remove(); return; }
+    requestAnimationFrame(() => pre.classList.add('fill'));
+    let done = false;
+    const hide = () => {
+      if (done) return; done = true;
+      pre.classList.add('hide');
+      setTimeout(() => pre.remove(), 550);
+    };
+    setTimeout(hide, 2500);
+    setTimeout(hide, 3500); // hard fallback
+    window.addEventListener('load', () => setTimeout(hide, 300), { once: true });
+  })();
+
+  // ---- TextScramble (decode effect) ----
+  class TextScramble {
+    constructor(el) {
+      this.el = el;
+      this.chars = '!<>-_\\/[]{}—=+*^?#________';
+      this.frame = 0; this.queue = []; this.frameRequest = null;
+    }
+    setText(newText) {
+      const oldText = this.el.textContent;
+      const length = Math.max(oldText.length, newText.length);
+      this.queue = [];
+      for (let i = 0; i < length; i++) {
+        const from = oldText[i] || '';
+        const to = newText[i] || '';
+        const start = Math.floor(Math.random() * 20);
+        const end = start + Math.floor(Math.random() * 20);
+        this.queue.push({ from, to, start, end });
+      }
+      cancelAnimationFrame(this.frameRequest);
+      this.frame = 0;
+      return new Promise((resolve) => {
+        this.resolve = resolve;
+        this.update();
+      });
+    }
+    update() {
+      let output = '', complete = 0;
+      for (let i = 0, n = this.queue.length; i < n; i++) {
+        let { from, to, start, end, char } = this.queue[i];
+        if (this.frame >= end) { complete++; output += to; }
+        else if (this.frame >= start) {
+          if (!char || Math.random() < 0.28) {
+            char = this.chars[Math.floor(Math.random() * this.chars.length)];
+            this.queue[i].char = char;
+          }
+          output += `<span class="scramble-char">${char}</span>`;
+        } else { output += from; }
+      }
+      this.el.innerHTML = output;
+      if (complete === this.queue.length) { this.resolve(); return; }
+      this.frameRequest = requestAnimationFrame(() => { this.frame++; this.update(); });
+    }
+  }
+
+  // ---- Hero decode-line trigger ----
+  (() => {
+    const lines = document.querySelectorAll('.hero-headline .decode-line');
+    if (!lines.length) return;
+    if (prefersReduced) return;
+    const scrambleChars = '!<>-_\\/[]{}—=+*^?#________';
+    lines.forEach((line, idx) => {
+      const finalText = line.dataset.text || line.textContent;
+      const originalHTML = line.innerHTML; // preserves nested <span class="accent">
+      // show random characters immediately so the line never flashes readable text first
+      line.textContent = finalText.split('').map(c => c === ' ' ? ' ' : scrambleChars[Math.floor(Math.random() * scrambleChars.length)]).join('');
+      const scrambler = new TextScramble(line);
+      const delay = 800 + idx * 400;
+      setTimeout(() => {
+        line.classList.add('scrambling');
+        scrambler.setText(finalText).then(() => {
+          line.classList.remove('scrambling');
+          line.innerHTML = originalHTML; // restore real markup/styling after decoding
+        });
+      }, delay);
+    });
+  })();
+
+  // ---- Custom cursor hover expand ----
+  (() => {
+    const orb = document.querySelector('.cursor-orb');
+    if (!orb || !window.matchMedia('(pointer:fine)').matches) return;
+    document.querySelectorAll('a, button, [data-magnetic], .tilt, summary').forEach(el => {
+      el.addEventListener('mouseenter', () => orb.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => orb.classList.remove('cursor-hover'));
+    });
+  })();
+
+  // ---- FAQ: only one open at a time ----
+  (() => {
+    const items = document.querySelectorAll('.faq-grid details');
+    items.forEach(item => {
+      item.addEventListener('toggle', () => {
+        if (item.open) {
+          items.forEach(other => { if (other !== item) other.open = false; });
+        }
+      });
+    });
+  })();
+
+  // ---- Marquee speeds up briefly while user scrolls ----
+  (() => {
+    const marquee = document.getElementById('marquee');
+    if (!marquee || prefersReduced) return;
+    let resetTimer = null;
+    window.addEventListener('scroll', () => {
+      marquee.style.setProperty('--marquee-speed', '10s');
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => marquee.style.setProperty('--marquee-speed', '32s'), 500);
+    }, { passive: true });
+  })();
   const sessionKey = 'wm_analytics_session';
   const sessionId = sessionStorage.getItem(sessionKey) || (window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`);
   sessionStorage.setItem(sessionKey, sessionId);
@@ -490,7 +609,18 @@ if (inquiryForm) {
 (() => {
   const type=document.getElementById('quoteType'),pages=document.getElementById('quotePages'),out=document.getElementById('pagesOut'),total=document.getElementById('quoteTotal'),note=document.getElementById('quoteNote');
   if(type&&pages&&total){const fmt=n=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(n);const update=()=>{let n=+type.value+(+pages.value*1800);if(document.getElementById('quoteAdmin').checked)n+=6000;if(document.getElementById('quotePayment').checked)n+=7000;if(document.getElementById('quoteSeo').checked)n+=4000;if(document.getElementById('quoteDeploy').checked)n+=3000;out.textContent=pages.value;total.textContent=fmt(n);note.textContent=`${pages.value} extra page${pages.value==1?'':'s'} · scope-based estimate`};[type,pages,...document.querySelectorAll('#quoteCalculator input[type=checkbox]')].forEach(x=>x.addEventListener('input',update));update()}
-  const nodes=[...document.querySelectorAll('.pipeline-node')],status=document.getElementById('pipelineStatus');if(nodes.length&&status){const names=['DESIGNING','BUILDING','TESTING','DEPLOYING'];let i=0;setInterval(()=>{nodes.forEach((n,j)=>n.classList.toggle('active',j===i));status.textContent=names[i];i=(i+1)%4},1900)}
+  const nodes=[...document.querySelectorAll('.pipeline-node')],status=document.getElementById('pipelineStatus');
+  if(nodes.length&&status){
+    const names=['DESIGNING','BUILDING','TESTING','DEPLOYING','LIVE'];
+    const statusScrambler = (typeof TextScramble !== 'undefined') ? new TextScramble(status) : null;
+    let i=0;
+    setInterval(()=>{
+      nodes.forEach((n,j)=>n.classList.toggle('active', j===Math.min(i, nodes.length-1)));
+      if (statusScrambler && !prefersReduced) statusScrambler.setText(names[i]);
+      else status.textContent = names[i];
+      i=(i+1)%names.length;
+    }, 4000);
+  }
 })();
 
   return () => { cleaned = true; };

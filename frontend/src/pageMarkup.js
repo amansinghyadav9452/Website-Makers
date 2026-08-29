@@ -1,4 +1,8 @@
 export const pageMarkup = String.raw`
+<div class="preloader" id="preloader">
+  <div class="preloader-logo"><img src="/assets/sites-maker-logo.png" alt="Sites Maker"></div>
+  <div class="preloader-bar"><span></span></div>
+</div>
 <div class="motion-progress" aria-hidden="true"><span></span></div>
 <div class="cursor-orb" aria-hidden="true"></div>
 <canvas id="ambientCanvas" aria-hidden="true"></canvas>
@@ -23,7 +27,7 @@ export const pageMarkup = String.raw`
   <div class="hero-inner">
     <div class="hero-content">
       <span class="eyebrow">Web development studio · India</span>
-      <h1>You imagine it.<br>We <span class="accent">ship it live.</span></h1>
+      <h1 class="hero-headline"><span class="decode-line" data-text="You imagine it.">You imagine it.</span><br><span class="decode-line" data-text="We ship it live.">We <span class="accent">ship it live.</span></span></h1>
       <p class="lead">Dynamic, fast-loading websites and stores built for Indian businesses — premium design, honest pricing, and a team that actually picks up the phone.</p>
       <div class="hero-btns">
         <a href="tel:8957197142" class="btn btn-gold" data-magnetic>📞 Call now — 8957197142</a>
@@ -36,6 +40,7 @@ export const pageMarkup = String.raw`
       </div>
     </div>
     <div class="terminal reveal">
+      <div class="terminal-scanline" aria-hidden="true"></div>
       <div class="terminal-bar">
         <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
         <span class="terminal-title">building-your-website.html</span>
