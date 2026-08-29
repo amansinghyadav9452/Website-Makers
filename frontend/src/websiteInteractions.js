@@ -10,6 +10,18 @@ export function initWebsiteInteractions(apiBaseUrl) {
     if (prefersReduced) { pre.remove(); return; }
     requestAnimationFrame(() => pre.classList.add('fill'));
 
+    // Cinematic progress readout for the ancient loading sequence.
+    const progressNumber = pre.querySelector('.preloader-status em');
+    const progressStarted = performance.now();
+    const progressDuration = 2500;
+    const paintProgress = (now) => {
+      if (!progressNumber || !document.body.contains(pre)) return;
+      const eased = Math.min(1, (now - progressStarted) / progressDuration);
+      progressNumber.textContent = `${Math.round(eased * 100).toString().padStart(2, '0')}%`;
+      if (eased < 1) requestAnimationFrame(paintProgress);
+    };
+    requestAnimationFrame(paintProgress);
+
     // ---- Welcome sound (chime + voice) ----
     // No audio file needed for the chime: it's synthesized. Mobile browsers
     // block audio until the user has interacted with the page, so we try

@@ -1,7 +1,18 @@
 export const pageMarkup = String.raw`
 <div class="preloader" id="preloader">
-  <div class="preloader-logo"><img src="/assets/sites-maker-logo.png" alt="Sites Maker"></div>
+  <div class="preloader-stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="preloader-orbit orbit-a" aria-hidden="true"></div>
+  <div class="preloader-orbit orbit-b" aria-hidden="true"></div>
+  <div class="preloader-orbit orbit-c" aria-hidden="true"></div>
+  <div class="preloader-sigil" aria-hidden="true"><span>✦</span></div>
+  <div class="preloader-core">
+    <div class="preloader-aura" aria-hidden="true"></div>
+    <div class="preloader-logo"><img src="/assets/sites-maker-logo.png" alt="Sites Maker"></div>
+    <div class="preloader-brand">SITES <b>MAKER</b></div>
+  </div>
+  <div class="preloader-rune" aria-hidden="true">एकोऽहम् द्वितीयो नास्ति</div>
   <div class="preloader-bar"><span></span></div>
+  <div class="preloader-status"><span></span><b>CRAFTING YOUR EXPERIENCE</b><em>00%</em></div>
   <button type="button" class="preloader-tap" id="preloaderTap">🔔 Tap for sound</button>
 </div>
 <div class="motion-progress" aria-hidden="true"><span></span></div>
