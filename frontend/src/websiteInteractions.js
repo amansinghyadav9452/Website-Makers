@@ -9,6 +9,55 @@ export function initWebsiteInteractions(apiBaseUrl) {
     if (!pre) return;
     if (prefersReduced) { pre.remove(); return; }
     requestAnimationFrame(() => pre.classList.add('fill'));
+
+    // ---- Welcome sound (chime + voice) ----
+    // No audio file needed: chime is synthesized, voice uses the browser's
+    // built-in speech engine. Mobile browsers block audio until the user has
+    // interacted with the page at least once, so we try immediately and,
+    // if blocked, fire on the very first tap/scroll instead.
+    let soundPlayed = false;
+    const playWelcomeSound = () => {
+      if (soundPlayed) return;
+      soundPlayed = true;
+
+      // ---- Chime (always synthesized, no file needed, always pleasant) ----
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (Ctx) {
+          const ctx = new Ctx();
+          const now = ctx.currentTime;
+          [523.25, 659.25, 784].forEach((freq, i) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.value = freq;
+            const start = now + i * 0.14;
+            gain.gain.setValueAtTime(0, start);
+            gain.gain.linearRampToValueAtTime(0.18, start + 0.03);
+            gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.6);
+            osc.connect(gain).connect(ctx.destination);
+            osc.start(start);
+            osc.stop(start + 0.65);
+          });
+        }
+      } catch (e) { /* Web Audio unsupported — ignore */ }
+
+      // ---- Voice: ONLY plays if you've added a real recorded file ----
+      // Drop a human-voice mp3 at /public/assets/welcome-voice.mp3 (e.g. from
+      // ttsmp3.com or ElevenLabs, Indian English female voice) and it will
+      // play automatically after the chime. If the file isn't there, nothing
+      // else plays — no robotic fallback voice, just the chime.
+      setTimeout(() => {
+        const fileVoice = new Audio('/assets/welcome-voice.mp3');
+        fileVoice.volume = 1;
+        fileVoice.play().catch(() => {}); // file missing/blocked → silently does nothing
+      }, 550);
+    };
+    playWelcomeSound();
+    ['pointerdown', 'touchstart', 'scroll', 'click'].forEach(evt =>
+      window.addEventListener(evt, playWelcomeSound, { once: true, passive: true })
+    );
+
     let done = false;
     const hide = () => {
       if (done) return; done = true;
