@@ -1,18 +1,7 @@
 export const pageMarkup = String.raw`
 <div class="preloader" id="preloader">
-  <div class="preloader-stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-  <div class="preloader-orbit orbit-a" aria-hidden="true"></div>
-  <div class="preloader-orbit orbit-b" aria-hidden="true"></div>
-  <div class="preloader-orbit orbit-c" aria-hidden="true"></div>
-  <div class="preloader-sigil" aria-hidden="true"><span>✦</span></div>
-  <div class="preloader-core">
-    <div class="preloader-aura" aria-hidden="true"></div>
-    <div class="preloader-logo"><img src="/assets/sites-maker-logo.png" alt="Sites Maker"></div>
-    <div class="preloader-brand">SITES <b>MAKER</b></div>
-  </div>
-  <div class="preloader-rune" aria-hidden="true">एकोऽहम् द्वितीयो नास्ति</div>
+  <div class="preloader-logo"><img src="/assets/sites-maker-logo.png" alt="Sites Maker"></div>
   <div class="preloader-bar"><span></span></div>
-  <div class="preloader-status"><span></span><b>CRAFTING YOUR EXPERIENCE</b><em>00%</em></div>
   <button type="button" class="preloader-tap" id="preloaderTap">🔔 Tap for sound</button>
 </div>
 <div class="motion-progress" aria-hidden="true"><span></span></div>
@@ -35,12 +24,14 @@ export const pageMarkup = String.raw`
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-noise"></div>
+  <div class="hero-celestial" aria-hidden="true"><span class="mandala-ring ring-a"></span><span class="mandala-ring ring-b"></span><span class="mandala-ring ring-c"></span><span class="mandala-core">ॐ</span></div>
   <div class="hero-glow" id="heroGlow"></div>
   <div class="hero-inner">
     <div class="hero-content">
-      <span class="eyebrow">Web development studio · India</span>
-      <h1 class="hero-headline"><span class="decode-line" data-text="You imagine it.">You imagine it.</span><br><span class="decode-line" data-text="We ship it live.">We <span class="accent">ship it live.</span></span></h1>
-      <p class="lead">Dynamic, fast-loading websites and stores built for Indian businesses — premium design, honest pricing, and a team that actually picks up the phone.</p>
+      <span class="eyebrow">शिल्प · दृष्टि · तकनीक <span class="eyebrow-dot">✦</span> Web studio · India</span>
+      <h1 class="hero-headline"><span class="decode-line" data-text="Ancient wisdom.">Ancient wisdom.</span><br><span class="decode-line" data-text="Modern creation.">Modern <span class="accent">creation.</span></span></h1>
+      <p class="lead">We build fast, thoughtful digital experiences for modern businesses, carrying forward a simple idea: precision in craft, clarity in purpose, and technology that serves people.</p>
+      <div class="heritage-motto"><span>सृजनं कर्म</span><small>Creation is the work.</small></div>
       <div class="hero-btns">
         <a href="tel:8957197142" class="btn btn-gold" data-magnetic>📞 Call now — 8957197142</a>
         <a href="#pricing" class="btn btn-ghost" data-magnetic>View plans</a>
@@ -67,12 +58,12 @@ export const pageMarkup = String.raw`
 <section id="about">
   <div class="about-grid">
     <div class="about-copy reveal">
-      <span class="eyebrow">About us</span>
-      <h2 class="section-title">A web development studio built around Indian businesses</h2>
-      <p class="section-sub">Businesses use us for websites and digital products that are attractive, responsive and genuinely built to convert — not just to look good in a screenshot.</p>
-      <p class="body">We plan, design and ship every project ourselves, in-house — no outsourced templates, no vanishing after launch. Every site leaves our hands SEO-ready, on budget and delivered before the deadline we quoted.</p>
+      <span class="eyebrow">Our philosophy · हमारा शिल्प</span>
+      <h2 class="section-title">Old principles. New tools. Better digital craft.</h2>
+      <p class="section-sub">We take inspiration from a culture that valued observation, precision, proportion and craftsmanship, then apply those principles to modern web products.</p>
+      <p class="body">No imitation of the past, no decorative mythology for the sake of it. Just careful thinking, disciplined execution and technology that earns its place.</p>
     </div>
-    <div class="about-visual reveal">
+    <div class="about-visual reveal"><div class="about-seal" aria-hidden="true"><span>सृजन</span><i>✦</i></div>
       <div class="about-card"><span class="about-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9l-3 3 3 3M16 9l3 3-3 3M14 6l-4 12"/></svg></span><div><h4>Web design & development</h4><p>Custom builds, from wireframe to launch</p></div></div>
       <div class="about-card"><span class="about-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></span><div><h4>E-commerce solutions</h4><p>Complete online store setup</p></div></div>
       <div class="about-card"><span class="about-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 6"/><polyline points="14 6 21 6 21 13"/></svg></span><div><h4>Digital marketing & SEO</h4><p>Grow your organic reach</p></div></div>
@@ -119,8 +110,9 @@ export const pageMarkup = String.raw`
 <!-- TECHNOLOGIES -->
 <section class="tech-bg on-dark">
   <div class="tech-head reveal">
-    <span class="eyebrow">Technologies</span>
-    <h2 class="section-title">Technologies we build with</h2>
+    <span class="eyebrow">आधुनिक साधन · Technologies</span>
+    <h2 class="section-title">Tools change. Craft remains.</h2>
+    <p class="section-sub">Modern frameworks, guided by timeless ideas of precision, observation and purposeful design.</p>
   </div>
   <div class="marquee-wrap">
     <div class="marquee" id="marquee">
@@ -150,6 +142,28 @@ export const pageMarkup = String.raw`
 </section>
 
 
+<!-- HERITAGE / PHILOSOPHY -->
+<section class="heritage-section on-dark" id="heritage">
+  <div class="heritage-grid">
+    <div class="heritage-art reveal" aria-hidden="true">
+      <div class="heritage-orbit orbit-one"></div><div class="heritage-orbit orbit-two"></div><div class="heritage-orbit orbit-three"></div>
+      <div class="heritage-sun">ॐ</div><div class="heritage-star">✦</div>
+    </div>
+    <div class="heritage-copy reveal">
+      <span class="eyebrow">भारतीय विरासत · Heritage</span>
+      <h2 class="section-title">The spirit of craftsmanship belongs in the future.</h2>
+      <p class="section-sub">Our visual language takes cues from Indian geometry, astronomy, manuscripts and metalwork: structure, symmetry, detail and patience.</p>
+      <div class="heritage-principles">
+        <div><b>दृष्टि</b><span>Observe deeply.</span></div>
+        <div><b>शिल्प</b><span>Craft precisely.</span></div>
+        <div><b>सृजन</b><span>Create with purpose.</span></div>
+      </div>
+      <p class="heritage-note">Inspired by heritage, engineered for today.</p>
+    </div>
+  </div>
+</section>
+
+
 <section id="work" class="premium-section">
   <div class="premium-heading reveal"><span class="eyebrow">Selected demo builds</span><h2 class="section-title">Built to look expensive. Built to work.</h2><p class="section-sub">Representative builds across business, e-commerce and personal brands.</p></div>
   <div class="project-grid">
@@ -160,7 +174,7 @@ export const pageMarkup = String.raw`
 </section>
 </div>
 
-<section class="process-section"><div class="premium-heading reveal"><span class="eyebrow">How it works</span><h2 class="section-title">From rough idea to live website.</h2><p class="section-sub">A simple process, without the mysterious agency fog machine.</p></div><div class="process-grid"><div class="process-step reveal"><span>01</span><i>✦</i><h3>Discover</h3><p>Understand the business, audience and actual problem.</p></div><div class="process-step reveal"><span>02</span><i>◈</i><h3>Design</h3><p>Shape structure, visual direction and responsive layouts.</p></div><div class="process-step reveal"><span>03</span><i>⌁</i><h3>Build</h3><p>Develop, integrate, test and tune for real devices.</p></div><div class="process-step reveal"><span>04</span><i>↗</i><h3>Launch</h3><p>Deploy, connect the domain and verify everything.</p></div></div></section>
+<section class="process-section"><div class="premium-heading reveal"><span class="eyebrow">शिल्प प्रक्रिया · The craft</span><h2 class="section-title">From first thought to living product.</h2><p class="section-sub">A disciplined process, without the mysterious agency fog machine.</p></div><div class="process-grid"><div class="process-step reveal"><span>01</span><i>दृष्टि</i><h3>Discover</h3><p>Understand the business, audience and actual problem.</p></div><div class="process-step reveal"><span>02</span><i>रचना</i><h3>Design</h3><p>Shape structure, visual direction and responsive layouts.</p></div><div class="process-step reveal"><span>03</span><i>शिल्प</i><h3>Build</h3><p>Develop, integrate, test and tune for real devices.</p></div><div class="process-step reveal"><span>04</span><i>सृजन</i><h3>Launch</h3><p>Deploy, connect the domain and verify everything.</p></div></div></section>
 
 <div class="quote-calculator reveal" id="quoteCalculator"><div class="calculator-copy"><span class="eyebrow">Instant estimate</span><h3>Build your website budget.</h3><p>Choose what you need. The estimate updates instantly. Final pricing is confirmed after project scope.</p><div class="calculator-total"><small>Estimated starting range</small><strong id="quoteTotal">₹18,000</strong><span id="quoteNote">Starter build</span></div></div><div class="calculator-controls"><label>Website type<select id="quoteType"><option value="18000">Business website</option><option value="26000">Portfolio / personal brand</option><option value="35000">E-commerce website</option><option value="42000">Custom web application</option></select></label><label>Extra pages <output id="pagesOut">0</output><input id="quotePages" type="range" min="0" max="10" value="0"></label><label class="check-row"><input id="quoteAdmin" type="checkbox"><span>Admin panel</span><b>+₹6k</b></label><label class="check-row"><input id="quotePayment" type="checkbox"><span>Payment gateway</span><b>+₹7k</b></label><label class="check-row"><input id="quoteSeo" type="checkbox"><span>SEO setup</span><b>+₹4k</b></label><label class="check-row"><input id="quoteDeploy" type="checkbox"><span>Deployment + domain setup</span><b>+₹3k</b></label><a href="#contact" class="btn btn-gold calculator-cta">Request this build →</a></div></div>
 
@@ -296,8 +310,8 @@ export const pageMarkup = String.raw`
 <section id="contact" class="contact-bg">
   <div class="contact-grid">
     <div class="contact-info reveal">
-      <span class="eyebrow">Contact us</span>
-      <h2 class="section-title">Let's build something great together</h2>
+      <span class="eyebrow">आरम्भ · Begin</span>
+      <h2 class="section-title">Begin the next creation.</h2>
       <p class="lead">Have a project in mind or just want to ask us something? We're always ready to help — reach out and we'll respond as soon as possible.</p>
       <div class="contact-item"><div class="contact-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></div><div><h4>Phone / WhatsApp</h4><a href="tel:8957197142">+91-8957197142</a></div></div>
       <div class="contact-item"><div class="contact-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div><div><h4>Email address</h4><a href="mailto:websitemaker695@gmail.com">websitemaker695@gmail.com</a></div></div>
@@ -366,6 +380,7 @@ export const pageMarkup = String.raw`
       <ul><li><a href="#services">Website Development</a></li><li><a href="#services">E-Commerce Websites</a></li><li><a href="#services">Digital Marketing / SEO</a></li><li><a href="#services">Graphic Designing</a></li></ul>
     </div>
   </div>
+  <div class="footer-mantra"><span>एकोऽहम् द्वितीयो नास्ति</span><small>I am one. There is no other.</small></div>
   <div class="footer-legal-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/refund">Refunds</a><a href="/cookies">Cookies</a></div>
   <div class="footer-bottom">
     <p>Sites Maker © 2025. All rights reserved.</p>
