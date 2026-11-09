@@ -1,9 +1,4 @@
 export const pageMarkup = String.raw`
-<div class="preloader" id="preloader">
-  <div class="preloader-logo"><img src="/assets/sites-maker-logo.png" alt="Sites Maker"></div>
-  <div class="preloader-bar"><span></span></div>
-  <button type="button" class="preloader-tap" id="preloaderTap">🔔 Tap for sound</button>
-</div>
 <div class="motion-progress" aria-hidden="true"><span></span></div>
 <div class="cursor-orb" aria-hidden="true"></div>
 <canvas id="ambientCanvas" aria-hidden="true"></canvas>
